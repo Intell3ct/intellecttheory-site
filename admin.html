@@ -29,6 +29,7 @@
   <div id="login">
     <p>Enter your admin token:</p>
     <input type="password" id="token" autocomplete="off" placeholder="Admin token">
+    <br><label style="font-size:.9rem"><input type="checkbox" id="remember" checked> Remember on this device</label>
     <br><button id="go">Show comments</button>
   </div>
   <div id="panel" class="hidden"></div>
@@ -40,8 +41,17 @@
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
       });
     }
+    try { token = localStorage.getItem('aj_admin_token') || ''; } catch (e) {}
+    if (token) {
+      document.getElementById('token').value = token;
+      load();
+    }
     document.getElementById('go').onclick = function () {
       token = document.getElementById('token').value;
+      try {
+        if (document.getElementById('remember').checked) localStorage.setItem('aj_admin_token', token);
+        else localStorage.removeItem('aj_admin_token');
+      } catch (e) {}
       load();
     };
     document.getElementById('token').addEventListener('keydown', function (e) {
@@ -73,7 +83,8 @@
                 '<div class="meta">score ' + (c.score || 0) + ' · ' + (c.reports || 0) + ' reports' + (c.parent_id ? ' · reply' : '') + '</div><p>' +
                 esc(c.text).replace(/\n/g, '<br>') + '</p>';
               if ((c.reports || 0) > 0) h += '<p class="reported">⚠ reported ' + (c.reports || 0) + '×</p>';
-              h += '<button data-post="' + esc(slug) + '" data-id="' + esc(c.id) + '">Delete</button></div>';
+              h += '<button data-post="' + esc(slug) + '" data-id="' + esc(c.id) + '">Delete</button>' +
+                '<button class="replybtn" data-post="' + esc(slug) + '" data-id="' + esc(c.id) + '" style="background:#3a7d5c">Reply as admin</button></div>';
               (c._kids || []).forEach(function (k) { h += row(k, true); });
               return h;
             }
@@ -82,14 +93,26 @@
           });
           panel.innerHTML = html || '<p>No comments yet.</p>';
           panel.querySelectorAll('button').forEach(function (b) {
-            b.onclick = function () {
-              if (!confirm('Delete this comment?')) return;
-              fetch(API, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token: token, action: 'delete', post: b.getAttribute('data-post'), id: b.getAttribute('data-id') }),
-              }).then(load);
-            };
+            if (b.classList.contains('replybtn')) {
+              b.onclick = function () {
+                var text = prompt('Reply as admin:');
+                if (!text || !text.trim()) return;
+                fetch(API, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ token: token, action: 'reply', post: b.getAttribute('data-post'), parent_id: b.getAttribute('data-id'), text: text.trim(), name: 'AJ' }),
+                }).then(load);
+              };
+            } else {
+              b.onclick = function () {
+                if (!confirm('Delete this comment?')) return;
+                fetch(API, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ token: token, action: 'delete', post: b.getAttribute('data-post'), id: b.getAttribute('data-id') }),
+                }).then(load);
+              };
+            }
           });
         })
         .catch(function () { alert('Could not load. Check your connection.'); });
