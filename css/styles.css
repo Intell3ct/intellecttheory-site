@@ -1168,30 +1168,44 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .news-dots button:hover { transform: scale(1.3); }
 .news-dots .on { background: #aed6c9; }
 
-/* admin badge: mint pokeball */
+/* admin badge: mint pokeball + label */
 .admin-badge {
-  display: inline-block;
-  width: 1.35em;
-  height: 1.35em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #2b2b2b;
+  background: #aed6c9;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem 0.2rem 0.35rem;
   margin-left: 0.45rem;
-  vertical-align: -0.28em;
+  vertical-align: middle;
+}
+.admin-badge .pokeball {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   position: relative;
-  background: linear-gradient(to bottom, #aed6c9 46%, #2b2b2b 46%, #2b2b2b 54%, #fff 54%);
-  border: 2px solid #2b2b2b;
+  background: linear-gradient(to bottom, #7fbfae 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);
+  border: 1.5px solid #2b2b2b;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
-.admin-badge::after {
+.admin-badge .pokeball::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 0.45em;
-  height: 0.45em;
+  width: 0.38em;
+  height: 0.38em;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: #fff;
-  border: 2px solid #2b2b2b;
+  border: 1.5px solid #2b2b2b;
   box-sizing: border-box;
 }
 .comment-admin { border-left: 3px solid #aed6c9; }
