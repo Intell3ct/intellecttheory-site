@@ -1,0 +1,336 @@
+<!--
+  ============================================================
+  Go away. This is my coding for my website.
+  — AJ
+  ============================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Intellect Theory — a personal photo blog. Pictures here and there, words now and then: home cooking, San Francisco days, and everyday moments.">
+  <link rel="canonical" href="https://intellecttheory.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Intellect Theory">
+  <meta property="og:title" content="Intellect Theory — gaming and thoughts">
+  <meta property="og:description" content="Intellect Theory — a personal photo blog. Pictures here and there, words now and then: home cooking, San Francisco days, and everyday moments.">
+  <meta property="og:url" content="https://intellecttheory.com/">
+  <meta property="og:image" content="https://intellecttheory.com/images/logo.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Intellect Theory — gaming and thoughts">
+  <meta name="twitter:description" content="Intellect Theory — a personal photo blog. Pictures here and there, words now and then: home cooking, San Francisco days, and everyday moments.">
+  <meta name="twitter:image" content="https://intellecttheory.com/images/munchies-chickenfeet.jpg">
+  <title>Intellect Theory — gaming and thoughts</title>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=31">
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <nav class="nav-left">
+      <a href="#posts">Posts</a>
+      <a href="the-wall.html">The Wall</a>
+      <!-- FUTURE: <a href="#gallery">Gallery</a> -->
+    </nav>
+    <a class="brand" href="#"><img width="982" height="904" class="brand-text" src="images/brand-script.png" alt="Intellect Theory"></a>
+    <nav class="nav-right">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ================= HERO : featured posts carousel =================
+         AUTO-CAROUSEL: JavaScript (js/main.js) cycles this section through
+         every card in the post grid below (newest first), with dots,
+         arrows, and swipe. The content here is only a fallback
+         for no-JavaScript. -->
+    <section class="hero" data-hero-auto>
+      <img fetchpriority="high" decoding="async" width="1206" height="1608" class="hero-photo" src="images/munchies-chickenfeet.jpg" alt="Spicy Korean chicken feet glazed with sesame and scallions">
+      <div class="hero-overlay">
+        <span class="tag">Photos</span>
+        <h1>Munchies</h1>
+        <p>I&apos;ve been cooking and baking more frequently &mdash; spicy Korean chicken feet are amazing, and the homemade ramen was delicious. Also made bread, but I need practice with that lol.</p>
+        <time>October 6, 2026</time>
+        <a class="read-more" href="posts/munchies.html">Read the story &rarr;</a>
+      </div>
+    </section>
+
+    <!-- ================= POSTS + NEWS SIDEBAR ================= -->
+    <div class="content-layout">
+      <div class="posts-main">
+
+    <!-- ================= CATEGORIES =================
+         Pills filter the post grid by category (see js/main.js).
+         A card's .tag text decides its category, so new cards are
+         picked up automatically. -->
+    <div class="categories">
+      <button class="pill active">All</button>
+      <button class="pill">Photos</button>
+      <button class="pill">Thoughts</button>
+      <button class="pill">Travel</button>
+      <button class="pill">Gaming</button>
+      <!-- FUTURE: add more pills here -->
+    </div>
+
+    <!-- ================= POST GRID =================
+         HOW TO ADD A POST:
+         1. Copy one full "card" article below (from CARD START to
+            CARD END) and paste it right after the NEW POSTS marker.
+         2. Swap the image (src="images/your-photo.jpg"), title,
+            and excerpt. Set data-date="Month D, YYYY" on the
+            <article> tag (used by the auto-feature hero).
+         3. Newest post goes on top (top-left) — it automatically
+            becomes the big featured header.
+         Photo cards and text-only cards both work — mix as you like. -->
+    <section id="posts" class="post-grid">
+
+      <!-- NEW POSTS GO HERE (paste new cards above this line, newest first) -->
+      <!-- CARD START : photo card -->
+      <article class="card" data-date="October 8, 2026">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="1206" height="2622" src="images/pogo-hundos.jpg" alt="Pokemon GO search showing nine perfect-IV Pokemon">
+          <span class="date-badge"><b>08</b>Oct</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Gaming</span>
+          <h3>My Best Ones</h3>
+          <p>The trophy case: nine hundos including a shundo Garchomp, a shundo Armored Mewtwo, and a lucky Salamence from 2019.</p>
+          <a class="read-more" href="posts/my-best-ones.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+      <!-- CARD START : photo card -->
+      <article class="card" data-date="October 7, 2026">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="1206" height="2622" src="images/pogo-pikachu.jpg" alt="Event Pikachu in a space costume with the Golden Gate Bridge background">
+          <span class="date-badge"><b>07</b>Oct</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Gaming</span>
+          <h3>Current Addiction: Pok&eacute;mon Go</h3>
+          <p>Three Pikachu billboard trucks on the Embarcadero ended a five-year hiatus. Now I'm Team Mystic, walking the waterfront and fighting the neighbors for my local gym.</p>
+          <a class="read-more" href="posts/current-addiction-pokemon-go.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+
+      <!-- CARD START : photo grid card -->
+      <article class="card" data-date="October 6, 2026">
+        <div class="card-media">
+          <div class="card-strip grid-2x2">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-chickenfeet.jpg" alt="Spicy Korean chicken feet glazed with sesame and scallions">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-ramen.jpg" alt="Homemade ramen with a soft egg, nori, mushrooms and meat">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-bread.jpg" alt="Bread dough rising in a bowl">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-plate.jpg" alt="Dinner plate with rice, chicken salad and grilled chicken">
+          </div>
+          <span class="date-badge"><b>06</b>Oct</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Photos</span>
+          <h3>Munchies</h3>
+          <p>I've been cooking and baking more frequently — spicy Korean chicken feet are amazing, and the homemade ramen was delicious. Also made bread, but I need practice with that lol.</p>
+          <a class="read-more" href="posts/munchies.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+      <!-- CARD START : photo strip card -->
+      <article class="card" data-date="October 3, 2026">
+        <div class="card-media">
+          <div class="card-strip">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/sf-sealions.jpg" alt="Sea lions piled on the docks at Pier 39">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/sf-cablecar.jpg" alt="My niece and nephew riding a San Francisco cable car">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/sf-seagulls.jpg" alt="Seagull shadows on the water">
+          </div>
+          <span class="date-badge"><b>03</b>Oct</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Travel</span>
+          <h3>SF snapshots</h3>
+          <p>Sea lions at Pier 39, a cable car ride with the niece and nephew, and seagulls doing whatever seagulls do. Saturday was a good day.</p>
+          <a class="read-more" href="posts/sf-snapshots.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+      <!-- CARD START : gaming gallery card -->
+      <article class="card" data-date="September 30, 2026">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="1206" height="678" src="images/valheim-longhouse.jpg" alt="Our Valheim longhouse with stone walls and a wooden palisade">
+          <span class="date-badge"><b>30</b>Sep</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Gaming</span>
+          <h3>Valheim with Nate</h3>
+          <p>Playing Valheim with my friend Nate — he's quite the engineer and architect. Just look at this base.</p>
+          <a class="read-more" href="posts/valheim-with-nate.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+
+      <!-- CARD START : photo card -->
+      <article class="card" data-date="July 4, 2026">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="1206" height="1122" src="images/evolution-mirror.jpg" alt="Meme of a man visualising in the mirror the man he wants to become">
+          <span class="date-badge"><b>04</b>Jul</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Thoughts</span>
+          <h3>I Call It Evolution</h3>
+          <p>The &ldquo;pussyfication&rdquo; of America? I blame the fathers who weren&rsquo;t there &mdash; and I praise the mothers who raised those boys the best they could.</p>
+          <a class="read-more" href="posts/i-call-it-evolution.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+      <!-- CARD START : gaming build card -->
+      <article class="card" data-date="June 1, 2026">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="1206" height="1608" src="images/pc-build.jpg" alt="My gaming PC — white NZXT H9 Flow case with RGB lighting and a GeForce RTX graphics card">
+          <span class="date-badge"><b>01</b>Jun</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Gaming</span>
+          <h3>My PC Build</h3>
+          <p>Built this rig back in December — Ryzen 7 5800XT, RTX 5060 Ti 16GB, 32GB of RAM, and a 49-inch Samsung Odyssey OLED ultrawide at 240Hz.</p>
+          <a class="read-more" href="posts/my-pc-build.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+      <!-- CARD START : photo card -->
+      <article class="card" data-date="April 14, 2026">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="1206" height="904" src="images/thoughts-whiskey-color.jpg" alt="A whiskey glass on a bar">
+          <span class="date-badge"><b>14</b>Apr</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Thoughts</span>
+          <h3>Showing Up Anyway</h3>
+          <p>Did you realize everyone is busy with their own lives and only reach out when it&rsquo;s either beneficial to them personally or to their social status perception? I mean really dwell on why you contact someone.</p>
+          <a class="read-more" href="posts/showing-up-anyway.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+      <!-- CARD START : photo card -->
+      <article class="card" data-date="September 24, 2024">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="1206" height="1609" src="images/brady-puppy.jpg" alt="Brady as a puppy, wrapped in a blanket, wearing his red collar with his name tag">
+          <span class="date-badge"><b>24</b>Sep</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Thoughts</span>
+          <h3>All Dogs Go to Heaven</h3>
+          <p>My best friend left us for his final voyage. Brady chose me once — I'd like to think he'd choose me again.</p>
+          <a class="read-more" href="posts/all-dogs-go-to-heaven.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
+
+
+
+
+
+
+    </section>
+    <div class="archive-cta">
+      <a href="archive.html">View all posts &rarr;</a>
+    </div>
+      </div><!-- /.posts-main -->
+
+      <aside class="news-sidebar" aria-label="Gaming and sports news">
+        <h2 class="sidebar-heading">Gaming News</h2>
+        <div class="news-list" id="news-list">
+          <p class="news-loading">Fetching headlines&hellip;</p>
+        </div>
+        <div class="news-dots" id="news-dots" aria-hidden="true"></div>
+
+        <h2 class="sidebar-heading sports-heading">Sports</h2>
+        <div class="news-list" id="sports-list">
+          <p class="news-loading">Fetching scores&hellip;</p>
+        </div>
+        <div class="news-dots" id="sports-dots" aria-hidden="true"></div>
+      </aside>
+    </div><!-- /.content-layout -->
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about" class="about">
+      <div class="about-frame">
+        <img loading="lazy" decoding="async" width="1206" height="1608" class="about-photo" src="images/about-rico.jpg" alt="Rico holding a bag of chips over his face">
+        <div class="about-body">
+          <h2>About</h2>
+          <p>My name is AJ — I was raised in Marin County, California. I shoot photos on my iPhone 16 Pro Max, write when I've got something to say, and talk a whole lot of video games. When I'm not holding a controller, I'm hanging out with my bearded dragon. Smile, think positive, and own the world.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FUTURE ADDITIONS — uncomment a section to turn it on.
+         The JavaScript already lives in js/main.js and activates
+         automatically when the HTML is present.
+         ============================================================ -->
+
+    <!-- CAROUSEL (photo slideshow) : to enable, delete the marker line
+         just below this instruction (a line of four characters) and the
+         matching marker line just after the closing section tag below.
+         Then drop your photos in images/ and update the src lines. -->
+    <!--
+    <section id="gallery" class="carousel-section">
+      <h2>Gallery</h2>
+      <div class="carousel" data-carousel>
+        <button class="carousel-btn prev" data-carousel-prev aria-label="Previous photo">&#10094;</button>
+        <div class="carousel-track" data-carousel-track>
+          <img loading="lazy" decoding="async" src="images/photo1.jpg" alt="Photo 1">
+          <img loading="lazy" decoding="async" src="images/photo2.jpg" alt="Photo 2">
+          <img loading="lazy" decoding="async" src="images/photo3.jpg" alt="Photo 3">
+        </div>
+        <button class="carousel-btn next" data-carousel-next aria-label="Next photo">&#10095;</button>
+      </div>
+      <div class="carousel-dots" data-carousel-dots></div>
+    </section>
+    -->
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="contact" class="site-footer">
+    <button class="to-top" data-scroll-top aria-label="Back to top" title="Back to top"><img width="512" height="512" class="footer-logo" src="images/logo.jpg" alt="The Intellect Theory logo"></button>
+    <img width="982" height="904" class="footer-brand-img" src="images/brand-script.png" alt="Intellect Theory">
+    <p>Video games, events, and shooting the shit. Smile, think positive, and own the world.</p>
+    <p class="contact-line">Get in touch: <a href="mailto:AJ@intellecttheory.com">AJ@intellecttheory.com</a></p>
+    <div class="social-row">
+      <a class="social-btn" href="https://www.instagram.com/intellecttheory" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.facebook.com/ajsrhs" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a class="social-btn" href="https://discord.com/users/554031715413393435" target="_blank" rel="noopener" aria-label="Discord">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.099.246.198.372.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.03zM8.02 15.33c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.youtube.com/@IntellectTheory" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.92 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+      </a>
+      <a class="social-btn" href="https://www.twitch.tv/IntellectTheory" target="_blank" rel="noopener" aria-label="Twitch">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+      </a>
+    </div>
+    <!-- FUTURE: add more social buttons here, e.g. X, YouTube, TikTok -->
+    <p class="copyright">&copy; 2026 IntellectTheory</p>
+  </footer>
+
+  <script src="js/main.js?v=16"></script>
+</body>
+</html>

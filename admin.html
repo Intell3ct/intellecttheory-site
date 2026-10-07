@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Comment moderation — Intellect Theory (private).">
+  <title>Comment moderation — Intellect Theory</title>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+  <style>
+    body { font-family: Georgia, 'Times New Roman', serif; max-width: 720px; margin: 2rem auto; padding: 0 1.25rem; color: #222; }
+    h1 { font-size: 1.4rem; }
+    #login input { padding: 0.5rem; font-size: 1rem; width: 100%; max-width: 320px; }
+    #login button, .comment button { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; }
+    #login button { margin-top: 0.5rem; }
+    .post { border-top: 1px solid #ddd; padding: 1rem 0; }
+    .comment { border: 1px solid #e5e5e5; border-radius: 8px; padding: 0.75rem 1rem; margin: 0.5rem 0; }
+    .comment header { font-size: 0.85rem; color: #666; margin-bottom: 0.35rem; }
+    .comment button { background: #a33; color: #fff; border: 0; border-radius: 6px; padding: 0.35rem 0.8rem; }
+    .comment.reply { margin-left: 2rem; border-left: 3px solid #aed6c9; }
+    .comment .meta { color: #999; font-size: 0.8rem; }
+    .comment .reported { color: #a33; font-weight: bold; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Comment moderation</h1>
+  <p><a href="index.html">&larr; Back to the blog</a></p>
+  <div id="login">
+    <p>Enter your admin token:</p>
+    <input type="password" id="token" autocomplete="off" placeholder="Admin token">
+    <br><button id="go">Show comments</button>
+  </div>
+  <div id="panel" class="hidden"></div>
+  <script>
+    var API = 'https://intellecttheory-comments.ajsrhs.workers.dev/api/admin';
+    var token = '';
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    document.getElementById('go').onclick = function () {
+      token = document.getElementById('token').value;
+      load();
+    };
+    document.getElementById('token').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') load();
+    });
+    function load() {
+      token = token || document.getElementById('token').value;
+      fetch(API + '?token=' + encodeURIComponent(token))
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (!res.ok) { alert('Wrong token.'); return; }
+          document.getElementById('login').classList.add('hidden');
+          var panel = document.getElementById('panel');
+          panel.classList.remove('hidden');
+          var posts = res.d.posts, html = '';
+          Object.keys(posts).forEach(function (slug) {
+            html += '<div class="post"><h2>' + esc(slug) + '</h2>';
+            var list = posts[slug];
+            if (!list.length) html += '<p><i>No comments.</i></p>';
+            var byId = {}, roots = [];
+            list.forEach(function (c) { byId[c.id] = c; c._kids = []; });
+            list.forEach(function (c) {
+              if (c.parent_id && byId[c.parent_id]) byId[c.parent_id]._kids.push(c);
+              else roots.push(c);
+            });
+            function row(c, isReply) {
+              var h = '<div class="comment' + (isReply ? ' reply' : '') + '"><header><b>' + esc(c.name) + '</b> — ' +
+                new Date(c.ts).toLocaleString() + '</header>' +
+                '<div class="meta">score ' + (c.score || 0) + ' · ' + (c.reports || 0) + ' reports' + (c.parent_id ? ' · reply' : '') + '</div><p>' +
+                esc(c.text).replace(/\n/g, '<br>') + '</p>';
+              if ((c.reports || 0) > 0) h += '<p class="reported">⚠ reported ' + (c.reports || 0) + '×</p>';
+              h += '<button data-post="' + esc(slug) + '" data-id="' + esc(c.id) + '">Delete</button></div>';
+              (c._kids || []).forEach(function (k) { h += row(k, true); });
+              return h;
+            }
+            roots.forEach(function (c) { html += row(c, false); });
+            html += '</div>';
+          });
+          panel.innerHTML = html || '<p>No comments yet.</p>';
+          panel.querySelectorAll('button').forEach(function (b) {
+            b.onclick = function () {
+              if (!confirm('Delete this comment?')) return;
+              fetch(API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: token, action: 'delete', post: b.getAttribute('data-post'), id: b.getAttribute('data-id') }),
+              }).then(load);
+            };
+          });
+        })
+        .catch(function () { alert('Could not load. Check your connection.'); });
+    }
+  </script>
+</body>
+</html>

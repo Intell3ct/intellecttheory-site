@@ -1,0 +1,988 @@
+/* ============================================================
+   RICO RAMOS — styles
+   ------------------------------------------------------------
+   VIBE CONTROL: every color, font, and corner radius flows from
+   the variables below. Restyle the whole site in two minutes by
+   editing only this block.
+   ============================================================ */
+:root {
+  --bg:        #ffffff;   /* page background            */
+  --surface:   #f7f5f1;   /* cards / panels             */
+  --text:      #1d1a16;   /* main text                  */
+  --muted:     #8a8178;   /* dates, secondary text      */
+  --accent:    #c9602f;   /* tags, buttons, highlights  */
+  --accent-ink:#ffffff;   /* text on accent color       */
+  --mint:      #aed6c9;   /* logo-adjacent pale mint    */
+  --mint-wash: #eef7f3;   /* whisper-light mint panels  */
+  --line:      #e9e2d8;   /* borders                    */
+  --radius:    18px;      /* corner roundness           */
+  --font-body: "Helvetica Neue", Arial, sans-serif;
+  --font-head: Georgia, "Times New Roman", serif;
+  --max-width: 1140px;    /* content column width       */
+}
+
+/* mint text selection */
+::selection { background: var(--mint); }
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; }
+
+/* small uppercase label used on cards + hero — mint, logo-adjacent */
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #1d1a16;
+  background: var(--mint);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+/* ---------- header : nav | brand | nav ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.7rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari */
+}
+/* keep anchored sections from hiding under the sticky header */
+section[id], footer[id] { scroll-margin-top: 84px; }
+
+.site-header nav a {
+  position: relative;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0.9rem;
+}
+.site-header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--mint);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.28s ease;
+}
+.site-header nav a:hover { color: var(--text); }
+.site-header nav a:hover::after { transform: scaleX(1); }
+.nav-right { text-align: right; }
+
+.brand {
+  text-decoration: none;
+  line-height: 1;
+  display: inline-block;
+}
+.brand-text {
+  height: 64px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+.brand:hover .brand-text { filter: brightness(0.94); }
+
+/* mobile header: single-line flex, everything constrained */
+@media (max-width: 640px) {
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.8rem;
+    gap: 0.4rem;
+    overflow: hidden;
+  }
+  .nav-left, .nav-right { display: flex; align-items: center; flex-shrink: 0; }
+  .brand { flex-shrink: 1; min-width: 0; display: flex; justify-content: center; }
+  .brand-text { height: 36px !important; max-height: 36px; width: auto; max-width: 100%; }
+  .site-header nav a { margin: 0 0.35rem; font-size: 0.8rem; white-space: nowrap; }
+}
+
+
+/* ---------- hero : full-bleed featured post ---------- */
+.hero {
+  position: relative;
+  max-width: var(--max-width);
+  margin: 2rem auto 0;
+  padding: 0 1.5rem;
+}
+.hero-photo {
+  width: 100%;
+  height: clamp(320px, 55vw, 560px);
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.hero-overlay {
+  position: absolute;
+  inset: auto 1.5rem 0 1.5rem;
+  padding: 2.5rem 2rem 1.75rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0));
+  color: #fff;
+}
+.hero-overlay h1 { font-size: clamp(1.7rem, 4vw, 2.9rem); margin-bottom: 0.4rem; }
+.hero-overlay p  { opacity: 0.9; margin-bottom: 0.5rem; }
+.hero-overlay time {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+}
+
+/* ---------- hero carousel ---------- */
+.hero-photo,
+.hero-overlay { transition: opacity 0.16s ease; }
+.hero-fade .hero-photo,
+.hero-fade .hero-overlay { opacity: 0; }
+/* the featured card is hidden from the grid (JS toggles the attribute) */
+.hero-dots {
+  position: absolute;
+  top: 1.25rem;
+  right: 2.5rem;
+  display: flex;
+  gap: 0.55rem;
+  z-index: 2;
+}
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.hero-dot.active { background: var(--mint); transform: scale(1.25); }
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+.hero:hover .hero-arrow { opacity: 1; }
+.hero-arrow:hover { background: rgba(0, 0, 0, 0.55); }
+.hero-prev { left: 2.5rem; }
+.hero-next { right: 2.5rem; }
+@media (max-width: 600px) {
+  .hero-arrow { opacity: 1; width: 38px; height: 38px; }
+  .hero-prev { left: 1.75rem; }
+  .hero-next { right: 1.75rem; }
+  .hero-dots { right: 2rem; }
+}
+
+/* ---------- category pills ---------- */
+.categories {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 0.5rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.pill {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+.pill:hover { border-color: var(--mint); color: var(--text); }
+.pill.active { background: var(--mint); border-color: var(--mint); color: #1d1a16; }
+
+/* ---------- post grid ---------- */
+.post-grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  cursor: pointer;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
+}
+
+.card-media { position: relative; }
+.card-media img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* date badge, top-left over the photo */
+.date-badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 10px;
+  padding: 0.35rem 0.6rem;
+  text-align: center;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  line-height: 1.2;
+}
+.date-badge b {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.card-body { padding: 1.25rem 1.25rem 1.5rem; }
+.card-body h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+.card-body p  { color: var(--muted); font-size: 0.95rem; }
+.card-body time {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+/* photo strip: multiple photos inside one card */
+.card-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.card-strip img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+/* 2x2 variant for four-photo cards */
+.card-strip.grid-2x2 { grid-template-columns: repeat(2, 1fr); }
+
+/* ---------- about ---------- */
+.about {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+/* mint rectangle framing the about section */
+.about-frame {
+  border: 4px solid var(--mint);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  background: #fff;
+}
+.about-photo {
+  width: 100%;
+  aspect-ratio: 3 / 3.5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.about-body h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.about-body p { font-size: 1.1rem; max-width: 55ch; }
+
+/* ---------- footer ---------- */
+.site-footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem 3rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+/* logo mark in the top-left of the nav (links home) */
+.nav-left { display: flex; align-items: center; }
+
+.footer-logo {
+  display: block;
+  width: 58px;
+  height: 58px;
+  border-radius: 17px;
+  object-fit: cover;
+  margin: 0 auto 1.1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
+}
+/* footer logo doubles as a back-to-top button */
+.to-top {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  border-radius: 17px;
+  transition: transform 0.2s ease;
+}
+.to-top:hover { transform: translateY(-3px); }
+.to-top .footer-logo { margin-bottom: 1.1rem; }
+.footer-brand-img {
+  height: 92px;
+  width: auto;
+  margin-bottom: 0.5rem;
+}
+.copyright { margin-top: 1rem; font-size: 0.85rem; }
+
+/* contact email line */
+.contact-line { margin-top: 0.75rem; }
+.contact-line a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+.contact-line a:hover { text-decoration: underline; }
+
+/* ---------- social buttons ---------- */
+.social-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--muted);
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.social-btn:hover {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.social-btn svg { width: 20px; height: 20px; }
+
+/* ============================================================
+   CAROUSEL (photo slideshow) — styles ready for the day you
+   uncomment the gallery HTML in index.html. Nothing to change.
+   ============================================================ */
+.carousel-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+.carousel-section h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+.carousel { position: relative; overflow: hidden; border-radius: var(--radius); }
+.carousel-track { display: flex; transition: transform 0.45s ease; }
+.carousel-track img { min-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 2;
+}
+.carousel-btn:hover { background: var(--accent); }
+.carousel-btn.prev { left: 12px; }
+.carousel-btn.next { right: 12px; }
+.carousel-dots { text-align: center; margin-top: 0.75rem; }
+.carousel-dots button {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: var(--line);
+  margin: 0 4px;
+  cursor: pointer;
+}
+.carousel-dots button.active { background: var(--accent); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .post-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-frame { grid-template-columns: 1fr; padding: 1.75rem; }
+  .about-photo { max-width: 320px; }
+}
+
+@media (max-width: 600px) {
+  .site-header { grid-template-columns: 1fr; text-align: center; gap: 0.5rem; }
+  .nav-left { justify-content: center; }
+  .nav-right { text-align: center; }
+  .post-grid { grid-template-columns: 1fr; }
+  .hero-overlay { padding: 1.75rem 1.25rem 1.25rem; }
+}
+
+/* ============================================================
+   READ-MORE LINKS (cards + hero point at individual post pages)
+   ============================================================ */
+.read-more {
+  display: inline-block;
+  margin-top: 0.9rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.read-more:hover { text-decoration: underline; }
+.hero-overlay .read-more { color: #fff; }
+/* whole card is clickable via the read-more link (stretched link) */
+.card .read-more::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* ============================================================
+   INDIVIDUAL POST PAGES (posts/*.html)
+   ============================================================ */
+.post-page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.back-link:hover { color: var(--accent); }
+.post .tag { margin-bottom: 0.8rem; }
+.post h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
+  color: var(--text);
+}
+.post > time {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.post p {
+  font-size: 1.07rem;
+  line-height: 1.75;
+  margin: 1.25rem 0;
+  color: var(--text);
+}
+/* full-width photo inside a post */
+.post-photo {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  margin: 1.75rem 0;
+}
+/* ---------- archive page ---------- */
+.archive { max-width: 760px; margin: 0 auto; padding: 0 1.5rem; }
+.archive-month {
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 2.5rem 0 0.75rem;
+}
+.archive-month:first-child { margin-top: 1rem; }
+.archive-list { list-style: none; margin: 0; padding: 0; }
+.archive-list li { border-bottom: 1px solid var(--line); }
+.archive-list li:last-child { border-bottom: 0; }
+.archive-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.85rem 0.25rem;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+.archive-list a:hover { background: var(--mint-wash); }
+.archive-date { flex-shrink: 0; width: 10.5rem; font-size: 0.85rem; color: var(--muted); }
+.archive-list .tag-sm { font-size: 0.62rem; padding: 0.2rem 0.6rem; margin: 0; flex-shrink: 0; }
+.archive-title { font-family: var(--font-head); font-size: 1.15rem; }
+/* "view all posts" link under the homepage grid */
+.archive-cta { text-align: center; padding: 0 1.5rem 3.5rem; }
+.archive-cta a {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.7rem 1.8rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.archive-cta a:hover { border-color: var(--mint); background: var(--mint-wash); }
+/* official / related links box at the bottom of a post */
+.post-links {
+  margin: 2.5rem 0 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--mint);
+  border-radius: 14px;
+  background: var(--mint-wash);
+}
+.post-links h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.post-links ul { margin: 0; padding: 0; list-style: none; }
+.post-links li { margin: 0.45rem 0; font-size: 1rem; }
+.post-links a { text-decoration: underline; text-decoration-color: var(--mint); text-underline-offset: 3px; }
+.post-links a:hover { color: var(--accent); }
+/* ---------- gallery post layout (Photos + Travel) ----------
+   full-bleed hero with overlaid title, centered description,
+   full-bleed masonry photo grid */
+.photo-hero {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  height: 74vh;
+  min-height: 440px;
+  max-height: 780px;
+  overflow: hidden;
+  margin-bottom: 2.75rem;
+}
+.photo-hero > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(to bottom, rgba(20,18,14,.42), rgba(20,18,14,.05) 45%, rgba(20,18,14,.45));
+}
+.photo-hero-overlay h1 {
+  color: #fff;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  margin: 0.7rem 0 0.6rem;
+  text-shadow: 0 2px 24px rgba(0,0,0,.55);
+}
+.photo-hero-overlay time {
+  color: rgba(255,255,255,.9);
+  font-size: 0.92rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(0,0,0,.5);
+}
+.photo-desc {
+  max-width: 680px;
+  margin: 0 auto 2.75rem;
+  color: var(--muted);
+  font-size: 1.06rem;
+  line-height: 1.8;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+}
+@media (max-width: 900px) {
+  .photo-hero { height: 62vh; min-height: 360px; }
+}
+
+/* ---------- posts + news sidebar layout ---------- */
+.content-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+.posts-main { flex: 1; min-width: 0; }
+.posts-main .categories,
+.posts-main .post-grid {
+  max-width: none;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+.news-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 84px;
+  margin-top: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.1rem 1rem;
+}
+.sidebar-heading {
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--mint);
+}
+.news-list { display: flex; flex-direction: column; gap: 0.9rem; min-height: 280px; transition: opacity 0.35s ease; }
+.news-list.fading { opacity: 0; }
+.news-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 0.35rem;
+  margin: -0.35rem;
+}
+.news-item:hover { background: rgba(174, 214, 201, 0.18); }
+.news-thumb {
+  width: 72px;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--mint-wash);
+}
+.news-thumb-fallback {
+  width: 72px;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--mint);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  font-family: var(--font-head);
+}
+.news-item h4 {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 0.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+.news-meta b { color: var(--accent); font-weight: 700; }
+.news-loading, .news-empty { color: var(--muted); font-size: 0.9rem; }
+.news-dots { display: flex; gap: 6px; justify-content: center; margin-top: 1rem; }
+.news-dots span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--line); transition: background 0.2s;
+}
+.news-dots span.on { background: var(--mint); }
+.sports-heading { margin-top: 1.75rem; }
+@media (max-width: 1020px) {
+  .content-layout { flex-direction: column; }
+  .news-sidebar { width: 100%; position: static; }
+  .news-list { min-height: 0; }
+}
+
+/* two-across photo grid inside a post */
+.post-photos-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 1.75rem 0;
+}
+.post-photos-2 img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ---------- comments (Thoughts posts only) ----------
+   Threaded comment system: Cloudflare Worker + KV backend, Turnstile
+   bot protection, voting, replies, reporting. No third-party
+   accounts, no ads. Styled after the classic threaded thread look:
+   avatar + name + time, body, vote/reply/report row, indent lines. */
+.comments {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: var(--radius);
+  background: var(--mint-wash);
+}
+.comments h2 {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.comment-list { margin-bottom: 2rem; }
+.comments-empty { color: var(--muted); font-style: italic; }
+
+/* one comment row: avatar | body */
+.comment {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 1rem;
+  padding: 1.1rem 0;
+}
+.comment-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1d1a16;
+  flex-shrink: 0;
+}
+.comment-meta { margin-bottom: 0.25rem; }
+.comment-meta b { font-size: 1rem; color: var(--text); }
+.comment-meta time {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-left: 0.75rem;
+}
+.comment-text {
+  margin: 0 0 0.6rem;
+  line-height: 1.6;
+  color: #4a443c;
+}
+/* threaded replies: indent + vertical guide line */
+.comment-children {
+  margin-left: 24px;
+  padding-left: 1.5rem;
+  border-left: 2px solid #d8ddd9;
+}
+/* action row: ^ score v   Reply   Report */
+.comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.9rem;
+}
+.vote {
+  background: none;
+  border: 0;
+  padding: 0.2rem;
+  cursor: pointer;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+}
+.vote:hover { background: rgba(0, 0, 0, 0.06); }
+.vote.active { color: #2a7d5f; }
+.vote-score { font-weight: 700; min-width: 1.2em; text-align: center; }
+.comment-reply,
+.comment-report {
+  background: none;
+  border: 0;
+  padding: 0.2rem 0.1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--muted);
+}
+.comment-reply:hover,
+.comment-report:hover { color: var(--text); text-decoration: underline; }
+.report-thanks { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+
+/* inline reply form */
+.reply-form-wrap { margin-top: 0.9rem; }
+.reply-form {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+  display: grid;
+  gap: 0.7rem;
+}
+.reply-form input[type="text"],
+.reply-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+}
+.reply-form textarea { resize: vertical; }
+.reply-form-row { display: flex; gap: 0.6rem; }
+.reply-form button[type="submit"] {
+  padding: 0.55rem 1.3rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--text);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.reply-cancel {
+  padding: 0.55rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+/* main comment form */
+.comment-form { max-width: 640px; }
+.comment-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.comment-form input[type="text"],
+.comment-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+}
+.comment-form textarea { resize: vertical; }
+.comment-form .cf-turnstile { margin: 1rem 0; }
+.comment-form button[type="submit"] {
+  padding: 0.7rem 1.6rem;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--text);
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.comment-form button[type="submit"]:disabled { opacity: 0.5; cursor: wait; }
+.comment-note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 560px) {
+  .comments { padding: 1.25rem; }
+  .comment { grid-template-columns: 38px 1fr; gap: 0.75rem; }
+  .comment-avatar { width: 38px; height: 38px; font-size: 0.85rem; }
+  .comment-children { margin-left: 19px; padding-left: 1rem; }
+}
+
+/* ---------- text-only cards & hero ----------
+   Thoughts posts without a photo get an accent bar on the card,
+   and the auto-featured hero renders as a clean text panel. */
+.card--text { border-top: 4px solid var(--accent); }
+.card--text .card-body { padding-top: 1.5rem; }
+.hero--text {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 3rem 2.5rem;
+}
+.hero--text .hero-overlay {
+  position: static;
+  background: none;
+  color: var(--text);
+  padding: 0;
+}
+.hero--text .hero-overlay p { color: var(--muted); opacity: 1; }
+.hero--text .hero-overlay time { color: var(--muted); opacity: 1; }
+.hero--text .hero-overlay .read-more { color: var(--accent); font-weight: 700; }

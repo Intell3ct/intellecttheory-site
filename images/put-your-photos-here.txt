@@ -1,0 +1,2 @@
+Drop your photo files in this folder, then reference them in
+index.html like this:  src="images/my-photo.jpg"
