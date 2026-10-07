@@ -591,8 +591,17 @@
        ... your code ...
      ============================================================ */
 
-  /* ---------- language toggle (EN <-> ES via Google Translate proxy) ---------- */
+  /* ---------- AJ's personal note (loads from note.html) ---------- */
   (function () {
+    var el = document.getElementById("aj-note-body");
+    if (!el) return;
+    fetch("note.html")
+      .then(function (r) { return r.text(); })
+      .then(function (html) { el.innerHTML = html; })
+      .catch(function () { el.innerHTML = ""; });
+  })();
+
+  /* ---------- language toggle (EN <-> ES via Google Translate proxy) ---------- */  (function () {
     var btn = document.getElementById("lang-toggle");
     if (!btn) return;
     var PROXY_SUFFIX = ".translate.goog";
