@@ -325,10 +325,12 @@
       var reportedMsg = reported[c.id]
         ? '<span class="report-thanks">Thanks — we\'ll take a look.</span>'
         : '<button type="button" class="comment-report" data-report="' + esc(c.id) + '">Report</button>';
-      return '<article class="comment" data-comment-id="' + esc(c.id) + '">' +
+      var isAdmin = /^aj$/i.test((c.name || "").trim());
+      var adminBadge = isAdmin ? ' <span class="admin-badge">Admin</span>' : '';
+      return '<article class="comment' + (isAdmin ? " comment-admin" : "") + '" data-comment-id="' + esc(c.id) + '">' +
         '<div class="comment-avatar" style="background:' + avatarBg(c.name) + '">' + esc(initials(c.name)) + '</div>' +
         '<div class="comment-body">' +
-        '<div class="comment-meta"><b>' + esc(c.name) + '</b><time>' + esc(timeAgo(c.ts)) + '</time></div>' +
+        '<div class="comment-meta"><b>' + esc(c.name) + '</b>' + adminBadge + '<time>' + esc(timeAgo(c.ts)) + '</time></div>' +
         '<p class="comment-text">' + esc(c.text).replace(/\n/g, "<br>") + '</p>' +
         '<div class="comment-actions">' +
         '<button type="button" class="vote vote-up' + (vote === 1 ? " active" : "") + '" data-vote="1" data-id="' + esc(c.id) + '" aria-label="Upvote">' + UP + '</button>' +
