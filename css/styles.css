@@ -98,6 +98,23 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .site-header nav a:hover::after { transform: scaleX(1); }
 .nav-right { text-align: right; }
 
+/* language toggle */
+.lang-toggle {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.lang-toggle:hover { border-color: var(--mint); }
+
 .brand {
   text-decoration: none;
   line-height: 1;

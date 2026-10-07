@@ -590,4 +590,43 @@
        if (!el) return;
        ... your code ...
      ============================================================ */
+
+  /* ---------- language toggle (EN <-> ES via Google Translate proxy) ---------- */
+  (function () {
+    var btn = document.getElementById("lang-toggle");
+    if (!btn) return;
+    var PROXY_SUFFIX = ".translate.goog";
+    var isTranslated = location.hostname.endsWith(PROXY_SUFFIX);
+
+    function originalHost() {
+      return location.hostname.slice(0, -PROXY_SUFFIX.length).replace(/-/g, ".");
+    }
+    function translatedHost() {
+      return location.hostname.replace(/\./g, "-") + PROXY_SUFFIX;
+    }
+
+    // Set initial label
+    btn.textContent = isTranslated ? "EN" : "ES";
+
+    btn.addEventListener("click", function () {
+      if (isTranslated) {
+        // Go back to original: strip proxy host, drop translate params
+        var url = new URL(location.href);
+        url.hostname = originalHost();
+        url.searchParams.delete("_x_tr_sl");
+        url.searchParams.delete("_x_tr_tl");
+        url.searchParams.delete("_x_tr_hl");
+        url.searchParams.delete("_x_tr_pto");
+        location.href = url.toString();
+      } else {
+        // Go to Spanish via translate proxy
+        var tUrl = new URL(location.href);
+        tUrl.hostname = translatedHost();
+        tUrl.searchParams.set("_x_tr_sl", "en");
+        tUrl.searchParams.set("_x_tr_tl", "es");
+        tUrl.searchParams.set("_x_tr_hl", "es");
+        location.href = tUrl.toString();
+      }
+    });
+  })();
 })();
