@@ -543,6 +543,7 @@
       if (!list) return;
       var dots = document.getElementById(dotsId);
 
+      var onDotsRendered = null;
       function render(items, page) {
         var html = "";
         var slice = items.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
@@ -558,11 +559,9 @@
         list.innerHTML = html;
         if (dots) {
           var pages = Math.ceil(items.length / PER_PAGE), dh = "";
-          for (var i = 0; i < pages; i++) dh += '<button data-page="' + i + '" class="' + (i === page ? "on" : "") + '" aria-label="Show stories ' + (i * PER_PAGE + 1) + '-' + Math.min(items.length, (i + 1) * PER_PAGE) + '"></button>';
+          for (var i = 0; i < pages; i++) dh += '<button type="button" data-page="' + i + '" class="' + (i === page ? "on" : "") + '" aria-label="Show stories ' + (i * PER_PAGE + 1) + '-' + Math.min(items.length, (i + 1) * PER_PAGE) + '"></button>';
           dots.innerHTML = dh;
-          Array.prototype.forEach.call(dots.children, function (b) {
-            b.addEventListener("click", function () { goTo(parseInt(b.getAttribute("data-page"), 10)); });
-          });
+          if (onDotsRendered) onDotsRendered();
         }
       }
 
@@ -584,8 +583,13 @@
         function arm() {
           return setInterval(function () { show((page + 1) % pages); }, ROTATE_MS);
         }
+        onDotsRendered = function () {
+          Array.prototype.forEach.call(dots.children, function (b) {
+            b.addEventListener("click", function () { goTo(parseInt(b.getAttribute("data-page"), 10)); });
+          });
+        };
         render(items, 0);
-        if (pages < 2) return;
+        if (pages < 2) { onDotsRendered = null; return; }
         timer = arm();
       }
 
