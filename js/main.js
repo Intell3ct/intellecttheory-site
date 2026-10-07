@@ -588,6 +588,19 @@
             b.addEventListener("click", function () { goTo(parseInt(b.getAttribute("data-page"), 10)); });
           });
         };
+        /* swipe left/right to change pages (mobile-friendly, dots stay clickable) */
+        var tx0 = null;
+        list.addEventListener("touchstart", function (e) {
+          if (e.touches.length === 1) tx0 = e.touches[0].clientX;
+        }, { passive: true });
+        list.addEventListener("touchend", function (e) {
+          if (tx0 == null || !e.changedTouches.length) return;
+          var dx = e.changedTouches[0].clientX - tx0;
+          tx0 = null;
+          if (Math.abs(dx) < 40) return;
+          if (dx < 0) goTo((page + 1) % pages);
+          else goTo((page - 1 + pages) % pages);
+        }, { passive: true });
         render(items, 0);
         if (pages < 2) { onDotsRendered = null; return; }
         timer = arm();
