@@ -142,6 +142,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   .brand { flex-shrink: 1; min-width: 0; display: flex; justify-content: center; }
   .brand-text { height: 36px !important; max-height: 36px; width: auto; max-width: 100%; }
   .site-header nav a { margin: 0 0.35rem; font-size: 0.8rem; white-space: nowrap; }
+  .lang-toggle { padding: 0.25rem 0.6rem; font-size: 0.75rem; margin-left: 0.3rem; }
 }
 
 
