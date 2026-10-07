@@ -448,12 +448,23 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 
 /* ---------- newsletter signup ---------- */
 .newsletter {
+  position: relative;
   text-align: center;
   padding: 2.5rem 1.5rem;
   margin-bottom: 1rem;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  overflow: hidden;
 }
+.newsletter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../images/brand-script.png") center/contain no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+}
+.newsletter > * { position: relative; }
 .newsletter h2 {
   font-family: var(--font-head);
   font-size: 1.6rem;
