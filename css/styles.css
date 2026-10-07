@@ -121,10 +121,11 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   display: inline-block;
 }
 .brand-text {
-  height: 64px;
+  height: 88px;
   width: auto;
   max-width: 100%;
   display: block;
+  margin: 0 auto;
 }
 .brand:hover .brand-text { filter: brightness(0.94); }
 
@@ -140,7 +141,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   }
   .nav-left, .nav-right { display: flex; align-items: center; flex-shrink: 0; }
   .brand { flex-shrink: 1; min-width: 0; display: flex; justify-content: center; }
-  .brand-text { height: 36px !important; max-height: 36px; width: auto; max-width: 100%; }
+  .brand-text { height: 52px !important; max-height: 52px; width: auto; max-width: 100%; }
   .site-header nav a { margin: 0 0.35rem; font-size: 0.8rem; white-space: nowrap; }
   .lang-toggle { padding: 0.25rem 0.6rem; font-size: 0.75rem; margin-left: 0.3rem; }
 }
@@ -1149,3 +1150,13 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .hero--text .hero-overlay p { color: var(--muted); opacity: 1; }
 .hero--text .hero-overlay time { color: var(--muted); opacity: 1; }
 .hero--text .hero-overlay .read-more { color: var(--accent); font-weight: 700; }
+
+/* tappable news dots */
+.news-dots { display: flex; gap: 0.5rem; justify-content: center; padding: 0.75rem 0; }
+.news-dots span, .news-dots button {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #d8cfc4; border: none; padding: 0; cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.news-dots button:hover { transform: scale(1.3); }
+.news-dots .on { background: #aed6c9; }

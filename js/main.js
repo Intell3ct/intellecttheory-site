@@ -558,23 +558,35 @@
         list.innerHTML = html;
         if (dots) {
           var pages = Math.ceil(items.length / PER_PAGE), dh = "";
-          for (var i = 0; i < pages; i++) dh += '<span class="' + (i === page ? "on" : "") + '"></span>';
+          for (var i = 0; i < pages; i++) dh += '<button data-page="' + i + '" class="' + (i === page ? "on" : "") + '" aria-label="Show stories ' + (i * PER_PAGE + 1) + '-' + Math.min(items.length, (i + 1) * PER_PAGE) + '"></button>';
           dots.innerHTML = dh;
+          Array.prototype.forEach.call(dots.children, function (b) {
+            b.addEventListener("click", function () { goTo(parseInt(b.getAttribute("data-page"), 10)); });
+          });
         }
       }
 
       function start(items) {
-        var page = 0, pages = Math.ceil(items.length / PER_PAGE);
-        render(items, 0);
-        if (pages < 2) return;
-        setInterval(function () {
+        var page = 0, pages = Math.ceil(items.length / PER_PAGE), timer = null;
+        function show(p) {
           list.classList.add("fading");
           setTimeout(function () {
-            page = (page + 1) % pages;
+            page = p;
             render(items, page);
             list.classList.remove("fading");
           }, 350);
-        }, ROTATE_MS);
+        }
+        function goTo(p) {
+          if (p === page) return;
+          show(p);
+          if (timer) { clearInterval(timer); timer = arm(); }
+        }
+        function arm() {
+          return setInterval(function () { show((page + 1) % pages); }, ROTATE_MS);
+        }
+        render(items, 0);
+        if (pages < 2) return;
+        timer = arm();
       }
 
       (async function init() {
