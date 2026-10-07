@@ -520,6 +520,14 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   color: var(--muted);
 }
 
+/* comment notice on translated pages */
+.translate-note {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--muted);
+}
+.translate-note a { color: var(--mint); font-weight: 600; }
+
 /* ---------- related posts ---------- */
 .related-posts {
   max-width: 900px;

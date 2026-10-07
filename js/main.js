@@ -238,6 +238,22 @@
   (function () {
     var section = document.querySelector("[data-comments]");
     if (!section) return;
+
+    /* Turnstile can't verify on the Google Translate proxy domain,
+       so show a friendly note instead of a broken form. */
+    if (location.hostname.endsWith(".translate.goog")) {
+      section.innerHTML = '<div class="translate-note"><p>Para dejar un comentario, <a href="#" id="back-to-en">cambia a la versión en inglés</a>.</p></div>';
+      var backBtn = document.getElementById("back-to-en");
+      if (backBtn) backBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var url = new URL(location.href);
+        url.hostname = location.hostname.slice(0, -".translate.goog".length).replace(/-/g, ".");
+        ["_x_tr_sl","_x_tr_tl","_x_tr_hl","_x_tr_pto"].forEach(function (p) { url.searchParams.delete(p); });
+        location.href = url.toString();
+      });
+      return;
+    }
+
     var slug = section.getAttribute("data-post");
     var api = section.getAttribute("data-api");
     var list = section.querySelector("[data-comment-list]");
