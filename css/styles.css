@@ -461,7 +461,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   position: absolute;
   inset: 0;
   background: url("../images/brand-script.png") center/contain no-repeat;
-  opacity: 0.08;
+  opacity: 0.18;
   pointer-events: none;
 }
 .newsletter > * { position: relative; }
