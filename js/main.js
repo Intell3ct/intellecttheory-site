@@ -326,7 +326,7 @@
         ? '<span class="report-thanks">Thanks — we\'ll take a look.</span>'
         : '<button type="button" class="comment-report" data-report="' + esc(c.id) + '">Report</button>';
       var isAdmin = c.admin === true;
-      var adminBadge = isAdmin ? ' <span class="admin-badge">Admin</span>' : '';
+      var adminBadge = isAdmin ? ' <span class="admin-badge" title="Admin" aria-label="Admin"></span>' : '';
       return '<article class="comment' + (isAdmin ? " comment-admin" : "") + '" data-comment-id="' + esc(c.id) + '">' +
         '<div class="comment-avatar" style="background:' + avatarBg(c.name) + '">' + esc(initials(c.name)) + '</div>' +
         '<div class="comment-body">' +

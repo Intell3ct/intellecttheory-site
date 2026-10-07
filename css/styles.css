@@ -1168,18 +1168,30 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .news-dots button:hover { transform: scale(1.3); }
 .news-dots .on { background: #aed6c9; }
 
-/* admin badge on AJ's comments */
+/* admin badge: mint pokeball */
 .admin-badge {
   display: inline-block;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #fff;
-  background: #aed6c9;
-  border-radius: 999px;
-  padding: 0.15rem 0.55rem;
-  margin-left: 0.4rem;
-  vertical-align: middle;
+  width: 1.35em;
+  height: 1.35em;
+  margin-left: 0.45rem;
+  vertical-align: -0.28em;
+  border-radius: 50%;
+  position: relative;
+  background: linear-gradient(to bottom, #aed6c9 46%, #2b2b2b 46%, #2b2b2b 54%, #fff 54%);
+  border: 2px solid #2b2b2b;
+  box-sizing: border-box;
+}
+.admin-badge::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.45em;
+  height: 0.45em;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #2b2b2b;
+  box-sizing: border-box;
 }
 .comment-admin { border-left: 3px solid #aed6c9; }
