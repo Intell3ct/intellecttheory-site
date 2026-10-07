@@ -121,7 +121,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   display: inline-block;
 }
 .brand-text {
-  height: 88px;
+  height: 110px;
   width: auto;
   max-width: 100%;
   display: block;
@@ -141,7 +141,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   }
   .nav-left, .nav-right { display: flex; align-items: center; flex-shrink: 0; }
   .brand { flex-shrink: 1; min-width: 0; display: flex; justify-content: center; }
-  .brand-text { height: 52px !important; max-height: 52px; width: auto; max-width: 100%; }
+  .brand-text { height: 64px !important; max-height: 64px; width: auto; max-width: 100%; }
   .site-header nav a { margin: 0 0.35rem; font-size: 0.8rem; white-space: nowrap; }
   .lang-toggle { padding: 0.25rem 0.6rem; font-size: 0.75rem; margin-left: 0.3rem; }
 }
