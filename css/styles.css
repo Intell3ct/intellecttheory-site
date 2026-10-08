@@ -759,6 +759,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .archive-cta a:hover { border-color: var(--mint); background: var(--mint-wash); }
 /* official / related links box at the bottom of a post */
 .post-links {
+  clear: both;
   margin: 2.5rem 0 0;
   padding: 1.25rem 1.5rem;
   border: 1px solid var(--mint);

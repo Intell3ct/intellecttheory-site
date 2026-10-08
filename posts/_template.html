@@ -38,7 +38,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/styles.css?v=55">
+  <link rel="stylesheet" href="../css/styles.css?v=56">
 </head>
 <body>
 
@@ -76,6 +76,11 @@
 
       <p>Write your words here. Add as many paragraphs as you like.</p>
       <!-- /POST BODY -->
+
+      <!-- LAYOUT RULE (standing): post order is always
+           1) text + images, 2) Official links box, 3) Comments.
+           Nothing may sit beside a floated photo -- .post-links has
+           clear:both so it always drops below. Keep this order. -->
 
       <!-- ADD MORE LATER: paste new <p>...</p> paragraphs or
            <img class="post-photo" src="../images/....jpg" alt="...">
