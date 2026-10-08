@@ -414,11 +414,20 @@
     (function() {
       var btn = document.getElementById('backToTop');
       if (!btn) return;
-      window.addEventListener('scroll', function() {
-        var show = window.scrollY > 600;
+      var about = document.getElementById('about');
+      function update() {
+        var show = false;
+        if (about) {
+          var r = about.getBoundingClientRect();
+          show = r.top < window.innerHeight * 0.7;
+        } else {
+          show = window.scrollY > 600;
+        }
         btn.style.opacity = show ? '1' : '0';
         btn.style.pointerEvents = show ? 'auto' : 'none';
-      }, { passive: true });
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      update();
       btn.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
