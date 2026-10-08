@@ -409,11 +409,6 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 }
 .to-top:hover { transform: translateY(-3px); }
 .to-top .footer-logo { margin-bottom: 1.1rem; }
-.footer-brand-img {
-  height: 92px;
-  width: auto;
-  margin-bottom: 0.5rem;
-}
 .copyright { margin-top: 1rem; font-size: 0.85rem; }
 
 /* contact email line */
@@ -1146,8 +1141,6 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 /* ---------- text-only cards & hero ----------
    Thoughts posts without a photo get an accent bar on the card,
    and the auto-featured hero renders as a clean text panel. */
-.card--text { border-top: 4px solid var(--accent); }
-.card--text .card-body { padding-top: 1.5rem; }
 .hero--text {
   background: var(--surface);
   border-radius: var(--radius);
