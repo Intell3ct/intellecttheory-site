@@ -1209,3 +1209,46 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   box-sizing: border-box;
 }
 .comment-admin { border-left: 3px solid #aed6c9; }
+
+/* ---------- reader's note sidebar ---------- */
+.reader-note {
+  float: right;
+  width: 250px;
+  margin: 0.25rem 0 1rem 1.5rem;
+  padding: 0.9rem 1.1rem;
+  background: var(--mint-wash);
+  border-left: 4px solid var(--mint);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.reader-note strong { display: block; color: var(--text); margin-bottom: 0.2rem; font-size: 0.92rem; }
+@media (max-width: 720px) {
+  .reader-note { float: none; width: auto; margin: 0 0 1.25rem; }
+}
+
+/* ---------- side-floated post photos (wraps text, saves vertical space) ---------- */
+.photo-side {
+  float: right;
+  width: 44%;
+  max-width: 340px;
+  margin: 0.3rem 0 1rem 1.4rem;
+}
+.photo-side img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+}
+.photo-side figcaption {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 0.45rem;
+  font-style: italic;
+}
+.post::after { content: ""; display: block; clear: both; }
+@media (max-width: 720px) {
+  .photo-side { width: 46%; max-width: none; margin: 0.2rem 0 0.9rem 1rem; }
+}
