@@ -1385,3 +1385,34 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   object-fit: contain;
   border-radius: 12px;
 }
+
+/* ---------- tip jar (post-bottom tea badge) ---------- */
+.tip-jar {
+  clear: both;
+  margin: 2.5rem 0 0;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  background: var(--mint-wash);
+  border: 1px solid var(--mint);
+  border-radius: 14px;
+}
+.tip-jar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--mint);
+  color: #1c1c1c;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.8rem 1.7rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.tip-jar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.14);
+  color: #1c1c1c;
+}
+.tip-jar-btn svg { width: 1.5em; height: 1.5em; }
+.tip-jar-note { margin: 0.8rem 0 0; font-size: 0.9rem; color: var(--muted); }
