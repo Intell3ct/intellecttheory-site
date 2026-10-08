@@ -722,3 +722,33 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
   track.addEventListener('scroll', paint, { passive: true });
   paint();
 });
+
+/* image lightbox: click any post/gallery photo to view full size */
+(function () {
+  var lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-label', 'Photo viewer');
+  var lbImg = document.createElement('img');
+  lb.appendChild(lbImg);
+  document.body.appendChild(lb);
+  function open(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+    lbImg.removeAttribute('src');
+  }
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
+  });
+  document.querySelectorAll('article.post img, .photo-grid img').forEach(function (img) {
+    img.classList.add('zoomable');
+    img.addEventListener('click', function () { open(img.currentSrc || img.src, img.alt); });
+  });
+})();
