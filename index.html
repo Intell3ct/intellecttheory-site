@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=67">
+  <link rel="stylesheet" href="css/styles.css?v=68">
 </head>
 <body class="has-flow-lines">
 
@@ -406,13 +406,18 @@
 
   <script src="js/main.js?v=31"></script>
 
-    <button id="backToTop" class="back-to-top-float" aria-label="Back to top"><span class="pokeball-btn"></span></button>
+
+    <button id="backToTop" aria-label="Back to top" style="position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(to bottom, #aed6c9 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);border:2px solid #2b2b2b;cursor:pointer;opacity:0;pointer-events:none;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:opacity 0.3s;padding:0;">
+      <span style="position:absolute;top:50%;left:50%;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:2px solid #2b2b2b;box-sizing:border-box;display:block;"></span>
+    </button>
     <script>
     (function() {
       var btn = document.getElementById('backToTop');
       if (!btn) return;
       window.addEventListener('scroll', function() {
-        btn.classList.toggle('visible', window.scrollY > 300);
+        var show = window.scrollY > 300;
+        btn.style.opacity = show ? '1' : '0';
+        btn.style.pointerEvents = show ? 'auto' : 'none';
       }, { passive: true });
       btn.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
