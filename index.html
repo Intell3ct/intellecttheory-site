@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=64">
+  <link rel="stylesheet" href="css/styles.css?v=65">
 </head>
 <body class="has-flow-lines">
 
@@ -412,7 +412,7 @@
       var btn = document.getElementById('backToTop');
       if (!btn) return;
       window.addEventListener('scroll', function() {
-        btn.classList.toggle('visible', window.scrollY > 600);
+        btn.classList.toggle('visible', window.scrollY > 300);
       }, { passive: true });
       btn.addEventListener('click', function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
