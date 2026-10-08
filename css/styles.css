@@ -1425,3 +1425,54 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   font-size: 0.95rem;
 }
 .about-sonder em { font-style: italic; }
+
+/* connect cards: watch & support section */
+.connect-cards {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+.connect-cards h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+.connect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.connect-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.8rem 1.2rem;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--mint);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.connect-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.connect-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--mint-dark, #6aa898);
+}
+.connect-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.connect-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.connect-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
