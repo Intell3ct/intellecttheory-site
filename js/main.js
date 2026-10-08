@@ -193,7 +193,7 @@
   })();
 
   /* ---------- category pills: filter + navigate ----------
-     Clicking a pill (All / Photos / Thoughts / Travel / Gaming) filters the
+     Clicking a pill (All / Photos / Thoughts / Travel / Gaming / Anime) filters the
      post grid to that category, scrolls to it, and sets the URL hash so
      sections are linkable (e.g. intellecttheory.com/#gaming). Loading the
      page with a category hash applies that filter automatically.
