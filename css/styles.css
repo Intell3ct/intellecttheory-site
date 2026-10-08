@@ -1589,3 +1589,31 @@ body.has-flow-lines > * {
   position: relative;
   z-index: 1;
 }
+
+/* floating back-to-top button */
+.back-to-top-float {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--mint);
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 99;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.back-to-top-float.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.back-to-top-float:hover {
+  background: var(--amber);
+}
