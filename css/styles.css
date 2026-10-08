@@ -1231,6 +1231,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 /* ---------- side-floated post photos (wraps text, saves vertical space) ---------- */
 .photo-side {
   float: right;
+  clear: right;
   width: 44%;
   max-width: 340px;
   margin: 0.3rem 0 1rem 1.4rem;
@@ -1319,14 +1320,13 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 }
 .pc-dot.is-active { background: var(--mint); }
 
-/* memorial finale photo: centered full-width on mobile */
-@media (max-width: 720px) {
-  .photo-side.photo-finale {
-    float: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 1.5rem auto;
-  }
+/* memorial finale photo: centered on all screens */
+.photo-side.photo-finale {
+  float: none;
+  clear: both;
+  width: 100%;
+  max-width: 520px;
+  margin: 1.75rem auto;
 }
 
 /* reader's note signature: pokeball bullet (site easter egg) */
