@@ -1629,11 +1629,3 @@ body.has-flow-lines > * {
   border: 2px solid #2b2b2b;
   box-sizing: border-box;
 }
-.back-to-top-float.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.back-to-top-float:hover {
-  background: var(--amber);
-}
