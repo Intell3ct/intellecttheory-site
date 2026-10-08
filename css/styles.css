@@ -1579,3 +1579,20 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .connect-card-kofi .connect-icon {
   color: var(--amber-dark);
 }
+
+/* subtle flow lines: implicit directional cue toward conversion points */
+body.has-flow-lines::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("../images/flow-lines.svg");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+body.has-flow-lines > * {
+  position: relative;
+  z-index: 1;
+}
