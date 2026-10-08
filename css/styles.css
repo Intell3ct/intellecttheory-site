@@ -1328,3 +1328,31 @@ section[id], footer[id] { scroll-margin-top: 84px; }
     margin: 1.5rem auto;
   }
 }
+
+/* reader's note signature: pokeball bullet (site easter egg) */
+.reader-note > strong { display: flex; align-items: center; }
+.reader-note .pokeball {
+  display: inline-block;
+  width: 1.05em;
+  height: 1.05em;
+  border-radius: 50%;
+  position: relative;
+  background: linear-gradient(to bottom, #7fbfae 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);
+  border: 1.5px solid #2b2b2b;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  margin-right: 0.45em;
+}
+.reader-note .pokeball::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.38em;
+  height: 0.38em;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid #2b2b2b;
+  box-sizing: border-box;
+}
