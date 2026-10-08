@@ -688,7 +688,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   text-decoration: none;
 }
 .read-more:hover { text-decoration: underline; }
-.hero-overlay .read-more { color: #fff; }
+.hero-overlay .read-more { color: var(--amber-dark); font-weight: 700; }
 /* whole card is clickable via the read-more link (stretched link) */
 .card .read-more::after {
   content: "";
