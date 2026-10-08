@@ -415,7 +415,7 @@
       var btn = document.getElementById('backToTop');
       if (!btn) return;
       window.addEventListener('scroll', function() {
-        var show = window.scrollY > 350;
+        var show = window.scrollY > 450;
         btn.style.opacity = show ? '1' : '0';
         btn.style.pointerEvents = show ? 'auto' : 'none';
       }, { passive: true });
