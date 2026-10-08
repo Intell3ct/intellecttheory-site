@@ -1318,3 +1318,13 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   padding: 0;
 }
 .pc-dot.is-active { background: var(--mint); }
+
+/* memorial finale photo: centered full-width on mobile */
+@media (max-width: 720px) {
+  .photo-side.photo-finale {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 1.5rem auto;
+  }
+}
