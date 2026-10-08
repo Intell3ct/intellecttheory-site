@@ -1476,3 +1476,91 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   font-size: 0.85rem;
   color: var(--muted);
 }
+
+/* newsletter slide-in: warm, personal, bottom-right */
+.nl-slidein {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  max-width: 320px;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--mint);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  transform: translateY(120%);
+  opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  z-index: 100;
+}
+.nl-slidein.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+.nl-slidein h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.1rem;
+}
+.nl-slidein p {
+  margin: 0 0 0.8rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.nl-slide-close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.7rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--muted);
+  line-height: 1;
+}
+.nl-slide-form {
+  display: flex;
+  gap: 0.5rem;
+}
+.nl-slide-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--mint);
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+.nl-slide-form button {
+  padding: 0.5rem 1rem;
+  background: var(--mint);
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .nl-slidein {
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+  }
+}
+
+/* footer: subtle divider between money links and social links */
+.social-divider {
+  display: inline-block;
+  width: 1px;
+  height: 1.8rem;
+  background: var(--mint);
+  opacity: 0.4;
+  margin: 0 0.3rem;
+  align-self: center;
+}
+.social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}

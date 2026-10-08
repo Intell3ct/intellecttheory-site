@@ -760,3 +760,46 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     img.addEventListener('click', function () { open(img.currentSrc || img.src, img.alt); });
   });
 })();
+
+/* newsletter slide-in: appears at 60% scroll on post pages, once per visitor */
+(function () {
+  // only on post pages (have article.post)
+  if (!document.querySelector('article.post')) return;
+  if (localStorage.getItem('nl-slide-dismissed')) return;
+
+  var slide = document.createElement('div');
+  slide.className = 'nl-slidein';
+  slide.innerHTML =
+    '<button class="nl-slide-close" aria-label="Close">&times;</button>' +
+    '<h3>The Monthly Drop</h3>' +
+    '<p>One email a month. New posts, photos, and what I\'m into.</p>' +
+    '<form class="nl-slide-form" action="https://buttondown.email/api/emails/embed-subscribe/intellecttheory" method="post" target="_blank">' +
+    '<input type="email" name="email" placeholder="your@email.com" required aria-label="Email address">' +
+    '<button type="submit">Subscribe</button>' +
+    '</form>';
+  document.body.appendChild(slide);
+
+  function dismiss(permanent) {
+    slide.classList.remove('is-visible');
+    if (permanent) {
+      try { localStorage.setItem('nl-slide-dismissed', '1'); } catch (e) {}
+    }
+  }
+  slide.querySelector('.nl-slide-close').addEventListener('click', function () { dismiss(true); });
+  slide.querySelector('.nl-slide-form').addEventListener('submit', function () {
+    setTimeout(function () { dismiss(true); }, 500);
+  });
+
+  var shown = false;
+  function onScroll() {
+    if (shown) return;
+    var h = document.documentElement;
+    var scrolled = (h.scrollTop + window.innerHeight) / h.scrollHeight;
+    if (scrolled >= 0.6) {
+      shown = true;
+      slide.classList.add('is-visible');
+      window.removeEventListener('scroll', onScroll, { passive: true });
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
