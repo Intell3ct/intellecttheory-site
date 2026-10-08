@@ -164,7 +164,7 @@
       if (timer) clearInterval(timer);
       timer = null;
       if (slides.length > 1) {
-        timer = setInterval(function () { go(idx + 1, false); }, 7800);
+        timer = setInterval(function () { go(idx + 1, false); }, 6630);
       }
     }
     hero.addEventListener("mouseenter", function () {
