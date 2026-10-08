@@ -53,13 +53,13 @@
          arrows, and swipe. The content here is only a fallback
          for no-JavaScript. -->
     <section class="hero" data-hero-auto>
-      <img fetchpriority="high" decoding="async" width="1206" height="1608" class="hero-photo" src="images/munchies-chickenfeet.jpg" alt="Spicy Korean chicken feet glazed with sesame and scallions">
+      <img fetchpriority="high" decoding="async" width="1206" height="1470" class="hero-photo" src="images/where-ive-been-xray.jpg" alt="X-ray showing a hairline fracture on the pinky finger">
       <div class="hero-overlay">
-        <span class="tag">Photos</span>
-        <h1>Munchies</h1>
-        <p>I&apos;ve been cooking and baking more frequently &mdash; spicy Korean chicken feet are amazing, and the homemade ramen was delicious. Also made bread, but I need practice with that lol.</p>
-        <time>October 6, 2026</time>
-        <a class="read-more" href="posts/munchies.html">Read the story &rarr;</a>
+        <span class="tag">Thoughts</span>
+        <h1>Where I&rsquo;ve Been</h1>
+        <p>So yeah&hellip; I haven&rsquo;t been around much. Not out with people, not online like I used to be. Here&rsquo;s what&rsquo;s been going on.</p>
+        <time>October 5, 2026</time>
+        <a class="read-more" href="posts/where-ive-been.html">Read the story &rarr;</a>
       </div>
     </section>
 
@@ -82,6 +82,9 @@
 
     <!-- ================= POST GRID =================
          HOW TO ADD A POST:
+         HERO: every card rotates in the hero unless it has
+         data-no-hero (e.g. the Munchies card). Hero dots show max 4
+         in a sliding window -- all posts still rotate.
          1. Copy one full "card" article below (from CARD START to
             CARD END) and paste it right after the NEW POSTS marker.
          2. Swap the image (src="images/your-photo.jpg"), title,
@@ -140,7 +143,7 @@
 
 
       <!-- CARD START : photo grid card -->
-      <article class="card" data-date="October 6, 2026">
+      <article class="card" data-date="October 6, 2026" data-no-hero>
         <div class="card-media">
           <div class="card-strip grid-2x2">
             <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-chickenfeet.jpg" alt="Spicy Korean chicken feet glazed with sesame and scallions">
@@ -369,6 +372,6 @@
     <p class="copyright">&copy; 2026 IntellectTheory</p>
   </footer>
 
-  <script src="js/main.js?v=29"></script>
+  <script src="js/main.js?v=30"></script>
 </body>
 </html>

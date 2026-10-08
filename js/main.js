@@ -72,7 +72,7 @@
     var hero = document.querySelector("[data-hero-auto]");
     var grid = document.getElementById("posts");
     if (!hero || !grid) return;
-    var cards = Array.prototype.slice.call(grid.querySelectorAll(".card"));
+    var cards = Array.prototype.slice.call(grid.querySelectorAll(".card:not([data-no-hero])"));
     if (!cards.length) { hero.style.display = "none"; return; }
 
     var slides = cards.map(function (card) {
@@ -92,16 +92,26 @@
       };
     });
 
-    /* controls: dots + prev/next arrows */
+    /* controls: sliding-window dots (max 4 visible) + prev/next arrows.
+       All slides still rotate; only 4 dots show, window follows idx. */
+    var MAX_DOTS = 4;
     var dotsWrap = document.createElement("div");
     dotsWrap.className = "hero-dots";
-    slides.forEach(function (_, i) {
-      var d = document.createElement("button");
-      d.className = "hero-dot";
-      d.setAttribute("aria-label", "Show post " + (i + 1) + ": " + slides[i].title);
-      d.addEventListener("click", function () { go(i, true); });
-      dotsWrap.appendChild(d);
-    });
+    function paintDots(i) {
+      dotsWrap.innerHTML = "";
+      var n = Math.min(MAX_DOTS, slides.length);
+      var start = Math.max(0, Math.min(i - 1, slides.length - n));
+      for (var k = 0; k < n; k++) {
+        (function (si) {
+          var d = document.createElement("button");
+          d.className = "hero-dot" + (si === i ? " active" : "");
+          d.setAttribute("aria-label", "Show post " + (si + 1) + ": " + slides[si].title);
+          d.addEventListener("click", function () { go(si, true); });
+          dotsWrap.appendChild(d);
+        })(start + k);
+      }
+    }
+    paintDots(0);
     var prev = document.createElement("button");
     prev.className = "hero-arrow hero-prev";
     prev.setAttribute("aria-label", "Previous post");
@@ -143,9 +153,7 @@
         if (heroLink) heroLink.href = s.href;
         hero.classList.remove("hero-fade");
       }, 160);
-      Array.prototype.forEach.call(dotsWrap.children, function (d, di) {
-        d.classList.toggle("active", di === i);
-      });
+      paintDots(i);
     }
     function go(i, manual) {
       idx = (i + slides.length) % slides.length;
