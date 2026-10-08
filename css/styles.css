@@ -1416,3 +1416,12 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 }
 .tip-jar-btn svg { width: 1.5em; height: 1.5em; }
 .tip-jar-note { margin: 0.8rem 0 0; font-size: 0.9rem; color: var(--muted); }
+
+/* about: sonder definition payoff */
+.about-sonder {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--mint);
+  font-size: 0.95rem;
+}
+.about-sonder em { font-style: italic; }
