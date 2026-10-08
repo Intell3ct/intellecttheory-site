@@ -6,6 +6,8 @@
    editing only this block.
    ============================================================ */
 :root {
+  --amber: #E8A838;
+  --amber-dark: #C78F2B;
   --bg:        #ffffff;   /* page background            */
   --surface:   #f7f5f1;   /* cards / panels             */
   --text:      #1d1a16;   /* main text                  */
@@ -505,12 +507,14 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .newsletter-form input[type="email"]:focus { border-color: var(--mint); }
 .newsletter-form input[type="email"]::placeholder { color: var(--muted); opacity: 0.7; }
 .newsletter-form button {
+  background: var(--amber);
+  border-color: var(--amber-dark);
   padding: 0.75rem 1.6rem;
   font-size: 1rem;
   font-weight: 600;
   font-family: inherit;
   color: var(--text);
-  background: var(--mint);
+  
   border: none;
   border-radius: 999px;
   cursor: pointer;
@@ -1530,8 +1534,10 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   font-size: 0.85rem;
 }
 .nl-slide-form button {
+  background: var(--amber);
+  border-color: var(--amber-dark);
   padding: 0.5rem 1rem;
-  background: var(--mint);
+  
   border: none;
   border-radius: 8px;
   font-weight: 700;
@@ -1563,4 +1569,13 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.15rem;
+}
+
+/* Ko-fi card: amber accent for the money card */
+.connect-card-kofi {
+  border-color: var(--amber);
+  border-width: 2px;
+}
+.connect-card-kofi .connect-icon {
+  color: var(--amber-dark);
 }
