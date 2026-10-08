@@ -1590,24 +1590,44 @@ body.has-flow-lines > * {
   z-index: 1;
 }
 
-/* floating back-to-top button */
+/* floating back-to-top: mint pokeball, right side */
 .back-to-top-float {
   position: fixed;
   bottom: 1.5rem;
-  left: 1.5rem;
-  width: 48px;
-  height: 48px;
+  right: 1.5rem;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: var(--mint);
-  border: none;
-  font-size: 1.4rem;
+  background: linear-gradient(to bottom, #aed6c9 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);
+  border: 2px solid #2b2b2b;
   cursor: pointer;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(10px) rotate(-30deg);
   transition: opacity 0.3s, transform 0.3s;
   pointer-events: none;
   z-index: 99;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 0;
+}
+.back-to-top-float.visible {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+  pointer-events: auto;
+}
+.back-to-top-float:hover {
+  transform: translateY(0) rotate(360deg);
+}
+.back-to-top-float .pokeball-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #2b2b2b;
+  box-sizing: border-box;
 }
 .back-to-top-float.visible {
   opacity: 1;
