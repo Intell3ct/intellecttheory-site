@@ -1592,9 +1592,10 @@ body.has-flow-lines > * {
 
 /* floating back-to-top: mint pokeball, right side */
 .back-to-top-float {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  position: fixed !important;
+  bottom: 1.5rem !important;
+  right: 1.5rem !important;
+  left: auto !important;
   width: 52px;
   height: 52px;
   border-radius: 50%;
