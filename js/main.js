@@ -880,3 +880,13 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     list.addEventListener("mouseenter", function () { if (timer) clearInterval(timer); });
     list.addEventListener("mouseleave", function () { timer = arm(); });
   })();
+
+  /* mobile show more button */
+  (function () {
+    var btn = document.getElementById("showMoreBtn");
+    var grid = document.getElementById("posts");
+    if (!btn || !grid) return;
+    btn.addEventListener("click", function () {
+      grid.classList.add("show-all");
+    });
+  })();

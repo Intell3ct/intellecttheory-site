@@ -1617,3 +1617,25 @@ body.has-flow-lines > * {
 /* anime currently watching - warm amber highlight */
 #anime-list .anime-watching h4 { color: #E8A838; }
 #anime-list .anime-watching .news-thumb-fallback { background: #E8A838; color: #fff; }
+
+/* mobile: limit visible posts to 4, show more button reveals rest */
+@media (max-width: 600px) {
+  .post-grid .card:nth-child(n+5) { display: none; }
+  .post-grid.show-all .card:nth-child(n+5) { display: ""; }
+  .post-grid.show-all .card:nth-child(n+5) { display: block; }
+}
+.show-more-btn {
+  display: none;
+  margin: 1.5rem auto 0;
+  padding: 0.75rem 2rem;
+  border: 2px solid var(--mint);
+  background: none;
+  color: var(--text);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .show-more-btn { display: block; }
+  .post-grid.show-all + .show-more-btn { display: none; }
+}
