@@ -685,8 +685,8 @@
   })();
 
   /* ---------- language toggle (EN <-> ES via Google Translate proxy) ---------- */  (function () {
-    var btn = document.getElementById("lang-toggle");
-    if (!btn) return;
+    var sel = document.getElementById("lang-toggle");
+    if (!sel) return;
     var PROXY_SUFFIX = ".translate.goog";
     var isTranslated = location.hostname.endsWith(PROXY_SUFFIX);
 
@@ -697,26 +697,36 @@
       return location.hostname.replace(/\./g, "-") + PROXY_SUFFIX;
     }
 
-    // Set initial label
-    btn.textContent = isTranslated ? "EN" : "ES";
+    // Set current selection based on URL
+    if (isTranslated) {
+      var currentLang = new URL(location.href).searchParams.get("_x_tr_tl") || "es";
+      sel.value = currentLang;
+    } else {
+      sel.value = "en";
+    }
 
-    btn.addEventListener("click", function () {
-      if (isTranslated) {
-        // Go back to original: strip proxy host, drop translate params
+    sel.addEventListener("change", function () {
+      var lang = sel.value;
+      if (lang === "en") {
+        // Go back to original
         var url = new URL(location.href);
-        url.hostname = originalHost();
+        if (isTranslated) {
+          url.hostname = originalHost();
+        }
         url.searchParams.delete("_x_tr_sl");
         url.searchParams.delete("_x_tr_tl");
         url.searchParams.delete("_x_tr_hl");
         url.searchParams.delete("_x_tr_pto");
         location.href = url.toString();
       } else {
-        // Go to Spanish via translate proxy
+        // Go to selected language via translate proxy
         var tUrl = new URL(location.href);
-        tUrl.hostname = translatedHost();
+        if (!isTranslated) {
+          tUrl.hostname = translatedHost();
+        }
         tUrl.searchParams.set("_x_tr_sl", "en");
-        tUrl.searchParams.set("_x_tr_tl", "es");
-        tUrl.searchParams.set("_x_tr_hl", "es");
+        tUrl.searchParams.set("_x_tr_tl", lang);
+        tUrl.searchParams.set("_x_tr_hl", lang);
         location.href = tUrl.toString();
       }
     });

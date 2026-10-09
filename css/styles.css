@@ -1930,4 +1930,11 @@ body.has-flow-lines > * {
 .lang-toggle-footer {
   margin: 1rem auto 0.5rem;
   display: block;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
 }
