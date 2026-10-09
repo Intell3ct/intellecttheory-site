@@ -1653,7 +1653,7 @@ body.has-flow-lines > * {
 }
 
 /* site search */
-.search-wrap { position: relative; }
+.search-wrap { position: relative; display: flex; align-items: center; flex-shrink: 0; }
 #site-search {
   padding: 0.4rem 0.75rem;
   border: 2px solid var(--mint);
