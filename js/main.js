@@ -73,6 +73,8 @@
     var grid = document.getElementById("posts");
     if (!hero || !grid) return;
     var cards = Array.prototype.slice.call(grid.querySelectorAll(".card:not([data-no-hero])"));
+    /* skip the 2 most recent posts in the hero — they're already at the top of the grid */
+    cards = cards.slice(2);
     if (!cards.length) { hero.style.display = "none"; return; }
 
     var slides = cards.map(function (card) {
