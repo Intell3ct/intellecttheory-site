@@ -843,9 +843,10 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
       var html = "";
       ANIME.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE).forEach(function (a) {
         var watching = a.w ? ' anime-watching' : '';
+        var star = a.w ? '&#9733; ' : '';
         html += '<a class="news-item' + watching + '" href="' + esc(a.l) + '" target="_blank" rel="noopener">'
           + '<span class="news-thumb-fallback">' + esc(a.t.charAt(0)) + '</span>'
-          + '<div><h4>' + esc(a.t) + '</h4>'
+          + '<div><h4>' + star + esc(a.t) + '</h4>'
           + '<span class="news-meta">Airs <b>' + esc(a.d) + '</b></span></div></a>';
       });
       list.innerHTML = html;
