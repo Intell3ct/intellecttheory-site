@@ -1012,6 +1012,25 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     });
     input.addEventListener("keydown", function (e) {
       if (e.key === "Escape") { results.hidden = true; input.blur(); }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        clearTimeout(debounce);
+        // Load index first if needed, then search
+        if (index === null) {
+          loadIndex();
+          // Wait for index to load, then search
+          var checkIndex = setInterval(function () {
+            if (index !== null && index.length >= 0) {
+              clearInterval(checkIndex);
+              doSearch(input.value);
+            }
+          }, 100);
+          // Timeout after 3 seconds
+          setTimeout(function () { clearInterval(checkIndex); }, 3000);
+        } else {
+          doSearch(input.value);
+        }
+      }
     });
   })();
 
