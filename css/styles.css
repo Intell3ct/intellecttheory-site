@@ -1648,7 +1648,7 @@ body.has-flow-lines > * {
 
 .anime-sub {
   font-size: 0.85rem;
-  color: var(--mint);
+  color: var(--amber-dark);
   margin: -0.5rem 0 0.75rem;
 }
 
