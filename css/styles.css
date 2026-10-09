@@ -98,7 +98,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 }
 .site-header nav a:hover { color: var(--text); }
 .site-header nav a:hover::after { transform: scaleX(1); }
-.nav-right { text-align: right; }
+.nav-right { text-align: right; display: flex; align-items: center; justify-content: flex-end; }
 
 /* language toggle */
 .lang-toggle {
