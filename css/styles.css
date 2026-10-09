@@ -1618,6 +1618,9 @@ body.has-flow-lines > * {
   position: relative;
   z-index: 1;
 }
+body.has-flow-lines > .site-header {
+  z-index: 100;
+}
 
 
 /* anime currently watching - warm amber highlight */
