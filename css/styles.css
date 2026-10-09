@@ -1639,3 +1639,9 @@ body.has-flow-lines > * {
   .show-more-btn { display: block; }
   .post-grid.show-all + .show-more-btn { display: none; }
 }
+
+.anime-sub {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin: -0.5rem 0 0.75rem;
+}
