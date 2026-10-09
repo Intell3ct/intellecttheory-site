@@ -1779,3 +1779,87 @@ body.has-flow-lines > * {
   transition: top 0.2s;
 }
 .skip-link:focus { top: 1rem; }
+
+/* ---------- Mobile layout fixes (do not affect desktop) ---------- */
+@media (max-width: 768px) {
+  /* Hero: let height go auto on mobile so text isn't clipped */
+  .hero,
+  .hero-slide,
+  .hero-photo {
+    min-height: unset;
+    max-height: none;
+    height: auto;
+  }
+  .hero-slide {
+    grid-template-columns: 1fr;
+  }
+  .hero-photo {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  /* Dots and pause button: more breathing room */
+  .hero-dots {
+    bottom: 0.75rem;
+    right: 1rem;
+  }
+  .hero-pause {
+    bottom: 0.65rem;
+    right: 5.5rem;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Header: allow search dropdown to show (was clipped by overflow:hidden) */
+  .site-header {
+    overflow: visible;
+  }
+  /* Search expand: position below header, full width */
+  .search-expand {
+    position: fixed;
+    top: 60px;
+    left: 1rem;
+    right: 1rem;
+  }
+  .search-expand #site-search {
+    width: 100%;
+  }
+  /* Nav links: bigger tap targets */
+  .site-header nav a {
+    padding: 0.6rem 0.35rem;
+    font-size: 0.85rem;
+  }
+  .lang-toggle {
+    padding: 0.5rem 0.8rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .search-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  /* Hero dots: bigger tap targets */
+  .hero-dot {
+    width: 14px;
+    height: 14px;
+  }
+  /* Category pills: more spacing */
+  .categories {
+    gap: 0.6rem;
+    padding: 1.25rem 1rem 0.5rem;
+  }
+  .pill {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  /* Post cards: more breathing room */
+  .post-grid {
+    gap: 1.5rem;
+    padding: 1rem 1rem 2rem;
+  }
+  /* Sidebar: spacing between sections */
+  .sidebar-section {
+    margin-bottom: 2rem;
+  }
+}
