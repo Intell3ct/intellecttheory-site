@@ -982,11 +982,49 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     }
     input.addEventListener("focus", loadIndex, { once: true });
 
+    // Fuzzy match: allows 1 typo per word (e.g. "velheim" matches "valheim")
+    function fuzzyMatch(haystack, needle) {
+      haystack = haystack.toLowerCase();
+      needle = needle.toLowerCase();
+      // Exact substring match first (fast path)
+      if (haystack.indexOf(needle) !== -1) return true;
+      // Then try fuzzy: check each word in haystack against needle
+      var words = haystack.split(/\s+/);
+      for (var i = 0; i < words.length; i++) {
+        if (levenshtein(words[i], needle) <= 1) return true;
+      }
+      return false;
+    }
+    function levenshtein(a, b) {
+      if (a.length === 0) return b.length;
+      if (b.length === 0) return a.length;
+      // Only allow fuzzy for words of similar length (avoid false positives)
+      if (Math.abs(a.length - b.length) > 1) return 99;
+      var matrix = [];
+      for (var i = 0; i <= b.length; i++) matrix[i] = [i];
+      for (var j = 0; j <= a.length; j++) matrix[0][j] = j;
+      for (i = 1; i <= b.length; i++) {
+        for (j = 1; j <= a.length; j++) {
+          matrix[i][j] = Math.min(
+            matrix[i-1][j] + 1,
+            matrix[i][j-1] + 1,
+            matrix[i-1][j-1] + (b.charAt(i-1) === a.charAt(j-1) ? 0 : 1)
+          );
+        }
+      }
+      return matrix[b.length][a.length];
+    }
+
     function doSearch(q) {
       q = q.trim().toLowerCase();
       if (!q || !index) { results.hidden = true; return; }
       var hits = index.filter(function (p) {
-        return (p.title + " " + p.tag + " " + p.text).toLowerCase().indexOf(q) !== -1;
+        var haystack = p.title + " " + p.tag + " " + p.text;
+        // Try each search word separately for multi-word queries
+        var qwords = q.split(/\s+/);
+        return qwords.every(function (qw) {
+          return fuzzyMatch(haystack, qw);
+        });
       }).slice(0, 8);
       if (!hits.length) {
         results.innerHTML = '<p class="search-no-results">No posts found.</p>';
