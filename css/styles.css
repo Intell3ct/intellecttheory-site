@@ -1778,7 +1778,11 @@ body.has-flow-lines > * {
   z-index: 1000;
   transition: top 0.2s;
 }
-.skip-link:focus { top: 1rem; }
+.skip-link:focus-visible { top: 1rem; }
+/* Hide skip link entirely on touch devices where keyboard nav isn't used */
+@media (hover: none) {
+  .skip-link:not(:focus-visible) { display: none; }
+}
 
 /* ---------- Mobile layout fixes (do not affect desktop) ---------- */
 @media (max-width: 768px) {
