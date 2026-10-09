@@ -1925,3 +1925,9 @@ body.has-flow-lines > * {
     padding-bottom: 2.5rem;
   }
 }
+
+/* Language toggle in footer */
+.lang-toggle-footer {
+  margin: 1rem auto 0.5rem;
+  display: block;
+}
