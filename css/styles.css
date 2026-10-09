@@ -249,8 +249,8 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   height: 44px;
   border-radius: 50%;
   border: 0;
-  background: rgba(0, 0, 0, 0.35);
-  color: #fff;
+  background: var(--mint);
+  color: #1a1a1a;
   font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
@@ -261,7 +261,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   transition: opacity 0.2s, background 0.2s;
 }
 .hero:hover .hero-arrow { opacity: 1; }
-.hero-arrow:hover { background: rgba(0, 0, 0, 0.55); }
+.hero-arrow:hover { background: #9bc8b9; }
 .hero-prev { left: 2.5rem; }
 .hero-next { right: 2.5rem; }
 @media (max-width: 600px) {
