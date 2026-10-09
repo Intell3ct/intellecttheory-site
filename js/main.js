@@ -803,3 +803,79 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
+
+  /* ============================================================
+     Anime Schedule widget (static, Fall 2026).
+     15 shows, 4 per page, rotates with dots like news/sports.
+     ============================================================ */
+  (function () {
+    var ANIME = [
+      { t: "The Apothecary Diaries S3", d: "Fridays", l: "https://animeschedule.net/anime/kusuriya-no-hitorigoto-zoku-hen" },
+      { t: "Black Clover S2", d: "Saturdays", l: "https://animeschedule.net/anime/black-clover-2nd-season" },
+      { t: "A Returner's Magic Should Be Special S2", d: "Wednesdays", l: "https://animeschedule.net/anime/kikansha-no-mahou-wa-tokubetsu-desu-season-2" },
+      { t: "The Detective Is Already Dead S2", d: "Wednesdays", l: "https://animeschedule.net/anime/tantei-wa-mou-shindeiru-season-2" },
+      { t: "OVERGEARED", d: "Sundays", l: "https://animeschedule.net/anime/overgeared" },
+      { t: "Tougen Anki: Nikko Kegon no Taki-hen", d: "Fridays", l: "https://animeschedule.net/anime/tougen-anki-nikko-kegon-no-taki-hen" },
+      { t: "The Iceblade Sorcerer S2", d: "Thursdays", l: "https://animeschedule.net/anime/hyouken-no-mahou-ga-sekai-wo-suberu-2nd-season" },
+      { t: "The Wall of Ice S2", d: "Thursdays", l: "https://animeschedule.net/anime/koori-no-jouheki-2nd-season" },
+      { t: "Seitokai ni mo Ana wa Aru!", d: "Saturdays", l: "https://animeschedule.net/anime/seitokai-ni-mo-ana-wa-aru" },
+      { t: "PSYREN", d: "Mondays", l: "https://animeschedule.net/anime/psyren" },
+      { t: "Nia Liston: The Merciless Maiden", d: "Tuesdays", l: "https://animeschedule.net/anime/kyouran-reijou-nia-liston" },
+      { t: "Romelia Senki", d: "Saturdays", l: "https://animeschedule.net/anime/romelia-senki" },
+      { t: "Tensei Goblin dakedo Shitsumon Aru?", d: "Mondays", l: "https://animeschedule.net/anime/tensei-goblin-dakedo-shitsumon-aru" },
+      { t: "The World's Strongest Witch", d: "Wednesdays", l: "https://animeschedule.net/anime/sekai-saikyou-no-majo-hajimemashita" },
+      { t: "Shinja Zero no Megami-sama", d: "Sundays", l: "https://animeschedule.net/anime/shinja-zero-no-megami-sama-to-hajimeru-isekai-kouryaku" }
+    ];
+    var PER_PAGE = 4, ROTATE_MS = 7000;
+    var list = document.getElementById("anime-list");
+    var dots = document.getElementById("anime-dots");
+    if (!list) return;
+
+    function esc(s) {
+      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    function render(page) {
+      var html = "";
+      ANIME.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE).forEach(function (a) {
+        html += '<a class="news-item" href="' + esc(a.l) + '" target="_blank" rel="noopener">'
+          + '<span class="news-thumb-fallback">' + esc(a.t.charAt(0)) + '</span>'
+          + '<div><h4>' + esc(a.t) + '</h4>'
+          + '<span class="news-meta">Airs <b>' + esc(a.d) + '</b></span></div></a>';
+      });
+      list.innerHTML = html;
+      if (dots) {
+        var pages = Math.ceil(ANIME.length / PER_PAGE), dh = "";
+        for (var i = 0; i < pages; i++) dh += '<button type="button" data-page="' + i + '" class="' + (i === page ? "on" : "") + '" aria-label="Show anime ' + (i * PER_PAGE + 1) + '-' + Math.min(ANIME.length, (i + 1) * PER_PAGE) + '"></button>';
+        dots.innerHTML = dh;
+        Array.prototype.forEach.call(dots.children, function (b) {
+          b.addEventListener("click", function () {
+            show(parseInt(b.getAttribute("data-page"), 10));
+            if (timer) { clearInterval(timer); timer = arm(); }
+          });
+        });
+      }
+    }
+
+    var page = 0, timer = null;
+    function show(p) {
+      list.classList.add("fading");
+      setTimeout(function () {
+        page = p;
+        render(page);
+        list.classList.remove("fading");
+      }, 350);
+    }
+    function arm() {
+      return setInterval(function () { show((page + 1) % Math.ceil(ANIME.length / PER_PAGE)); }, ROTATE_MS);
+    }
+
+    render(0);
+    timer = arm();
+
+    /* pause on hover/touch like the other widgets */
+    list.addEventListener("mouseenter", function () { if (timer) clearInterval(timer); });
+    list.addEventListener("mouseleave", function () { timer = arm(); });
+  })();
