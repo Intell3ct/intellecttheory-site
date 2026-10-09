@@ -1672,7 +1672,7 @@ body.has-flow-lines > .site-header {
   top: 100%;
   right: 0;
   width: 320px;
-  margin-top: 12px;
+  margin-top: 56px;
   max-height: 400px;
   overflow-y: auto;
   background: var(--bg);
