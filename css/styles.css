@@ -805,38 +805,6 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .post-links li { margin: 0.45rem 0; font-size: 1rem; }
 .post-links a { text-decoration: underline; text-decoration-color: var(--mint); text-underline-offset: 3px; }
 .post-links a:hover { color: var(--accent); }
-/* ---------- spoiler toggle (blurred until reader opts in) ---------- */
-.spoiler-box {
-  clear: both;
-  margin: 2rem 0;
-  padding: 1.25rem 1.5rem;
-  border: 1px dashed var(--mint);
-  border-radius: var(--radius);
-  background: var(--mint-wash);
-}
-.spoiler-box .spoiler-warning { margin: 0 0 1rem; }
-.spoiler-toggle {
-  display: inline-block;
-  margin: 0 0 1rem;
-  padding: 0.55rem 1.2rem;
-  border: 1px solid var(--mint);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--text);
-  font: inherit;
-  font-size: 0.92rem;
-  cursor: pointer;
-}
-.spoiler-toggle:hover { border-color: var(--accent); color: var(--accent); }
-.spoiler-content { transition: filter 0.25s ease; }
-.spoiler-content.is-blurred {
-  filter: blur(9px);
-  -webkit-filter: blur(9px);
-  user-select: none;
-  -webkit-user-select: none;
-}
-.spoiler-content.is-blurred p { pointer-events: none; }
-.spoiler-content.is-revealed { filter: none; -webkit-filter: none; }
 /* ---------- gallery post layout (Photos + Travel) ----------
    full-bleed hero with overlaid title, centered description,
    full-bleed masonry photo grid */
