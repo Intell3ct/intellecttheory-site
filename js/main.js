@@ -896,9 +896,37 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
 
   /* site search */
   (function () {
+    var toggle = document.getElementById("search-toggle");
+    var expand = document.getElementById("search-expand");
     var input = document.getElementById("site-search");
     var results = document.getElementById("search-results");
     if (!input || !results) return;
+    
+    // Search toggle: click icon to expand/collapse
+    if (toggle && expand) {
+      toggle.addEventListener("click", function(e) {
+        e.stopPropagation();
+        var isHidden = expand.hidden;
+        expand.hidden = !isHidden;
+        toggle.setAttribute("aria-expanded", isHidden ? "true" : "false");
+        if (isHidden) input.focus();
+      });
+      // Close when clicking outside
+      document.addEventListener("click", function(e) {
+        if (!expand.hidden && !e.target.closest(".search-wrap")) {
+          expand.hidden = true;
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+      // Close on Escape
+      input.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") {
+          expand.hidden = true;
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.focus();
+        }
+      });
+    }
     var index = null;
 
     function esc(s) {

@@ -1710,3 +1710,29 @@ body.has-flow-lines > * {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Search icon toggle - expands on click */
+.search-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text);
+  padding: 0.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.search-toggle:hover {
+  background: rgba(174,214,201,0.2);
+}
+.search-expand {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 100;
+}
+.search-expand #site-search {
+  width: 260px;
+}

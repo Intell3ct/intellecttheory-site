@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=77">
+  <link rel="stylesheet" href="css/styles.css?v=78">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGCP2JC7CG"></script>
 <script>
@@ -50,8 +50,13 @@
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
       <div class="search-wrap">
-        <input type="search" id="site-search" placeholder="Search posts&hellip;" aria-label="Search posts" autocomplete="off">
-        <div class="search-results" id="search-results" hidden></div>
+        <button class="search-toggle" id="search-toggle" aria-label="Search posts" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <div class="search-expand" id="search-expand" hidden>
+          <input type="search" id="site-search" placeholder="Search posts&hellip;" aria-label="Search posts" autocomplete="off">
+          <div class="search-results" id="search-results" hidden></div>
+        </div>
       </div>
       <button class="lang-toggle" id="lang-toggle" aria-label="Cambiar idioma / Switch language">ES</button>
     </nav>
@@ -66,7 +71,7 @@
          for no-JavaScript. -->
     <section class="hero" data-hero-auto>
       <div class="hero-slide">
-      <img fetchpriority="high" decoding="async" class="hero-photo" src="images/where-ive-been-xray.jpg" alt="X-ray showing a hairline fracture on the pinky finger" decoding="async">
+      <img fetchpriority="high" decoding="async" class="hero-photo" src="images/optimized/where-ive-been-xray-800.webp" alt="X-ray showing a hairline fracture on the pinky finger" decoding="async">
       <div class="hero-overlay">
         <span class="tag">Thoughts</span>
         <h1>Where I&rsquo;ve Been</h1>
@@ -115,7 +120,7 @@
       <!-- CARD START : photo card -->
       <article class="card" data-date="October 8, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="2622" src="images/pogo-hundos.jpg" alt="Pokemon GO search showing nine perfect-IV Pokemon">
+          <img loading="lazy" decoding="async" width="1206" height="2622" src="images/optimized/pogo-hundos-400.webp" alt="Pokemon GO search showing nine perfect-IV Pokemon">
           <span class="date-badge"><b>08</b>Oct</span>
         </div>
         <div class="card-body">
@@ -130,7 +135,7 @@
       <!-- CARD START : photo card -->
       <article class="card" data-date="October 7, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="2622" src="images/pogo-pikachu.jpg" alt="Event Pikachu in a space costume with the Golden Gate Bridge background">
+          <img loading="lazy" decoding="async" width="1206" height="2622" src="images/optimized/pogo-pikachu-400.webp" alt="Event Pikachu in a space costume with the Golden Gate Bridge background">
           <span class="date-badge"><b>07</b>Oct</span>
         </div>
         <div class="card-body">
@@ -146,10 +151,10 @@
       <article class="card" data-date="October 6, 2026" data-no-hero>
         <div class="card-media">
           <div class="card-strip grid-2x2">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-chickenfeet.jpg" alt="Spicy Korean chicken feet glazed with sesame and scallions">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-ramen.jpg" alt="Homemade ramen with a soft egg, nori, mushrooms and meat">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-bread.jpg" alt="Bread dough rising in a bowl">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/munchies-plate.jpg" alt="Dinner plate with rice, chicken salad and grilled chicken">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/munchies-chickenfeet-400.webp" alt="Spicy Korean chicken feet glazed with sesame and scallions">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/munchies-ramen-400.webp" alt="Homemade ramen with a soft egg, nori, mushrooms and meat">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/munchies-bread-400.webp" alt="Bread dough rising in a bowl">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/munchies-plate-400.webp" alt="Dinner plate with rice, chicken salad and grilled chicken">
           </div>
           <span class="date-badge"><b>06</b>Oct</span>
         </div>
@@ -166,7 +171,7 @@
       <!-- CARD START : photo grid card -->
       <article class="card" data-date="October 5, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="1470" src="images/where-ive-been-xray.jpg" alt="X-ray showing a hairline fracture on the pinky finger">
+          <img loading="lazy" decoding="async" width="1206" height="1470" src="images/optimized/where-ive-been-xray-400.webp" alt="X-ray showing a hairline fracture on the pinky finger">
           <span class="date-badge"><b>05</b>Oct</span>
         </div>
         <div class="card-body">
@@ -182,10 +187,10 @@
       <article class="card" data-date="October 3, 2026">
         <div class="card-media">
           <div class="card-strip grid-2x2">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/sf-sealions.jpg" alt="Sea lions piled on the docks at Pier 39">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/sf-cablecar.jpg" alt="My niece and nephew riding a San Francisco cable car">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/sf-seagulls.jpg" alt="Seagull shadows on the water">
-            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/sf-ferry.jpg" alt="The Ferry Building clock tower on the Embarcadero">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/sf-sealions-400.webp" alt="Sea lions piled on the docks at Pier 39">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/sf-cablecar-400.webp" alt="My niece and nephew riding a San Francisco cable car">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/sf-seagulls-400.webp" alt="Seagull shadows on the water">
+            <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/sf-ferry-400.webp" alt="The Ferry Building clock tower on the Embarcadero">
           </div>
           <span class="date-badge"><b>03</b>Oct</span>
         </div>
@@ -201,7 +206,7 @@
       <!-- CARD START : gaming gallery card -->
       <article class="card" data-date="September 30, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="678" src="images/valheim-longhouse.jpg" alt="Our Valheim longhouse with stone walls and a wooden palisade">
+          <img loading="lazy" decoding="async" width="1206" height="678" src="images/optimized/valheim-longhouse-400.webp" alt="Our Valheim longhouse with stone walls and a wooden palisade">
           <span class="date-badge"><b>30</b>Sep</span>
         </div>
         <div class="card-body">
@@ -217,7 +222,7 @@
       <!-- CARD START : photo card -->
       <article class="card" data-date="July 4, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="1122" src="images/evolution-mirror.jpg" alt="Meme of a man visualising in the mirror the man he wants to become">
+          <img loading="lazy" decoding="async" width="1206" height="1122" src="images/optimized/evolution-mirror-400.webp" alt="Meme of a man visualising in the mirror the man he wants to become">
           <span class="date-badge"><b>04</b>Jul</span>
         </div>
         <div class="card-body">
@@ -232,7 +237,7 @@
       <!-- CARD START : gaming build card -->
       <article class="card" data-date="June 1, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="1608" src="images/pc-build.jpg" alt="My gaming PC — white NZXT H9 Flow case with RGB lighting and a GeForce RTX graphics card">
+          <img loading="lazy" decoding="async" width="1206" height="1608" src="images/optimized/pc-build-400.webp" alt="My gaming PC — white NZXT H9 Flow case with RGB lighting and a GeForce RTX graphics card">
           <span class="date-badge"><b>01</b>Jun</span>
         </div>
         <div class="card-body">
@@ -247,7 +252,7 @@
       <!-- CARD START : photo card -->
       <article class="card" data-date="April 14, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="904" src="images/thoughts-whiskey-color.jpg" alt="A whiskey glass on a bar">
+          <img loading="lazy" decoding="async" width="1206" height="904" src="images/optimized/thoughts-whiskey-color-400.webp" alt="A whiskey glass on a bar">
           <span class="date-badge"><b>14</b>Apr</span>
         </div>
         <div class="card-body">
@@ -262,7 +267,7 @@
       <!-- CARD START : photo card -->
       <article class="card" data-date="September 24, 2024">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="1206" height="1609" src="images/brady-puppy.jpg" alt="Brady as a puppy, wrapped in a blanket, wearing his red collar with his name tag">
+          <img loading="lazy" decoding="async" width="1206" height="1609" src="images/optimized/brady-puppy-400.webp" alt="Brady as a puppy, wrapped in a blanket, wearing his red collar with his name tag">
           <span class="date-badge"><b>24</b>Sep</span>
         </div>
         <div class="card-body">
@@ -346,7 +351,7 @@
     <!-- ================= ABOUT ================= -->
     <section id="about" class="about">
       <div class="about-frame">
-        <img loading="lazy" decoding="async" width="1206" height="1608" class="about-photo" src="images/about-rico.jpg" alt="Rico holding a bag of chips over his face">
+        <img loading="lazy" decoding="async" width="1206" height="1608" class="about-photo" src="images/optimized/about-rico-400.webp" alt="Rico holding a bag of chips over his face">
         <div class="about-body">
           <h2>About</h2>
           <p>My name is AJ — I was raised in Marin County, California. I shoot photos on my iPhone 16 Pro Max, write when I've got something to say, and talk a whole lot of video games. When I'm not holding a controller, I'm hanging out with my bearded dragon. Smile, think positive, and own the world.</p>
@@ -394,7 +399,7 @@
         <button type="submit">Subscribe</button>
       </form>
     </section>
-    <button class="to-top" data-scroll-top aria-label="Back to top" title="Back to top"><img width="512" height="512" class="footer-logo" src="images/logo.jpg" alt="The Intellect Theory logo" loading="lazy" decoding="async"></button>
+    <button class="to-top" data-scroll-top aria-label="Back to top" title="Back to top"><img width="512" height="512" class="footer-logo" src="images/optimized/logo-400.webp" alt="The Intellect Theory logo" loading="lazy" decoding="async"></button>
     <p>Video games, events, and shooting the shit. Smile, think positive, and own the world.</p>
     <p class="contact-line">Get in touch: <a href="mailto:AJ@intellecttheory.com">AJ@intellecttheory.com</a></p>
     <div class="social-row">
@@ -428,7 +433,7 @@
     <p class="copyright">&copy; 2026 IntellectTheory</p>
   </footer>
 
-  <script defer src="js/main.js?v=38"></script>
+  <script defer src="js/main.js?v=39"></script>
 
 
     <button id="backToTop" aria-label="Back to top" style="position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(to bottom, #aed6c9 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);border:2px solid #2b2b2b;cursor:pointer;opacity:0;pointer-events:none;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:opacity 0.3s;padding:0;">
