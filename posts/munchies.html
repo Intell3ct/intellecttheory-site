@@ -69,6 +69,14 @@
       <p>Fair warning: the gochugaru brings real heat. Start with less if you&apos;re not sure, you can always add more.</p>
       <p>Full step-by-step with pictures is on <a href="https://youtu.be/QZJMleA2NxU" target="_blank" rel="noopener">her video</a>.</p>
 
+      <aside class="post-links">
+        <h3>Official links</h3>
+        <ul>
+          <li><a href="https://youtu.be/QZJMleA2NxU" target="_blank" rel="noopener">Seonkyoung Longest &mdash; Korean Chicken Feet (Dakbal)</a></li>
+          <li><a href="http://www.SeonkyoungLongest.com" target="_blank" rel="noopener">SeonkyoungLongest.com</a></li>
+        </ul>
+      </aside>
+
       <div class="photo-grid">
         <img width="1206" height="1608" src="../images/munchies-chickenfeet.jpg" alt="Spicy Korean chicken feet glazed with sesame and scallions">
         <img width="1206" height="1608" src="../images/munchies-ramen.jpg" alt="Homemade ramen with a soft egg, nori, mushrooms and meat">
@@ -87,6 +95,28 @@
            lines right above this comment. Newest additions go last,
            so the page grows downward like a journal. -->
     </article>
+
+    <!-- ================= COMMENTS =================
+         Comments are stored in Cloudflare KV and guarded by Turnstile
+         (invisible bot check — no puzzles for humans). -->
+    <section class="comments" data-comments data-post="munchies" data-api="https://intellecttheory-comments.ajsrhs.workers.dev/api/comments">
+      <h2>Comments</h2>
+      <div class="comment-list" data-comment-list>
+        <p class="comments-empty">Loading comments&hellip;</p>
+      </div>
+      <form class="comment-form" data-comment-form>
+        <label>Your name
+          <input type="text" name="name" required maxlength="50" autocomplete="name" placeholder="What should we call you?">
+        </label>
+        <label>Comment
+          <textarea name="text" required maxlength="2000" rows="4" placeholder="Say something nice&hellip;"></textarea>
+        </label>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFP5C-FsBsxXjPOv"></div>
+        <button type="submit">Post comment</button>
+        <p class="comment-note">Protected by Turnstile &mdash; usually invisible, no puzzles.</p>
+      </form>
+    </section>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </main>
 
   <!-- ================= FOOTER (same on every page) ================= -->

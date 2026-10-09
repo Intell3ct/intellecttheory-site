@@ -96,6 +96,28 @@
            so the page grows downward like a journal. -->
     </article>
 
+    <!-- ================= COMMENTS =================
+         Comments are stored in Cloudflare KV and guarded by Turnstile
+         (invisible bot check — no puzzles for humans). -->
+    <section class="comments" data-comments data-post="all-dogs-go-to-heaven" data-api="https://intellecttheory-comments.ajsrhs.workers.dev/api/comments">
+      <h2>Comments</h2>
+      <div class="comment-list" data-comment-list>
+        <p class="comments-empty">Loading comments&hellip;</p>
+      </div>
+      <form class="comment-form" data-comment-form>
+        <label>Your name
+          <input type="text" name="name" required maxlength="50" autocomplete="name" placeholder="What should we call you?">
+        </label>
+        <label>Comment
+          <textarea name="text" required maxlength="2000" rows="4" placeholder="Say something nice&hellip;"></textarea>
+        </label>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAFP5C-FsBsxXjPOv"></div>
+        <button type="submit">Post comment</button>
+        <p class="comment-note">Protected by Turnstile &mdash; usually invisible, no puzzles.</p>
+      </form>
+    </section>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   </main>
 
   <!-- ================= FOOTER (same on every page) ================= -->
