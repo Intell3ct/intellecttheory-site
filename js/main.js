@@ -892,3 +892,54 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
       grid.classList.add("show-all");
     });
   })();
+
+  /* site search */
+  (function () {
+    var input = document.getElementById("site-search");
+    var results = document.getElementById("search-results");
+    if (!input || !results) return;
+    var index = null;
+
+    function esc(s) {
+      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    fetch("js/search-index.json")
+      .then(function (r) { return r.json(); })
+      .then(function (data) { index = data; })
+      .catch(function () { index = []; });
+
+    function doSearch(q) {
+      q = q.trim().toLowerCase();
+      if (!q || !index) { results.hidden = true; return; }
+      var hits = index.filter(function (p) {
+        return (p.title + " " + p.tag + " " + p.text).toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 8);
+      if (!hits.length) {
+        results.innerHTML = '<p class="search-no-results">No posts found.</p>';
+      } else {
+        results.innerHTML = hits.map(function (p) {
+          var img = p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '';
+          return '<a class="search-result" href="' + esc(p.url) + '">'
+            + img
+            + '<span><span class="sr-tag">' + esc(p.tag) + '</span>'
+            + '<span class="sr-title">' + esc(p.title) + '</span></span></a>';
+        }).join("");
+      }
+      results.hidden = false;
+    }
+
+    var debounce = null;
+    input.addEventListener("input", function () {
+      clearTimeout(debounce);
+      debounce = setTimeout(function () { doSearch(input.value); }, 200);
+    });
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".search-wrap")) results.hidden = true;
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { results.hidden = true; input.blur(); }
+    });
+  })();
