@@ -853,7 +853,7 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
       { t: "Black Clover S2", d: "Saturdays", l: "https://animeschedule.net/anime/black-clover-2nd-season", w: 1 },
       { t: "A Returner's Magic Should Be Special S2", d: "Wednesdays", l: "https://animeschedule.net/anime/kikansha-no-mahou-wa-tokubetsu-desu-season-2", w: 1 },
       { t: "The Detective Is Already Dead S2", d: "Wednesdays", l: "https://animeschedule.net/anime/tantei-wa-mou-shindeiru-season-2" },
-      { t: "OVERGEARED", d: "Sundays", l: "https://animeschedule.net/anime/overgeared" },
+      { t: "OVERGEARED", d: "Sundays", l: "https://animeschedule.net/anime/overgeared", w: 1 },
       { t: "Tougen Anki: Nikko Kegon no Taki-hen", d: "Fridays", l: "https://animeschedule.net/anime/tougen-anki-nikko-kegon-no-taki-hen", w: 1 },
       { t: "The Iceblade Sorcerer S2", d: "Thursdays", l: "https://animeschedule.net/anime/hyouken-no-mahou-ga-sekai-wo-suberu-2nd-season", w: 1 },
       { t: "The Wall of Ice S2", d: "Thursdays", l: "https://animeschedule.net/anime/koori-no-jouheki-2nd-season" },
