@@ -1615,7 +1615,7 @@ body.has-flow-lines > * {
 
 
 /* anime currently watching - warm amber highlight */
-#anime-list .anime-watching h4 { color: #E8A838; }
+#anime-list .anime-watching h4 { color: #9A6B14; }
 #anime-list .anime-watching .news-thumb-fallback { background: #E8A838; color: #fff; }
 
 /* mobile: limit visible posts to 4, show more button reveals rest */
@@ -1700,4 +1700,13 @@ body.has-flow-lines > * {
 @media (max-width: 600px) {
   #site-search { width: 120px; }
   .search-results { width: 260px; right: -40px; }
+}
+
+/* Accessibility: respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -907,10 +907,15 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
       });
     }
 
-    fetch("js/search-index.json")
-      .then(function (r) { return r.json(); })
-      .then(function (data) { index = data; })
-      .catch(function () { index = []; });
+    function loadIndex() {
+      if (index !== null) return;
+      index = [];
+      fetch("js/search-index.json")
+        .then(function (r) { return r.json(); })
+        .then(function (data) { index = data; })
+        .catch(function () { index = []; });
+    }
+    input.addEventListener("focus", loadIndex, { once: true });
 
     function doSearch(q) {
       q = q.trim().toLowerCase();
