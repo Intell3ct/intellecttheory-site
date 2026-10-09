@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=88">
+  <link rel="stylesheet" href="css/styles.css?v=89">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGCP2JC7CG"></script>
 <script>
@@ -425,6 +425,10 @@
       </a>
     </div>
     <!-- FUTURE: add more social buttons here, e.g. X, YouTube, TikTok -->
+    <div class="a11y-toolbar" role="toolbar" aria-label="Accessibility options">
+      <button class="a11y-btn" id="a11y-text" aria-label="Increase text size">A+</button>
+      <button class="a11y-btn" id="a11y-contrast" aria-pressed="false" aria-label="Toggle high contrast">Contrast</button>
+    </div>
     <select class="lang-toggle lang-toggle-footer" id="lang-toggle" aria-label="Select language">
       <option value="en">English</option>
       <option value="es">Español</option>
@@ -435,7 +439,7 @@
     <p class="copyright">&copy; 2026 IntellectTheory</p>
   </footer>
 
-  <script defer src="js/main.js?v=43"></script>
+  <script defer src="js/main.js?v=44"></script>
 
 
     <button id="backToTop" aria-label="Back to top" style="position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(to bottom, #aed6c9 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);border:2px solid #2b2b2b;cursor:pointer;opacity:0;pointer-events:none;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:opacity 0.3s;padding:0;">
@@ -468,5 +472,6 @@
       btn.addEventListener('mouseleave', function() { btn.style.background = mintBg; });
     })();
     </script>
+  <div id="a11y-announcer" class="sr-only" aria-live="polite" role="status"></div>
 </body>
 </html>

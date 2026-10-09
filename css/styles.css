@@ -1938,3 +1938,85 @@ body.has-flow-lines > * {
   font-size: 0.9rem;
   cursor: pointer;
 }
+
+/* ---------- Accessibility ---------- */
+
+/* Visible focus outlines (brand-matched) */
+:focus-visible {
+  outline: 3px solid var(--amber-dark);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Search and newsletter keep their border style but add visible outline */
+#site-search:focus-visible {
+  outline: 3px solid var(--amber-dark);
+  outline-offset: 2px;
+}
+.newsletter-form input[type="email"]:focus-visible {
+  outline: 3px solid var(--amber-dark);
+  outline-offset: 2px;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Accessibility toolbar */
+.a11y-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto 0.5rem;
+  flex-wrap: wrap;
+}
+.a11y-btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.a11y-btn:hover {
+  border-color: var(--mint);
+}
+.a11y-btn[aria-pressed="true"] {
+  background: var(--mint);
+  color: #1a1a1a;
+  border-color: var(--mint);
+}
+
+/* Text size adjustments */
+html.text-large { font-size: 112.5%; }
+html.text-larger { font-size: 125%; }
+
+/* High contrast mode */
+html.high-contrast {
+  --text: #000;
+  --muted: #333;
+  --bg: #fff;
+  --card-bg: #fff;
+  --line: #000;
+}
+html.high-contrast .hero-overlay,
+html.high-contrast .photo-hero-overlay {
+  background: rgba(0, 0, 0, 0.75);
+}
+html.high-contrast a {
+  text-decoration: underline;
+}
+html.high-contrast img {
+  filter: contrast(1.1);
+}
