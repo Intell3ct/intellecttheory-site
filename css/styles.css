@@ -1863,3 +1863,65 @@ body.has-flow-lines > * {
     margin-bottom: 2rem;
   }
 }
+
+/* ---------- Mobile header: fix overlap and crowding (Claude-assisted) ---------- */
+@media (max-width: 640px) {
+  .site-header {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+  /* Brand becomes a real grid item so it can't overlap nav */
+  .brand {
+    position: static;
+    transform: none;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .nav-left,
+  .nav-right {
+    flex-shrink: 1;
+    min-width: 0;
+    gap: 0.25rem;
+  }
+  .nav-left { grid-column: 1; grid-row: 1; justify-self: start; }
+  .nav-right { grid-column: 3; grid-row: 1; justify-self: end; }
+  .site-header nav a {
+    margin: 0;
+    padding: 0.5rem 0.3rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* ---------- Mobile hero: pause button, dots, arrows (Claude-assisted) ---------- */
+@media (max-width: 768px) {
+  /* Pause button to top-right, away from text */
+  .hero-pause {
+    top: 0.75rem;
+    bottom: auto;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+  }
+  /* Dots centered at bottom */
+  .hero-dots {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: 0.6rem;
+  }
+  /* Arrows: smaller, inset, above caption */
+  .hero-arrow {
+    width: 36px;
+    height: 36px;
+    top: 35%;
+  }
+  .hero-prev { left: 0.5rem; }
+  .hero-next { right: 0.5rem; }
+  /* Hero text breathing room above dots */
+  .hero-overlay {
+    padding-bottom: 2.5rem;
+  }
+}
