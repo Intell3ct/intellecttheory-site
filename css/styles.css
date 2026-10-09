@@ -1613,3 +1613,7 @@ body.has-flow-lines > * {
   z-index: 1;
 }
 
+
+/* anime currently watching - warm amber highlight */
+#anime-list .anime-watching h4 { color: #E8A838; }
+#anime-list .anime-watching .news-thumb-fallback { background: #E8A838; color: #fff; }
