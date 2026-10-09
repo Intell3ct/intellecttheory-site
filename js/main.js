@@ -127,6 +127,31 @@
     hero.appendChild(prev);
     hero.appendChild(next);
     hero.appendChild(dotsWrap);
+    // Pause/play button for accessibility (WCAG 2.2.2)
+    var pauseBtn = document.createElement("button");
+    pauseBtn.className = "hero-pause";
+    pauseBtn.setAttribute("aria-label", "Pause carousel");
+    pauseBtn.innerHTML = "&#10074;&#10074;"; // pause icon
+    var isPaused = false;
+    // Respect prefers-reduced-motion: start paused
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      isPaused = true;
+      pauseBtn.innerHTML = "&#9654;"; // play icon
+      pauseBtn.setAttribute("aria-label", "Play carousel");
+    }
+    pauseBtn.addEventListener("click", function() {
+      isPaused = !isPaused;
+      if (isPaused) {
+        if (timer) { clearInterval(timer); timer = null; }
+        pauseBtn.innerHTML = "&#9654;";
+        pauseBtn.setAttribute("aria-label", "Play carousel");
+      } else {
+        pauseBtn.innerHTML = "&#10074;&#10074;";
+        pauseBtn.setAttribute("aria-label", "Pause carousel");
+        restart();
+      }
+    });
+    hero.appendChild(pauseBtn);
 
     var heroImg = hero.querySelector(".hero-photo");
     var heroTag = hero.querySelector(".tag");
@@ -165,6 +190,7 @@
     function restart() {
       if (timer) clearInterval(timer);
       timer = null;
+      if (typeof isPaused !== 'undefined' && isPaused) return;
       if (slides.length > 1) {
         timer = setInterval(function () { go(idx + 1, false); }, 6630);
       }
