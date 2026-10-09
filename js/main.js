@@ -727,6 +727,7 @@
         tUrl.searchParams.set("_x_tr_sl", "en");
         tUrl.searchParams.set("_x_tr_tl", lang);
         tUrl.searchParams.set("_x_tr_hl", lang);
+        tUrl.searchParams.set("_x_tr_pto", "wapp");
         location.href = tUrl.toString();
       }
     });
