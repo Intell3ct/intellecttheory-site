@@ -1710,7 +1710,7 @@ body.has-flow-lines > .site-header {
 }
 @media (max-width: 600px) {
   .show-more-btn { display: block; }
-  .post-grid.show-all + .show-more-btn { display: none; }
+  .show-more-btn[hidden] { display: none; }
 }
 
 .anime-sub {

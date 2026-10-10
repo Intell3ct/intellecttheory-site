@@ -928,6 +928,7 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     if (!btn || !grid) return;
     btn.addEventListener("click", function () {
       grid.classList.add("show-all");
+      btn.hidden = true;
     });
   })();
 
