@@ -1634,6 +1634,18 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   color: var(--amber-dark);
 }
 
+/* Ko-fi card relocated to the footer, above the newsletter */
+.kofi-footer-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 2.5rem;
+  padding: 0 1.5rem;
+}
+.kofi-footer-wrap .connect-card {
+  width: 100%;
+  max-width: 320px;
+}
+
 /* subtle flow lines: implicit directional cue toward conversion points */
 body.has-flow-lines::before {
   content: "";
