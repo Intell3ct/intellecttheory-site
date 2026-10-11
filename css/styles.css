@@ -1518,10 +1518,13 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 
 /* landing page sonder strip (About moved to its own page) */
 .sonder-strip {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem 4rem;
+  max-width: min(720px, calc(100% - 3rem));
+  margin: 0 auto 4rem;
+  padding: 2rem 1.5rem;
   text-align: center;
+  border: 4px solid var(--mint);
+  border-radius: var(--radius);
+  background: #fff;
 }
 .sonder-strip p {
   max-width: 55ch;
@@ -1530,6 +1533,12 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   color: var(--muted);
 }
 .sonder-strip em { font-style: italic; }
+
+/* support (Ko-fi) card: same size as one card in the 3-across connect grid */
+.support-section .connect-grid {
+  max-width: 289px;
+  grid-template-columns: 1fr;
+}
 
 /* connect cards: watch & support section */
 .connect-cards {
