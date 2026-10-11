@@ -397,7 +397,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   object-fit: cover;
   border-radius: var(--radius);
 }
-.about-body h2 {
+.about-body h1, .about-body h2 {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -1515,6 +1515,21 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   font-size: 0.95rem;
 }
 .about-sonder em { font-style: italic; }
+
+/* landing page sonder strip (About moved to its own page) */
+.sonder-strip {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  text-align: center;
+}
+.sonder-strip p {
+  max-width: 55ch;
+  margin: 0 auto;
+  font-size: 1rem;
+  color: var(--muted);
+}
+.sonder-strip em { font-style: italic; }
 
 /* connect cards: watch & support section */
 .connect-cards {
