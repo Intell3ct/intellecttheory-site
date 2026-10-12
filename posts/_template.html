@@ -18,6 +18,13 @@
           your photos and words.
        5. On index.html, add a card for the post (copy any CARD block)
           and point its "Read more" link at posts/my-new-post.html.
+       6. URL RULE (standing, do not break): canonical, og:url, and the
+          sitemap.xml entry for every page are ALWAYS extensionless
+          (https://intellecttheory.com/posts/my-new-post — no .html).
+          Cloudflare 308-redirects .html to extensionless, and .html
+          in canonicals/sitemap caused Search Console "Page with
+          redirect" indexing warnings (fixed sitewide 2026-10-12).
+          Only file links in hrefs keep .html.
        Bump ?v=3 to ?v=4 etc. in the stylesheet link below AND in
        index.html whenever you change css/styles.css — it defeats
        stale caching so visitors see the new styles right away. -->
