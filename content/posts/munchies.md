@@ -6,6 +6,13 @@ date: 2026-10-06
 tag: "Photos"
 description: "Spicy Korean chicken feet, homemade ramen, fresh bread, and a good dinner plate — I've been cooking and baking more lately."
 cover_image: "munchies-chickenfeet.jpg"
+twitter_image: "logo.jpg"
+layout: "photo"
+hero_image:
+  src: "optimized/munchies-chickenfeet-800.webp"
+  width: 1206
+  height: 1608
+  alt: "Spicy Korean chicken feet glazed with sesame and scallions"
 comments: true
 tea_badge: false
 no_hero: true
@@ -43,7 +50,9 @@ related:
   - "i-call-it-evolution"
 ---
 
+{{< photo-desc >}}
 I&apos;ve been cooking and baking more frequently &mdash; spicy Korean chicken feet are amazing, and the homemade ramen was delicious. Also made bread, but I need practice with that lol.
+{{< /photo-desc >}}
 
 ## Spicy Korean Chicken Feet (Dakbal)
 
@@ -65,9 +74,9 @@ Fair warning: the gochugaru brings real heat. Start with less if you&apos;re not
 
 Full step-by-step with pictures is on [her video](https://youtu.be/QZJMleA2NxU).
 
-<div class="photo-grid">
-<img width="1206" height="1608" src="../images/optimized/munchies-chickenfeet-800.webp" alt="Spicy Korean chicken feet glazed with sesame and scallions" loading="lazy" decoding="async">
-<img width="1206" height="1608" src="../images/optimized/munchies-ramen-800.webp" alt="Homemade ramen with a soft egg, nori, mushrooms and meat" loading="lazy" decoding="async">
-<img width="1206" height="1608" src="../images/optimized/munchies-bread-800.webp" alt="Bread dough rising in a bowl" loading="lazy" decoding="async">
-<img width="1206" height="1608" src="../images/optimized/munchies-plate-800.webp" alt="Dinner plate with rice, chicken salad and grilled chicken" loading="lazy" decoding="async">
-</div>
+{{< photo-grid >}}
+![Spicy Korean chicken feet glazed with sesame and scallions](optimized/munchies-chickenfeet-800.webp "1206x1608")
+![Homemade ramen with a soft egg, nori, mushrooms and meat](optimized/munchies-ramen-800.webp "1206x1608")
+![Bread dough rising in a bowl](optimized/munchies-bread-800.webp "1206x1608")
+![Dinner plate with rice, chicken salad and grilled chicken](optimized/munchies-plate-800.webp "1206x1608")
+{{< /photo-grid >}}

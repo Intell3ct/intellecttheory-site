@@ -43,7 +43,8 @@ export function esc(s) {
   return String(s)
     .replace(/&(?!(amp|apos|eacute|mdash|ndash|rsquo|lsquo|ldquo|rdquo|hellip|rarr|copy|hellip);)/g, '&amp;')
     .replace(/é/g, '&eacute;')
-    .replace(/['’]/g, '&apos;');
+    .replace(/’/g, '&rsquo;')
+    .replace(/'/g, '&apos;');
 }
 
 // Inverse of esc(), for plain-text contexts (search index, JSON).
@@ -97,6 +98,12 @@ function loadConvertedPosts() {
         comments: fm.comments !== false,
         teaBadge: fm.tea_badge === true,
         noHero: fm.no_hero === true,
+        layout: fm.layout || 'standard',
+        hero: fm.hero_image || null,
+        card: fm.card !== false,
+        twitterTitle: fm.twitter_title || null,
+        twitterImage: fm.twitter_image || null,
+        relatedOverrides: fm.related_overrides || [],
         cardExcerpt: fm.card_excerpt || '',
         cardImage: fm.card_image || null,
         cardImages: fm.card_images || null,
@@ -158,7 +165,7 @@ function parseArgs(str) {
   return out;
 }
 
-function renderBody(md) {
+function renderBody(md, indent = 6) {
   const blocks = [];
   const stash = (html) => {
     blocks.push(html);
@@ -193,11 +200,48 @@ function renderBody(md) {
   let html = marked.parse(srcMd);
   // External links open in a new tab, per site convention.
   html = html.replace(/<a href="(https?:\/\/[^"]+)">/g, '<a href="$1" target="_blank" rel="noopener">');
-  // One blank line between blocks, 6-space indent — matches the hand-made pages.
+  // One blank line between blocks, fixed indent — matches the hand-made pages.
+  const pad = ' '.repeat(indent);
   html = html.trim().split('\n').join('\n\n');
-  html = html.split('\n').map((l) => (l ? '      ' + l : l)).join('\n');
-  html = html.replace(/ {6}<p>@@BLOCK(\d+)@@<\/p>/g, (_, i) => blocks[+i]);
+  html = html.split('\n').map((l) => (l ? pad + l : l)).join('\n');
+  html = html.replace(new RegExp(`${pad}<p>@@BLOCK(\\d+)@@</p>`, 'g'), (_, i) => blocks[+i]);
   return html;
+}
+
+// Photo-grid block (photo layout only): image lines with explicit dims,
+// e.g. ![alt](optimized/photo-800.webp "1206x1608")
+function buildPhotoGrid(inner, slug) {
+  const imgs = [...inner.matchAll(/!\[([^\]]*)\]\(\s*([^)\s]+)\s*(?:"(\d+)x(\d+)")?\s*\)/g)];
+  if (!imgs.length) throw new Error(`${slug}: photo-grid shortcode has no images`);
+  const lines = imgs.map((m) => {
+    if (!m[3] || !m[4]) throw new Error(`${slug}: photo-grid image missing "WxH" dims: ${m[2]}`);
+    return `        <img width="${m[3]}" height="${m[4]}" src="../images/${m[2]}" alt="${esc(m[1])}" loading="lazy" decoding="async">`;
+  });
+  return `      <div class="photo-grid">\n${lines.join('\n')}\n      </div>`;
+}
+
+// Photo layout body (templates/post-photo.html): hero is in the template;
+// here we assemble POST BODY comment + photo-desc + middle + tea + Official
+// links + photo-grid + /POST BODY + the two ADD MORE comments, matching the
+// hand-made photo pages byte for byte.
+function renderPhotoBody(p) {
+  let md = p.bodyMd;
+  let gridHtml = '';
+  md = md.replace(/\{\{<\s*photo-grid\s*>\}\}([\s\S]*?)\{\{<\s*\/photo-grid\s*>\}\}/g,
+    (_, inner) => { gridHtml = buildPhotoGrid(inner, p.slug); return ''; });
+  let descHtml = '';
+  md = md.replace(/\{\{<\s*photo-desc\s*>\}\}([\s\S]*?)\{\{<\s*\/photo-desc\s*>\}\}/g,
+    (_, inner) => { descHtml = renderBody(inner.trim(), 8); return ''; });
+  if (!descHtml) throw new Error(`${p.slug}: layout "photo" needs a {{< photo-desc >}} block`);
+  const middleHtml = md.trim() ? renderBody(md) : '';
+
+  const parts = [`      <!-- POST BODY -->\n      <div class="photo-desc">\n${descHtml}\n      </div>`];
+  if (middleHtml) parts.push(middleHtml);
+  if (p.teaBadge) parts.push(TEA_BLOCK);
+  if (p.officialLinks.length) parts.push(renderOfficialLinks(p.officialLinks));
+  if (gridHtml) parts.push(gridHtml);
+  return '\n' + parts.join('\n\n') + '\n      <!-- /POST BODY -->' +
+    '\n\n' + ADD_MORE_COMMENT + '\n\n' + ADD_MORE_COMMENT;
 }
 
 function renderOfficialLinks(links) {
@@ -209,28 +253,45 @@ function renderOfficialLinks(links) {
 
 function renderRelated(p, bySlug) {
   if (!p.related || !p.related.length) return '';
+  const overrides = {};
+  for (const o of p.relatedOverrides || []) overrides[o.slug] = o;
   const cards = p.related.map((s) => {
     const r = bySlug[s];
     if (!r) throw new Error(`related post not found: ${s} (in ${p.slug})`);
-    return `      <a href="${s}.html" class="related-card">\n        <span class="related-tag">${r.tag}</span>\n        <span class="related-title">${r.title} — Intellect Theory</span>\n      </a>`;
+    const ov = overrides[s] || {};
+    return `      <a href="${s}.html" class="related-card">\n        <span class="related-tag">${ov.tag || r.tag}</span>\n        <span class="related-title">${ov.title || r.title} — Intellect Theory</span>\n      </a>`;
   }).join('\n');
   return `    <section class="related-posts">\n      <h2>You might also like</h2>\n      <div class="related-grid">\n${cards}\n      </div>\n    </section>\n`;
 }
 
 function renderPost(p, bySlug) {
-  let tpl = read('templates/post.html');
-  const parts = [renderBody(p.bodyMd)];
-  if (p.teaBadge) parts.push(TEA_BLOCK);
-  if (p.officialLinks.length) parts.push(renderOfficialLinks(p.officialLinks));
-  parts.push(ADD_MORE_COMMENT);
-  const articleBody = '\n' + parts.join('\n\n');
+  const isPhoto = p.layout === 'photo';
+  let tpl = read(isPhoto ? 'templates/post-photo.html' : 'templates/post.html');
+  let articleBody;
+  if (isPhoto) {
+    articleBody = renderPhotoBody(p);
+  } else {
+    const parts = [renderBody(p.bodyMd)];
+    if (p.teaBadge) parts.push(TEA_BLOCK);
+    if (p.officialLinks.length) parts.push(renderOfficialLinks(p.officialLinks));
+    parts.push(ADD_MORE_COMMENT);
+    articleBody = '\n' + parts.join('\n\n');
+  }
 
   tpl = tpl.replace('{{ARTICLE_BODY}}', () => articleBody);
   tpl = tpl.replaceAll('{{DESCRIPTION}}', p.description);
   tpl = tpl.replaceAll('{{SLUG}}', p.slug);
   tpl = tpl.replaceAll('{{SEO_TITLE_FULL}}', `${p.seoTitle || decode(p.title)} | Intellect Theory`);
-  tpl = tpl.replaceAll('{{TWITTER_TITLE}}', `${p.title} — Intellect Theory`);
+  tpl = tpl.replaceAll('{{TWITTER_TITLE}}', `${p.twitterTitle || p.title} — Intellect Theory`);
   tpl = tpl.replaceAll('{{COVER_IMAGE}}', p.coverImage);
+  tpl = tpl.replaceAll('{{TWITTER_IMAGE}}', p.twitterImage || p.coverImage);
+  if (isPhoto) {
+    if (!p.hero) throw new Error(`${p.slug}: layout "photo" needs hero_image frontmatter`);
+    tpl = tpl.replace('{{HERO_WIDTH}}', String(p.hero.width));
+    tpl = tpl.replace('{{HERO_HEIGHT}}', String(p.hero.height));
+    tpl = tpl.replace('{{HERO_IMAGE}}', p.hero.src);
+    tpl = tpl.replace('{{HERO_ALT}}', esc(p.hero.alt || ''));
+  }
   tpl = tpl.replace('{{TAG}}', p.tag);
   tpl = tpl.replace('{{TITLE}}', p.title);
   tpl = tpl.replace('{{DATE_ISO}}', p.date);
@@ -289,7 +350,11 @@ function spliceCard(indexHtml, p) {
   } else {
     const blockStart = grid.lastIndexOf('      <!-- CARD START', idx);
     const blockEnd = grid.indexOf('<!-- CARD END -->', idx) + '<!-- CARD END -->'.length;
-    grid = grid.slice(0, blockStart) + card + grid.slice(blockEnd);
+    // Keep the hand-written CARD START comment verbatim; only the card
+    // body is regenerated.
+    const origStart = grid.slice(blockStart, grid.indexOf('\n', blockStart));
+    const kept = origStart + card.slice(card.indexOf('\n'));
+    grid = grid.slice(0, blockStart) + kept + grid.slice(blockEnd);
   }
   return indexHtml.slice(0, gridStart) + grid + indexHtml.slice(gridEnd);
 }
@@ -348,7 +413,8 @@ function renderSearchIndex(existingJson, posts, legacyCards) {
     const p = bySlug.get(slug);
     // Only converted posts are rebuilt; legacy entries stay verbatim so
     // hand-tuned fields (e.g. Saturday's fallback search image) survive.
-    if (!p || !p.converted) return e;
+    // card: false posts keep their legacy entry verbatim for the same reason.
+    if (!p || !p.converted || p.card === false) return e;
     return {
       title: p.titlePlain,
       tag: p.tag,
@@ -360,6 +426,7 @@ function renderSearchIndex(existingJson, posts, legacyCards) {
   });
   const knownSlugs = new Set(existing.map((e) => e.url.replace('posts/', '').replace('.html', '')));
   for (const p of posts) {
+    if (p.card === false) continue;
     if (!knownSlugs.has(p.slug)) {
       out.unshift({
         title: p.titlePlain, tag: p.tag, date: p.date, text: '',
@@ -395,10 +462,11 @@ function main() {
   // 2. Render converted posts over the verbatim copies.
   for (const p of converted) write(`posts/${p.slug}.html`, renderPost(p, bySlug));
 
-  // 3. Index: splice refreshed cards for converted posts.
+  // 3. Index: splice refreshed cards for converted posts (card: false
+  // posts — e.g. Saturday — intentionally have no homepage card).
   const legacyCards = legacyCardData(read('index.html'));
   let indexHtml = read('index.html');
-  for (const p of converted) indexHtml = spliceCard(indexHtml, p);
+  for (const p of converted) if (p.card !== false) indexHtml = spliceCard(indexHtml, p);
   write('index.html', indexHtml);
 
   // 4. Archive + sitemap + search index, regenerated from the post data.

@@ -23,6 +23,12 @@ Layout stays Danbo's job; this file is the contract for post CONTENT.
 | no_hero        | boolean  | Default false. Keeps the card out of the homepage hero.    |
 | official_links | list     | `{label, url}` pairs. Renders the "Official links" box.    |
 | related        | list     | Up to 3 post slugs. Renders "You might also like".         |
+| related_overrides | list  | Optional `{slug, tag, title}` — preserves a hand-tuned related card whose label differs from the target post's own tag/title. |
+| layout         | text     | `standard` (default) or `photo` — the photo-hero layout (templates/post-photo.html). |
+| hero_image     | object   | Photo layout only. `{src, width, height, alt}` — src relative to `images/`. The big hero image with the title overlaid. |
+| card           | boolean  | Default true. `false` = no homepage card, and the search-index entry is kept verbatim (Saturday in San Francisco). |
+| twitter_title  | text     | Optional. Overrides the share-preview title only (default: title). |
+| twitter_image  | text     | Optional. Overrides the share-preview image only (default: cover_image). Filename in `images/`. |
 
 ## Body markdown
 
@@ -58,6 +64,28 @@ Caption is optional.
 ![Alt two](optimized/photo2-800.webp)
 {{< /photos-2 >}}
 ```
+
+## Photo layout (`layout: photo`)
+
+Photo posts (Lucha is Life, Munchies, Saturday in San Francisco,
+SF Snapshots) use a different page skeleton: a full-width hero image
+with the tag/title/date overlaid (`hero_image` in frontmatter), then:
+
+1. `{{< photo-desc >}}` — the intro text, rendered inside the
+   `.photo-desc` box. Always first, always required.
+2. Any middle markdown (e.g. the Munchies recipe).
+3. The Official links box (from `official_links`).
+4. `{{< photo-grid >}}` — the closing photo grid. Dimensions are
+   required per image, in the `"WxH"` title slot:
+
+```
+{{< photo-grid >}}
+![Alt text](optimized/photo-800.webp "1206x1608")
+{{< /photo-grid >}}
+```
+
+The build wraps the body in `<!-- POST BODY -->` … `<!-- /POST BODY -->`
+and the usual two ADD MORE comments automatically.
 
 ### Anything fancier (carousels, spoilers, hero collages)
 

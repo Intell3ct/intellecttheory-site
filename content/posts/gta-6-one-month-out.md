@@ -1,5 +1,6 @@
 ---
 title: "GTA 6 Is Six Weeks Out, and I'm Locked In"
+twitter_title: "GTA 6 Is Six Weeks Out, and I'm Locked In"
 seo_title: "GTA 6 Release Date, Price, Radio Stations: PC Players Wait"
 slug: "gta-6-one-month-out"
 date: 2026-10-09

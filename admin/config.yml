@@ -47,6 +47,17 @@ collections:
           - { label: "Width", name: "width", widget: "number" }
           - { label: "Height", name: "height", widget: "number" }
           - { label: "Alt text", name: "alt", widget: "string" }
+      - label: "Gallery card images"
+        name: "card_images"
+        widget: "list"
+        required: false
+        hint: "Optional. 4 images → the 2x2 gallery card style (Lucha, Munchies)."
+        fields:
+          - { label: "Image", name: "src", widget: "string",
+              hint: "Path like images/optimized/photo-400.webp" }
+          - { label: "Width", name: "width", widget: "number" }
+          - { label: "Height", name: "height", widget: "number" }
+          - { label: "Alt text", name: "alt", widget: "string" }
       - { label: "Comments", name: "comments", widget: "boolean", default: true,
           hint: "Leave on. Only the Brady memorial post has this off." }
       - { label: "Big Ko-fi tea badge", name: "tea_badge", widget: "boolean", default: false,

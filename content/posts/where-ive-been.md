@@ -1,5 +1,6 @@
 ---
 title: "Where I’ve Been"
+twitter_title: "Where I've Been"
 seo_title: "Where I've Been: On Grief, Recovery & Starting Over"
 slug: "where-ive-been"
 date: 2026-10-05
