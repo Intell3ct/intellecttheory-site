@@ -1,12 +1,12 @@
 # Decap CMS configuration for intellecttheory.com
-# NOTE (2026-10-19): OAuth not wired yet. The parent agent will register the
-# GitHub OAuth app + auth worker and fill in base_url/auth_endpoint below.
+# Login: "Log in with GitHub" -> OAuth app "Intellect Theory CMS" ->
+# auth bridge worker at base_url -> posts token back to the admin page.
 backend:
   name: github
   repo: Intell3ct/intellecttheory-site
   branch: main
-  base_url: https://TODO-cms-auth.workers.dev
-  auth_endpoint: /auth
+  base_url: https://intellecttheory-cms-auth.ajsrhs.workers.dev
+  auth_endpoint: auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -63,6 +63,34 @@ collections:
       - { label: "Big Ko-fi tea badge", name: "tea_badge", widget: "boolean", default: false,
           hint: "Meaningful posts only." }
       - { label: "Hide from homepage hero", name: "no_hero", widget: "boolean", default: false }
+      - { label: "Show on homepage grid", name: "card", widget: "boolean", default: true,
+          hint: "Leave on. Saturday's SF post is the only one without a card." }
+      - { label: "Layout", name: "layout", widget: "select", required: false,
+          options: [{ label: "Standard article", value: "standard" }, { label: "Photo hero", value: "photo" }],
+          hint: "Photo posts only (Lucha, Munchies, Saturday SF, SF Snapshots). Don't change." }
+      - label: "Hero image (photo posts)"
+        name: "hero_image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "string",
+              hint: "Path like images/optimized/photo-800.webp" }
+          - { label: "Width", name: "width", widget: "number" }
+          - { label: "Height", name: "height", widget: "number" }
+          - { label: "Alt text", name: "alt", widget: "string" }
+      - { label: "Twitter share title", name: "twitter_title", widget: "string", required: false,
+          hint: "Only needed when the share card title differs from the headline." }
+      - { label: "Twitter share image", name: "twitter_image", widget: "string", required: false,
+          hint: "Optional. Defaults to the cover image." }
+      - label: "Related posts overrides"
+        name: "related_overrides"
+        widget: "list"
+        required: false
+        hint: "Only for hand-tuned related cards. Leave empty normally."
+        fields:
+          - { label: "Post slug", name: "slug", widget: "string" }
+          - { label: "Tag", name: "tag", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
       - label: "Official links"
         name: "official_links"
         widget: "list"
