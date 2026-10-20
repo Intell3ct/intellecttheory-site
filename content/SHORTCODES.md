@@ -101,7 +101,7 @@ inventing a new layout.
 - Splices the post's card into `index.html` (newest first), regenerates
   `archive.html`, `sitemap.xml`, and `js/search-index.json`.
 - Copies everything else (css, js, images, admin/, the-wall.html,
-  admin.html, about.html, robots.txt, _headers, _redirects) verbatim.
+  moderate.html, about.html, robots.txt, _headers, _redirects) verbatim.
 - Fails loudly if a canonical/og:url/sitemap entry contains ".html",
   if comments are missing where required, or if the tea badge appears
   where it shouldn't.
