@@ -97,6 +97,7 @@ function loadConvertedPosts() {
         coverImage: fm.cover_image || '',
         comments: fm.comments !== false,
         teaBadge: fm.tea_badge === true,
+        draft: fm.draft === true,
         noHero: fm.no_hero === true,
         layout: fm.layout || 'standard',
         hero: fm.hero_image || null,
@@ -258,9 +259,11 @@ function renderRelated(p, bySlug) {
   const cards = p.related.map((s) => {
     const r = bySlug[s];
     if (!r) throw new Error(`related post not found: ${s} (in ${p.slug})`);
+    if (r.draft) return ''; // hidden posts are never linked to
     const ov = overrides[s] || {};
     return `      <a href="${s}.html" class="related-card">\n        <span class="related-tag">${ov.tag || r.tag}</span>\n        <span class="related-title">${ov.title || r.title} — Intellect Theory</span>\n      </a>`;
-  }).join('\n');
+  }).filter(Boolean).join('\n');
+  if (!cards) return '';
   return `    <section class="related-posts">\n      <h2>You might also like</h2>\n      <div class="related-grid">\n${cards}\n      </div>\n    </section>\n`;
 }
 
@@ -276,6 +279,14 @@ function renderPost(p, bySlug) {
     if (p.officialLinks.length) parts.push(renderOfficialLinks(p.officialLinks));
     parts.push(ADD_MORE_COMMENT);
     articleBody = '\n' + parts.join('\n\n');
+  }
+
+  // Hidden (draft) posts must not be linked from body text either:
+  // unwrap anchors pointing at them, keeping the link text. The source
+  // markdown is untouched, so the link returns when the post is unhidden.
+  for (const s of Object.values(bySlug).filter((x) => x.draft).map((x) => x.slug)) {
+    const re = new RegExp(`<a href="(?:https://intellecttheory\\.com/posts/|(?:\\.\\./)?posts/)?${s}(?:\\.html)?"[^>]*>([\\s\\S]*?)</a>`, 'g');
+    articleBody = articleBody.replace(re, '$1');
   }
 
   tpl = tpl.replace('{{ARTICLE_BODY}}', () => articleBody);
@@ -359,6 +370,52 @@ function spliceCard(indexHtml, p) {
   return indexHtml.slice(0, gridStart) + grid + indexHtml.slice(gridEnd);
 }
 
+// Remove a post's card from the homepage grid entirely (draft posts).
+function removeCard(indexHtml, slug) {
+  const gridStart = indexHtml.indexOf('<section id="posts" class="post-grid">');
+  const gridEnd = indexHtml.indexOf('</section>', gridStart);
+  let grid = indexHtml.slice(gridStart, gridEnd);
+  const idx = grid.indexOf(`href="posts/${slug}.html"`);
+  if (idx === -1) return indexHtml;
+  const blockStart = grid.lastIndexOf('      <!-- CARD START', idx);
+  let blockEnd = grid.indexOf('<!-- CARD END -->', idx) + '<!-- CARD END -->'.length;
+  if (grid[blockEnd] === '\n') blockEnd += 1;
+  grid = grid.slice(0, blockStart) + grid.slice(blockEnd);
+  return indexHtml.slice(0, gridStart) + grid + indexHtml.slice(gridEnd);
+}
+
+// The static no-JS hero fallback is hand-written for one post. If that
+// post is hidden, rebuild the slide from the newest visible hero-eligible
+// post so the fallback never points at a draft. No-op otherwise.
+function fixHeroFallback(indexHtml, visiblePosts) {
+  const secStart = indexHtml.indexOf('    <section class="hero" data-hero-auto>');
+  if (secStart === -1) return indexHtml;
+  const secEnd = indexHtml.indexOf('</section>', secStart) + '</section>'.length;
+  const block = indexHtml.slice(secStart, secEnd);
+  const m = block.match(/href="posts\/([a-z0-9-]+)\.html"/);
+  if (!m) return indexHtml;
+  if (visiblePosts.some((p) => p.slug === m[1])) return indexHtml;
+  const cand = [...visiblePosts]
+    .filter((p) => p.card !== false && !p.noHero)
+    .sort((a, b) => b.date.localeCompare(a.date))[0];
+  if (!cand) return indexHtml;
+  const img = (cand.hero && cand.hero.src) || (cand.cardImage && cand.cardImage.src) || `images/${cand.coverImage}`;
+  const alt = (cand.hero && cand.hero.alt) || (cand.cardImage && cand.cardImage.alt) || '';
+  const slide = `    <section class="hero" data-hero-auto>
+      <div class="hero-slide">
+      <img fetchpriority="high" decoding="async" class="hero-photo" src="${img}" alt="${alt}" decoding="async">
+      <div class="hero-overlay">
+        <span class="tag">${cand.tag}</span>
+        <h1>${cand.title}</h1>
+        <p>${cand.cardExcerpt}</p>
+        <time>${humanDate(cand.date)}</time>
+        <a class="read-more" href="posts/${cand.slug}.html">Read the story &rarr;</a>
+      </div>
+      </div>
+    </section>`;
+  return indexHtml.slice(0, secStart) + slide + indexHtml.slice(secEnd);
+}
+
 // ------------------------------------------------------------------ archive
 function renderArchive(archiveHtml, posts) {
   const byMonth = new Map();
@@ -382,7 +439,7 @@ function renderArchive(archiveHtml, posts) {
 }
 
 // ------------------------------------------------------------------ sitemap
-function renderSitemap(existing, posts) {
+function renderSitemap(existing, posts, hiddenLocs = new Set()) {
   const entry = (loc, freq, prio) =>
     `  <url><loc>${loc}</loc><changefreq>${freq}</changefreq><priority>${prio}</priority></url>`;
   const known = new Map();
@@ -398,6 +455,7 @@ function renderSitemap(existing, posts) {
     seen.add(`${SITE}/posts/${p.slug}`);
   }
   for (const m of existing.matchAll(/<loc>(.*?)<\/loc><changefreq>(.*?)<\/changefreq><priority>(.*?)<\/priority>/g)) {
+    if (hiddenLocs.has(m[1])) continue; // draft posts leave the sitemap
     lines.push(entry(m[1], m[2], m[3]));
     seen.add(m[1]);
   }
@@ -405,11 +463,12 @@ function renderSitemap(existing, posts) {
 }
 
 // -------------------------------------------------------------- search index
-function renderSearchIndex(existingJson, posts, legacyCards) {
+function renderSearchIndex(existingJson, posts, legacyCards, hiddenSlugs = new Set()) {
   const existing = JSON.parse(existingJson);
   const bySlug = new Map(posts.map((p) => [p.slug, p]));
   const out = existing.map((e) => {
     const slug = e.url.replace('posts/', '').replace('.html', '');
+    if (hiddenSlugs.has(slug)) return null; // draft posts leave site search
     const p = bySlug.get(slug);
     // Only converted posts are rebuilt; legacy entries stay verbatim so
     // hand-tuned fields (e.g. Saturday's fallback search image) survive.
@@ -423,7 +482,7 @@ function renderSearchIndex(existingJson, posts, legacyCards) {
       url: `posts/${p.slug}.html`,
       img: (p.cardImage && p.cardImage.src) || `images/${p.coverImage}`,
     };
-  });
+  }).filter(Boolean);
   const knownSlugs = new Set(existing.map((e) => e.url.replace('posts/', '').replace('.html', '')));
   for (const p of posts) {
     if (p.card === false) continue;
@@ -459,20 +518,33 @@ function main() {
     cpSync(join(ROOT, entry), join(DIST, entry), { recursive: true });
   }
 
-  // 2. Render converted posts over the verbatim copies.
-  for (const p of converted) write(`posts/${p.slug}.html`, renderPost(p, bySlug));
+  // 2. Render converted posts over the verbatim copies. Draft posts
+  // (draft: true) are removed instead: saved in the CMS, hidden on the site.
+  const draftSlugs = new Set(converted.filter((p) => p.draft).map((p) => p.slug));
+  for (const p of converted) {
+    if (p.draft) rmSync(join(DIST, 'posts', `${p.slug}.html`), { force: true });
+    else write(`posts/${p.slug}.html`, renderPost(p, bySlug));
+  }
 
   // 3. Index: splice refreshed cards for converted posts (card: false
-  // posts — e.g. Saturday — intentionally have no homepage card).
+  // posts — e.g. Saturday — intentionally have no homepage card); draft
+  // posts lose their card entirely.
   const legacyCards = legacyCardData(read('index.html'));
   let indexHtml = read('index.html');
-  for (const p of converted) if (p.card !== false) indexHtml = spliceCard(indexHtml, p);
+  for (const p of converted) {
+    if (p.draft) indexHtml = removeCard(indexHtml, p.slug);
+    else if (p.card !== false) indexHtml = spliceCard(indexHtml, p);
+  }
+  const visiblePosts = allPosts.filter((p) => !draftSlugs.has(p.slug));
+  indexHtml = fixHeroFallback(indexHtml, visiblePosts);
   write('index.html', indexHtml);
 
-  // 4. Archive + sitemap + search index, regenerated from the post data.
-  write('archive.html', renderArchive(read('archive.html'), allPosts));
-  write('sitemap.xml', renderSitemap(read('sitemap.xml'), allPosts));
-  write('js/search-index.json', renderSearchIndex(read('js/search-index.json'), allPosts, legacyCards));
+  // 4. Archive + sitemap + search index, regenerated from the visible
+  // (non-draft) post data.
+  const hiddenLocs = new Set([...draftSlugs].map((s) => `${SITE}/posts/${s}`));
+  write('archive.html', renderArchive(read('archive.html'), visiblePosts));
+  write('sitemap.xml', renderSitemap(read('sitemap.xml'), visiblePosts, hiddenLocs));
+  write('js/search-index.json', renderSearchIndex(read('js/search-index.json'), visiblePosts, legacyCards, draftSlugs));
 
   // ------------------------------------------------------------ validation
   const errors = [];
