@@ -1,0 +1,1 @@
+{"dependencies":{"gray-matter":"^4.0.3","marked":"^16.0.0"},"description":"Decap CMS content + static build for intellecttheory.com. Run: npm run build","name":"intellecttheory-cms","private":true,"scripts":{"build":"node build/build.js"},"type":"module","version":"1.0.0"}

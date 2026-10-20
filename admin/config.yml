@@ -1,0 +1,68 @@
+# Decap CMS configuration for intellecttheory.com
+# NOTE (2026-10-19): OAuth not wired yet. The parent agent will register the
+# GitHub OAuth app + auth worker and fill in base_url/auth_endpoint below.
+backend:
+  name: github
+  repo: Intell3ct/intellecttheory-site
+  branch: main
+  base_url: https://TODO-cms-auth.workers.dev
+  auth_endpoint: /auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string",
+          hint: "Post headline, as it appears on the page." }
+      - { label: "SEO title", name: "seo_title", widget: "string", required: false,
+          hint: "Optional. Overrides Title in the browser tab + Google results." }
+      - { label: "Slug", name: "slug", widget: "string",
+          hint: "Lowercase, dashes only. Becomes the URL. Never change after publishing." }
+      - { label: "Date", name: "date", widget: "datetime",
+          format: "YYYY-MM-DD", time_format: false,
+          hint: "Drives homepage/archive order and the date badge." }
+      - { label: "Tag", name: "tag", widget: "select",
+          options: ["Photos", "Thoughts", "Gaming", "Entertainment", "Travel"] }
+      - { label: "Description", name: "description", widget: "text",
+          hint: "1–2 sentences. Shows on Google and in link previews." }
+      - { label: "Cover image", name: "cover_image", widget: "string",
+          hint: "Filename inside images/, e.g. pogo-pikachu.jpg. Used for link previews." }
+      - { label: "Card excerpt", name: "card_excerpt", widget: "text",
+          hint: "One line shown on the homepage card." }
+      - label: "Card image"
+        name: "card_image"
+        widget: "object"
+        fields:
+          - { label: "Image", name: "src", widget: "string",
+              hint: "Path like images/optimized/photo-400.webp" }
+          - { label: "Width", name: "width", widget: "number" }
+          - { label: "Height", name: "height", widget: "number" }
+          - { label: "Alt text", name: "alt", widget: "string" }
+      - { label: "Comments", name: "comments", widget: "boolean", default: true,
+          hint: "Leave on. Only the Brady memorial post has this off." }
+      - { label: "Big Ko-fi tea badge", name: "tea_badge", widget: "boolean", default: false,
+          hint: "Meaningful posts only." }
+      - { label: "Hide from homepage hero", name: "no_hero", widget: "boolean", default: false }
+      - label: "Official links"
+        name: "official_links"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - label: "Related posts"
+        name: "related"
+        widget: "list"
+        required: false
+        field: { label: "Post slug", name: "slug", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown",
+          hint: "Paragraphs, ## subheads, links. Photo layouts: see content/SHORTCODES.md" }
