@@ -2,6 +2,7 @@
 title: "Lucha is Life"
 seo_title: "Lucha is Life: Lucha Libre in Photos"
 slug: "lucha-is-life"
+draft: true
 date: 2026-10-17
 tag: "Photos"
 description: "Went and caught Todo o Nada, an underground lucha libre show from Promociones Alto Voltaje. Masks, entrances, high spots... this stuff hits different live. Komando Infernal and El Genio held it down."

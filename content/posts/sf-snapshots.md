@@ -2,6 +2,7 @@
 title: "SF Snapshots"
 seo_title: "San Francisco in Photos: Pier 39, Cable Cars & City Shots"
 slug: "sf-snapshots"
+draft: true
 date: 2026-10-03
 tag: "Photos"
 description: "Sea lions at Pier 39, a cable car ride, and seagulls over the water — snapshots from a Saturday in San Francisco with the family."

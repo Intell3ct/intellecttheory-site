@@ -2,6 +2,7 @@
 title: "Saturday in San Francisco"
 seo_title: "San Francisco Ferry Day Trip: Family Day in the City"
 slug: "saturday-in-san-francisco"
+draft: true
 date: 2026-10-03
 tag: "Travel"
 description: "Took the ferry into San Francisco with the family — my niece and nephew in tow. A really good day."
