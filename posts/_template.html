@@ -18,16 +18,23 @@
           your photos and words.
        5. On index.html, add a card for the post (copy any CARD block)
           and point its "Read more" link at posts/my-new-post.html.
+       6. URL RULE (standing, do not break): canonical, og:url, and the
+          sitemap.xml entry for every page are ALWAYS extensionless
+          (https://intellecttheory.com/posts/my-new-post — no .html).
+          Cloudflare 308-redirects .html to extensionless, and .html
+          in canonicals/sitemap caused Search Console "Page with
+          redirect" indexing warnings (fixed sitewide 2026-10-12).
+          Only file links in hrefs keep .html.
        Bump ?v=3 to ?v=4 etc. in the stylesheet link below AND in
        index.html whenever you change css/styles.css — it defeats
        stale caching so visitors see the new styles right away. -->
   <meta name="description" content="POST DESCRIPTION">
-  <link rel="canonical" href="https://intellecttheory.com/posts/POST SLUG.html">
+  <link rel="canonical" href="https://intellecttheory.com/posts/POST SLUG">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Intellect Theory">
   <meta property="og:title" content="POST TITLE — Intellect Theory">
   <meta property="og:description" content="POST DESCRIPTION">
-  <meta property="og:url" content="https://intellecttheory.com/posts/POST SLUG.html">
+  <meta property="og:url" content="https://intellecttheory.com/posts/POST SLUG">
   <meta property="og:image" content="https://intellecttheory.com/images/POST IMAGE">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="POST TITLE — Intellect Theory">
@@ -38,7 +45,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/styles.css?v=92">
+  <link rel="stylesheet" href="../css/styles.css?v=94">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGCP2JC7CG"></script>
 <script>
@@ -56,10 +63,10 @@
     <nav class="nav-left">
       <a href="../index.html#posts">Posts</a>
       <a href="../the-wall.html">The Wall</a>
+      <a href="../archive.html">Archive</a>
     </nav>
     <a class="brand" href="../index.html"><img width="982" height="904" class="brand-text" src="../images/brand-script.png" alt="Intellect Theory" loading="lazy" decoding="async"></a>
     <nav class="nav-right">
-      <a href="../index.html#about">About</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
   </header>
@@ -177,7 +184,7 @@
     <p class="copyright">&copy; 2026 IntellectTheory</p>
   </footer>
 
-  <script defer src="../js/main.js?v=48"></script>
+  <script defer src="../js/main.js?v=49"></script>
   <div id="a11y-announcer" class="sr-only" aria-live="polite" role="status"></div>
 </body>
 </html>

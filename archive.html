@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Archive — every post on Intellect Theory, organized by month.">
-  <link rel="canonical" href="https://intellecttheory.com/archive.html">
+  <link rel="canonical" href="https://intellecttheory.com/archive">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Intellect Theory">
   <meta property="og:title" content="Archive — Intellect Theory">
   <meta property="og:description" content="Every post on Intellect Theory, organized by month.">
-  <meta property="og:url" content="https://intellecttheory.com/archive.html">
+  <meta property="og:url" content="https://intellecttheory.com/archive">
   <meta property="og:image" content="https://intellecttheory.com/images/logo.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Archive — Intellect Theory">
@@ -17,7 +17,7 @@
   <meta name="twitter:image" content="https://intellecttheory.com/images/logo.jpg">
   <title>Archive — Intellect Theory</title>
   <link rel="icon" type="image/jpeg" href="images/logo.jpg">
-  <link rel="stylesheet" href="css/styles.css?v=92">
+  <link rel="stylesheet" href="css/styles.css?v=94">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGCP2JC7CG"></script>
 <script>
@@ -35,11 +35,20 @@
     <nav class="nav-left">
       <a href="index.html#posts">Posts</a>
       <a href="the-wall.html">The Wall</a>
+      <a href="archive.html">Archive</a>
     </nav>
     <a class="brand" href="index.html"><img width="982" height="904" class="brand-text" src="images/brand-script.png" alt="Intellect Theory" loading="lazy" decoding="async"></a>
     <nav class="nav-right">
-      <a href="index.html#about">About</a>
       <a href="index.html#contact">Contact</a>
+      <div class="search-wrap">
+        <button class="search-toggle" id="search-toggle" aria-label="Search posts" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <div class="search-expand" id="search-expand" hidden>
+          <input type="search" id="site-search" placeholder="Search posts&hellip;" aria-label="Search posts" autocomplete="off">
+        </div>
+        <div class="search-results" id="search-results" hidden></div>
+      </div>
     </nav>
   </header>
 
@@ -54,8 +63,10 @@
 
     <section class="archive">
       <details class="archive-group" open>
-        <summary class="archive-month">October 2026 <span class="archive-count">(7 posts)</span></summary>
+        <summary class="archive-month">October 2026 <span class="archive-count">(9 posts)</span></summary>
       <ul class="archive-list">
+        <li><a href="posts/lucha-is-life.html"><span class="archive-date">October 17, 2026</span><span class="tag tag-sm">Photos</span><span class="archive-title">Lucha is Life</span></a></li>
+        <li><a href="posts/ideal-game-to-have-returned-to.html"><span class="archive-date">October 11, 2026</span><span class="tag tag-sm">Entertainment</span><span class="archive-title">Two Teams, One GOAT: The Ideal Game to Have Returned To</span></a></li>
         <li><a href="posts/gta-6-one-month-out.html"><span class="archive-date">October 9, 2026</span><span class="tag tag-sm">Gaming</span><span class="archive-title">GTA 6 Is Six Weeks Out, and I&apos;m Locked In</span></a></li>
         <li><a href="posts/my-best-ones.html"><span class="archive-date">October 8, 2026</span><span class="tag tag-sm">Gaming</span><span class="archive-title">Showcasing My Current Hundos</span></a></li>
         <li><a href="posts/current-addiction-pokemon-go.html"><span class="archive-date">October 7, 2026</span><span class="tag tag-sm">Gaming</span><span class="archive-title">Current Addiction: Pok&eacute;mon Go</span></a></li>
@@ -157,7 +168,7 @@
     <p class="copyright">&copy; 2026 IntellectTheory</p>
   </footer>
 
-  <script defer src="js/main.js?v=48"></script>
+  <script defer src="js/main.js?v=49"></script>
   <div id="a11y-announcer" class="sr-only" aria-live="polite" role="status"></div>
 </body>
 </html>

@@ -1,0 +1,109 @@
+# Decap CMS configuration for intellecttheory.com
+# Login: "Log in with GitHub" -> OAuth app "Intellect Theory CMS" ->
+# auth bridge worker at base_url -> posts token back to the admin page.
+backend:
+  name: github
+  repo: Intell3ct/intellecttheory-site
+  branch: main
+  base_url: https://intellecttheory-cms-auth.ajsrhs.workers.dev
+  auth_endpoint: auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string",
+          hint: "Post headline, as it appears on the page." }
+      - { label: "SEO title", name: "seo_title", widget: "string", required: false,
+          hint: "Optional. Overrides Title in the browser tab + Google results." }
+      - { label: "Slug", name: "slug", widget: "string",
+          hint: "Lowercase, dashes only. Becomes the URL. Never change after publishing." }
+      - { label: "Date", name: "date", widget: "datetime",
+          format: "YYYY-MM-DD", time_format: false,
+          hint: "Drives homepage/archive order and the date badge." }
+      - { label: "Tag", name: "tag", widget: "select",
+          options: ["Photos", "Thoughts", "Gaming", "Entertainment", "Travel"] }
+      - { label: "Description", name: "description", widget: "text",
+          hint: "1–2 sentences. Shows on Google and in link previews." }
+      - { label: "Cover image", name: "cover_image", widget: "string",
+          hint: "Filename inside images/, e.g. pogo-pikachu.jpg. Used for link previews." }
+      - { label: "Card excerpt", name: "card_excerpt", widget: "text",
+          hint: "One line shown on the homepage card." }
+      - label: "Card image"
+        name: "card_image"
+        widget: "object"
+        fields:
+          - { label: "Image", name: "src", widget: "string",
+              hint: "Path like images/optimized/photo-400.webp" }
+          - { label: "Width", name: "width", widget: "number" }
+          - { label: "Height", name: "height", widget: "number" }
+          - { label: "Alt text", name: "alt", widget: "string" }
+      - label: "Gallery card images"
+        name: "card_images"
+        widget: "list"
+        required: false
+        hint: "Optional. 4 images → the 2x2 gallery card style (Lucha, Munchies)."
+        fields:
+          - { label: "Image", name: "src", widget: "string",
+              hint: "Path like images/optimized/photo-400.webp" }
+          - { label: "Width", name: "width", widget: "number" }
+          - { label: "Height", name: "height", widget: "number" }
+          - { label: "Alt text", name: "alt", widget: "string" }
+      - { label: "Comments", name: "comments", widget: "boolean", default: true,
+          hint: "Leave on. Only the Brady memorial post has this off." }
+      - { label: "Big Ko-fi tea badge", name: "tea_badge", widget: "boolean", default: false,
+          hint: "Meaningful posts only." }
+      - { label: "Draft — hide from the website", name: "draft", widget: "boolean", default: false,
+          hint: "On: stays saved in the CMS but disappears from the website (page, homepage, archive, search). Turn off and save to show it again." }
+      - { label: "Hide from homepage hero", name: "no_hero", widget: "boolean", default: false }
+      - { label: "Show on homepage grid", name: "card", widget: "boolean", default: true,
+          hint: "Leave on. Saturday's SF post is the only one without a card." }
+      - { label: "Layout", name: "layout", widget: "select", required: false,
+          options: [{ label: "Standard article", value: "standard" }, { label: "Photo hero", value: "photo" }],
+          hint: "Photo posts only (Lucha, Munchies, Saturday SF, SF Snapshots). Don't change." }
+      - label: "Hero image (photo posts)"
+        name: "hero_image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Image", name: "src", widget: "string",
+              hint: "Path like images/optimized/photo-800.webp" }
+          - { label: "Width", name: "width", widget: "number" }
+          - { label: "Height", name: "height", widget: "number" }
+          - { label: "Alt text", name: "alt", widget: "string" }
+      - { label: "Twitter share title", name: "twitter_title", widget: "string", required: false,
+          hint: "Only needed when the share card title differs from the headline." }
+      - { label: "Twitter share image", name: "twitter_image", widget: "string", required: false,
+          hint: "Optional. Defaults to the cover image." }
+      - label: "Related posts overrides"
+        name: "related_overrides"
+        widget: "list"
+        required: false
+        hint: "Only for hand-tuned related cards. Leave empty normally."
+        fields:
+          - { label: "Post slug", name: "slug", widget: "string" }
+          - { label: "Tag", name: "tag", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+      - label: "Official links"
+        name: "official_links"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "URL", name: "url", widget: "string" }
+      - label: "Related posts"
+        name: "related"
+        widget: "list"
+        required: false
+        field: { label: "Post slug", name: "slug", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown",
+          hint: "Paragraphs, ## subheads, links. Photo layouts: see content/SHORTCODES.md" }

@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=93">
+  <link rel="stylesheet" href="css/styles.css?v=94">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FGCP2JC7CG"></script>
 <script>
@@ -62,11 +62,11 @@
     <nav class="nav-left">
       <a href="#posts">Posts</a>
       <a href="the-wall.html">The Wall</a>
+      <a href="archive.html">Archive</a>
       <!-- FUTURE: <a href="#gallery">Gallery</a> -->
     </nav>
     <a class="brand" href="#"><img width="982" height="904" class="brand-text" src="images/brand-script.png" alt="Intellect Theory" decoding="async"></a>
     <nav class="nav-right">
-      <a href="#about">About</a>
       <a href="#contact">Contact</a>
       <div class="search-wrap">
         <button class="search-toggle" id="search-toggle" aria-label="Search posts" aria-expanded="false">
@@ -115,7 +115,7 @@
       <button class="pill">Thoughts</button>
       <!-- SHELVED: <button class="pill">Travel</button> -->
       <button class="pill">Gaming</button>
-      <button class="pill">Anime</button>
+      <button class="pill">Entertainment</button>
       <!-- FUTURE: add more pills here -->
     </div>
 
@@ -133,22 +133,42 @@
             becomes the big featured header.
          Photo cards and text-only cards both work — mix as you like. -->
     <section id="posts" class="post-grid">
-
-      <!-- NEW POSTS GO HERE (paste new cards above this line, newest first) -->
-      <!-- CARD START : photo card -->
-      <article class="card" data-date="November 6, 2026">
+      <!-- CARD START : lucha is life gallery card -->
+      <article class="card" data-date="October 17, 2026">
         <div class="card-media">
-          <img loading="lazy" decoding="async" width="400" height="225" src="images/optimized/gta-6-price-header-400.webp" alt="Grand Theft Auto VI key art of Jason and Lucia with a red $80-$100 price tag over it">
-          <span class="date-badge"><b>06</b>Nov</span>
+          <div class="card-strip grid-2x2">
+            <img loading="lazy" decoding="async" width="1206" height="2097" src="images/optimized/lucha-comando-ropes-400.webp" alt="Masked luchador in a blue, red and silver flame outfit leaning on the ring ropes, wearing a black Komando Infernal tank top">
+            <img loading="lazy" decoding="async" width="1206" height="2135" src="images/optimized/lucha-turnbuckle-400.webp" alt="Masked luchador in a black vest standing on the turnbuckle ropes at dusk, crowd watching ringside">
+            <img loading="lazy" decoding="async" width="1206" height="1599" src="images/optimized/lucha-hooded-400.webp" alt="Hooded masked luchador with a painted face making his entrance past the ring">
+            <img loading="lazy" decoding="async" width="1206" height="1599" src="images/optimized/lucha-blue-corner-400.webp" alt="El Genio in a blue mask and gold boots, crouching in the ring corner">
+          </div>
+          <span class="date-badge"><b>17</b>Oct</span>
         </div>
         <div class="card-body">
-          <span class="tag">Gaming</span>
-          <h3>GTA 6, and the Price I Already Made Peace With</h3>
-          <p>The $150 price was never real. Standard is $79.99, Ultimate is $99.99, and the only three-figure price tag doesn&apos;t include the game.</p>
-          <a class="read-more" href="posts/gta-6-price-i-already-made-peace-with.html">Read more &rarr;</a>
+          <span class="tag">Photos</span>
+          <h3>Lucha is Life</h3>
+          <p>Went and caught Todo o Nada, an underground lucha libre show from Promociones Alto Voltaje. Masks, entrances, high spots... this stuff hits different live. Komando Infernal and El Genio held it down.</p>
+          <a class="read-more" href="posts/lucha-is-life.html">Read more &rarr;</a>
         </div>
       </article>
       <!-- CARD END -->
+
+      <!-- NEW POSTS GO HERE (paste new cards above this line, newest first) -->
+      <!-- CARD START : photo card -->
+      <article class="card" data-date="October 11, 2026">
+        <div class="card-media">
+          <img loading="lazy" decoding="async" width="400" height="533" src="images/optimized/pats-maye-tv-400.webp" alt="Drake Maye on the TV in his red Patriots jersey, the score bug reading Raiders 10, Patriots 35 at the end of the third quarter">
+          <span class="date-badge"><b>11</b>Oct</span>
+        </div>
+        <div class="card-body">
+          <span class="tag">Entertainment</span>
+          <h3>Two Teams, One GOAT: The Ideal Game to Have Returned To</h3>
+          <p>My first game back: a 45-17 Patriots blowout at my local brewery, with my Raiders fan friend suffering in the next seat.</p>
+          <a class="read-more" href="posts/ideal-game-to-have-returned-to.html">Read more &rarr;</a>
+        </div>
+      </article>
+      <!-- CARD END -->
+
       <!-- CARD START : photo card -->
       <article class="card" data-date="October 9, 2026">
         <div class="card-media">
@@ -385,16 +405,9 @@
       </div>
     </section>
 
-    <!-- ================= ABOUT ================= -->
-    <section id="about" class="about">
-      <div class="about-frame">
-        <img loading="lazy" decoding="async" width="1206" height="1608" class="about-photo" src="images/optimized/about-rico-400.webp" alt="Rico holding a bag of chips over his face">
-        <div class="about-body">
-          <h2>About</h2>
-          <p>My name is AJ — I was raised in Marin County, California. I shoot photos on my iPhone 16 Pro Max, write when I've got something to say, and talk a whole lot of video games. When I'm not holding a controller, I'm hanging out with my bearded dragon. Smile, think positive, and own the world.</p>
-          <p class="about-sonder"><em>Sonder</em> (n.) — the realization that every stranger passing by has a life as vivid and complex as your own. That's what this site is: one of those lives, out in the open.</p>
-        </div>
-      </div>
+    <!-- ================= SONDER ================= -->
+    <section class="sonder-strip">
+      <p><em>Sonder</em> (n.) &mdash; the realization that every stranger passing by has a life as vivid and complex as your own. That&rsquo;s what this site is: one of those lives, out in the open.</p>
     </section>
 
     <!-- ================= SUPPORT ================= -->
@@ -492,7 +505,7 @@
     <p class="copyright">&copy; 2026 IntellectTheory</p>
   </footer>
 
-  <script defer src="js/main.js?v=48"></script>
+  <script defer src="js/main.js?v=49"></script>
 
 
     <button id="backToTop" aria-label="Back to top" style="position:fixed;bottom:24px;right:24px;width:52px;height:52px;border-radius:50%;background:linear-gradient(to bottom, #aed6c9 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);border:2px solid #2b2b2b;cursor:pointer;opacity:0;pointer-events:none;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:opacity 0.3s;padding:0;">

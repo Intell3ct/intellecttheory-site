@@ -34,13 +34,13 @@
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
   <h1>Comment moderation</h1>
-  <p><a href="index.html">&larr; Back to the blog</a></p>
+  <p><a href="index.html">&larr; Back to the blog</a> &middot; <a href="backend.html">Backend home</a></p>
   <div id="login">
-    <p>Enter your admin token:</p>
-    <input type="password" id="token" autocomplete="off" placeholder="Admin token">
-    <br><label style="font-size:.9rem"><input type="checkbox" id="remember" checked> Remember on this device</label>
-    <br><button id="go">Show comments</button>
+    <p>Sign in with the same GitHub account you use for the content manager.</p>
+    <p><a href="https://intellecttheory-cms-auth.ajsrhs.workers.dev/auth/comments"><button>Sign in with GitHub</button></a></p>
+    <p style="font-size:.9rem;color:#666">Your session is remembered on this device for 30 days.</p>
   </div>
+  <p id="signout-wrap" class="hidden"><button id="signout">Sign out</button></p>
   <div id="panel" class="hidden"></div>
   <script>
     var API = 'https://intellecttheory-comments.ajsrhs.workers.dev/api/admin';
@@ -50,29 +50,38 @@
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
       });
     }
-    try { token = localStorage.getItem('aj_admin_token') || ''; } catch (e) {}
-    if (token) {
-      document.getElementById('token').value = token;
-      load();
-    }
-    document.getElementById('go').onclick = function () {
-      token = document.getElementById('token').value;
-      try {
-        if (document.getElementById('remember').checked) localStorage.setItem('aj_admin_token', token);
-        else localStorage.removeItem('aj_admin_token');
-      } catch (e) {}
-      load();
+    // Sessions come from GitHub sign-in via the CMS auth bridge. The old
+    // static token is retired: drop it if this browser still holds one.
+    try { localStorage.removeItem('aj_admin_token'); } catch (e) {}
+    try { token = localStorage.getItem('aj_admin_session') || ''; } catch (e) {}
+    (function () {
+      var m = window.location.search.match(/[?&]session=([^&]+)/);
+      if (m) {
+        try { token = decodeURIComponent(m[1]); localStorage.setItem('aj_admin_session', token); } catch (e) {}
+        try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+      }
+    })();
+    document.getElementById('signout').onclick = function () {
+      token = '';
+      try { localStorage.removeItem('aj_admin_session'); } catch (e) {}
+      document.getElementById('panel').classList.add('hidden');
+      document.getElementById('signout-wrap').classList.add('hidden');
+      document.getElementById('login').classList.remove('hidden');
     };
-    document.getElementById('token').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') load();
-    });
+    if (token) load();
     function load() {
       token = token || document.getElementById('token').value;
       fetch(API + '?token=' + encodeURIComponent(token))
         .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (res) {
-          if (!res.ok) { alert('Wrong token.'); return; }
+          if (!res.ok) {
+            try { localStorage.removeItem('aj_admin_session'); } catch (e) {}
+            token = '';
+            alert('Session expired or not signed in. Sign in with GitHub.');
+            return;
+          }
           document.getElementById('login').classList.add('hidden');
+          document.getElementById('signout-wrap').classList.remove('hidden');
           var panel = document.getElementById('panel');
           panel.classList.remove('hidden');
           var posts = res.d.posts, html = '';
