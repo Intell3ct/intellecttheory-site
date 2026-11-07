@@ -174,11 +174,12 @@ function renderBody(md, indent = 6) {
   };
   let srcMd = md;
 
-  // {{< side-photo src width height alt caption >}} — floated figure w/ caption
+  // {{< side-photo src width height alt caption href >}} — floated figure w/ caption; href makes the photo a link
   srcMd = srcMd.replace(/\{\{<\s*side-photo\s+([^>]*?)\s*>\}\}/g, (_, argStr) => {
     const a = parseArgs(argStr);
+    const img = `   <img loading="lazy" decoding="async" width="${a.width}" height="${a.height}" src="../images/${a.src}" alt="${esc(a.alt || '')}">`;
     let h = '      <figure class="photo-side">\n';
-    h += `   <img loading="lazy" decoding="async" width="${a.width}" height="${a.height}" src="../images/${a.src}" alt="${esc(a.alt || '')}">\n`;
+    h += a.href ? `   <a href="${esc(a.href)}" target="_blank" rel="noopener">\n${img}\n   </a>\n` : `${img}\n`;
     if (a.caption) h += `        <figcaption>${a.caption}</figcaption>\n`;
     h += '      </figure>';
     return stash(h);

@@ -48,7 +48,7 @@ Put each on its own line, separated by blank lines like paragraphs.
 ```
 
 `src` is relative to `images/`. Use the `-800.webp` optimized file.
-Caption is optional.
+Caption is optional. `href` is optional — when present, the photo links out to that URL (opens in a new tab).
 
 ### Full-width photo
 
