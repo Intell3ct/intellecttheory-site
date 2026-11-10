@@ -349,7 +349,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 }
 
 .card-body { padding: 1.25rem 1.25rem 1.5rem; }
-.card-body h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+.card-body h2 { font-size: 1.3rem; margin-bottom: 0.4rem; }
 .card-body p  { color: var(--muted); font-size: 0.95rem; }
 .card-body time {
   display: block;
@@ -826,7 +826,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   border-radius: 14px;
   background: var(--mint-wash);
 }
-.post-links h3 {
+.post-links h2 {
   margin: 0 0 0.5rem;
   font-size: 0.82rem;
   letter-spacing: 0.14em;

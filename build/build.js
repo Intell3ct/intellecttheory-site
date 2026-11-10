@@ -1,6 +1,7 @@
 // Build for intellecttheory.com — renders Decap-managed posts (content/posts/*.md)
 // through templates/post.html, splices refreshed cards into index.html,
-// regenerates archive.html, sitemap.xml and js/search-index.json, and copies
+// regenerates archive.html, sitemap.xml, js/search-index.json, llms.txt and
+// llms-full.txt, minifies css/styles.css + js/main.js, and copies
 // everything else verbatim into dist/.
 //
 // Unconverted (legacy) posts are still plain HTML in posts/. Their HTML is
@@ -252,7 +253,7 @@ function renderOfficialLinks(links) {
   const items = links
     .map((l) => `          <li><a href="${l.url}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`)
     .join('\n');
-  return `      <aside class="post-links">\n        <h3>Official links</h3>\n        <ul>\n${items}\n        </ul>\n      </aside>`;
+  return `      <aside class="post-links">\n        <h2>Official links</h2>\n        <ul>\n${items}\n        </ul>\n      </aside>`;
 }
 
 function renderRelated(p, bySlug) {
@@ -268,6 +269,31 @@ function renderRelated(p, bySlug) {
   }).filter(Boolean).join('\n');
   if (!cards) return '';
   return `    <section class="related-posts">\n      <h2>You might also like</h2>\n      <div class="related-grid">\n${cards}\n      </div>\n    </section>\n`;
+}
+
+// BlogPosting JSON-LD for a post (added Nov 10, 2026). JSON.stringify
+// handles quoting; the <>& escapes keep a stray "</script>" in a title
+// or description from ever breaking out of the script tag. Author and
+// publisher are the Intellect Theory brand, not a personal name.
+function schemaJsonLd(p) {
+  const org = { '@type': 'Organization', name: 'Intellect Theory', url: SITE };
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: p.titlePlain,
+    description: p.description || '',
+    datePublished: p.date,
+    author: org,
+    publisher: {
+      ...org,
+      logo: { '@type': 'ImageObject', url: `${SITE}/images/optimized/logo-800.webp` },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE}/posts/${p.slug}` },
+  };
+  if (p.coverImage) schema.image = `${SITE}/images/${p.coverImage}`;
+  const json = JSON.stringify(schema, null, 2)
+    .replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
+  return `  <script type="application/ld+json">\n${json}\n  </script>`;
 }
 
 function renderPost(p, bySlug) {
@@ -299,6 +325,7 @@ function renderPost(p, bySlug) {
   tpl = tpl.replaceAll('{{TWITTER_TITLE}}', `${p.twitterTitle || p.title} — Intellect Theory`);
   tpl = tpl.replaceAll('{{COVER_IMAGE}}', p.coverImage);
   tpl = tpl.replaceAll('{{TWITTER_IMAGE}}', p.twitterImage || p.coverImage);
+  tpl = tpl.replace('{{SCHEMA_JSONLD}}', () => schemaJsonLd(p));
   if (isPhoto) {
     if (!p.hero) throw new Error(`${p.slug}: layout "photo" needs hero_image frontmatter`);
     tpl = tpl.replace('{{HERO_WIDTH}}', String(p.hero.width));
@@ -343,7 +370,7 @@ ${media}
         </div>
         <div class="card-body">
           <span class="tag">${p.tag}</span>
-          <h3>${p.title}</h3>
+          <h2>${p.title}</h2>
           <p>${p.cardExcerpt}</p>
           <a class="read-more" href="posts/${p.slug}.html">Read more &rarr;</a>
         </div>
@@ -500,6 +527,49 @@ function renderSearchIndex(existingJson, posts, legacyCards, hiddenSlugs = new S
   return JSON.stringify(out, null, 2);
 }
 
+// ------------------------------------------------------------ llms.txt
+// llms.txt (index) + llms-full.txt (full post content) for AI crawlers
+// (added Nov 10, 2026, from a comment suggestion on the SEO reel).
+// Generated from the visible posts each build so they never go stale.
+function renderLlmsTxt(posts) {
+  const lines = [
+    '# Intellect Theory',
+    '',
+    '> Personal website of Intellect Theory: video games, photography, and thoughts on life. Based in the Bay Area.',
+    '',
+    '## Pages',
+    '',
+    `- [Home](${SITE}): Latest posts, gaming and sports news, and the monthly newsletter signup.`,
+    `- [Archive](${SITE}/archive): Every post, grouped by month.`,
+    `- [The Wall](${SITE}/the-wall): The Intellect Theory guestbook. Stopped by? Leave a message.`,
+    '',
+    '## Posts',
+    '',
+  ];
+  for (const p of [...posts].sort((a, b) => b.date.localeCompare(a.date))) {
+    const desc = (p.description || '').replace(/\s+/g, ' ').trim();
+    lines.push(`- [${p.titlePlain}](${SITE}/posts/${p.slug}): ${desc}`);
+  }
+  lines.push('', '## Optional', '', `- [Full content, all posts](${SITE}/llms-full.txt): the complete text of every post on the site.`, '');
+  return lines.join('\n');
+}
+
+function renderLlmsFullTxt(posts) {
+  const parts = [
+    '# Intellect Theory — full content',
+    '',
+    '> Personal website of Intellect Theory: video games, photography, and thoughts on life. Based in the Bay Area.',
+    '',
+  ];
+  for (const p of [...posts].sort((a, b) => b.date.localeCompare(a.date))) {
+    parts.push(`## ${p.titlePlain}`, '', `${SITE}/posts/${p.slug} — ${p.date}`, '');
+    if (p.description) parts.push(p.description, '');
+    if (p.converted && p.bodyMd) parts.push(p.bodyMd.trim(), '');
+    parts.push('---', '');
+  }
+  return parts.join('\n');
+}
+
 // --------------------------------------------------------------------- build
 async function main() {
   const converted = loadConvertedPosts();
@@ -549,7 +619,11 @@ async function main() {
   write('sitemap.xml', renderSitemap(read('sitemap.xml'), visiblePosts, hiddenLocs));
   write('js/search-index.json', renderSearchIndex(read('js/search-index.json'), visiblePosts, legacyCards, draftSlugs));
 
-  // 5. Minify the site's own CSS and JS in dist/ (added Nov 10, 2026).
+  // 5. llms.txt + llms-full.txt for AI crawlers, from the visible posts.
+  write('llms.txt', renderLlmsTxt(visiblePosts));
+  write('llms-full.txt', renderLlmsFullTxt(visiblePosts));
+
+  // 6. Minify the site's own CSS and JS in dist/ (added Nov 10, 2026).
   // Build-time only: terser (JS) + clean-css level 1 (CSS) strip
   // comments/whitespace and shorten local names. No behavior change:
   // no inline HTML handler calls into main.js, no eval, no window
@@ -589,9 +663,14 @@ async function main() {
     if (meta && meta.converted && tea !== meta.teaBadge) {
       errors.push(`${f}: tea badge mismatch (frontmatter tea_badge=${meta.teaBadge})`);
     }
+    if (slug !== '_template' && !html.includes('application/ld+json')) {
+      errors.push(`${f}: BlogPosting schema missing`);
+    }
   }
   const sm = readFileSync(join(DIST, 'sitemap.xml'), 'utf8');
   if (/\.html<\/loc>/.test(sm)) errors.push('sitemap.xml: .html in a <loc>');
+  if (!existsSync(join(DIST, 'llms.txt'))) errors.push('llms.txt missing from dist');
+  if (!existsSync(join(DIST, 'llms-full.txt'))) errors.push('llms-full.txt missing from dist');
   if (errors.length) {
     console.error('BUILD VALIDATION FAILED:\n' + errors.map((e) => ' - ' + e).join('\n'));
     process.exit(1);
