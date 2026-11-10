@@ -19,6 +19,8 @@ import { join, dirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import { minify } from 'terser';
+import CleanCSS from 'clean-css';
 import { COMMENTS_BLOCK, TEA_BLOCK, ADD_MORE_COMMENT } from './fragments.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -499,7 +501,7 @@ function renderSearchIndex(existingJson, posts, legacyCards, hiddenSlugs = new S
 }
 
 // --------------------------------------------------------------------- build
-function main() {
+async function main() {
   const converted = loadConvertedPosts();
   const convertedSlugs = new Set(converted.map((p) => p.slug));
   const slugs = allPostSlugs();
@@ -547,6 +549,27 @@ function main() {
   write('sitemap.xml', renderSitemap(read('sitemap.xml'), visiblePosts, hiddenLocs));
   write('js/search-index.json', renderSearchIndex(read('js/search-index.json'), visiblePosts, legacyCards, draftSlugs));
 
+  // 5. Minify the site's own CSS and JS in dist/ (added Nov 10, 2026).
+  // Build-time only: terser (JS) + clean-css level 1 (CSS) strip
+  // comments/whitespace and shorten local names. No behavior change:
+  // no inline HTML handler calls into main.js, no eval, no window
+  // globals defined there — verified before adding this step. Any
+  // minify error fails the build loudly instead of shipping bad output.
+  const cssPath = join(DIST, 'css', 'styles.css');
+  const cssOrig = readFileSync(cssPath, 'utf8');
+  const cssMin = new CleanCSS({}).minify(cssOrig);
+  if (cssMin.errors && cssMin.errors.length) {
+    throw new Error('CSS minify failed: ' + cssMin.errors.join('; '));
+  }
+  writeFileSync(cssPath, cssMin.styles);
+  const jsPath = join(DIST, 'js', 'main.js');
+  const jsOrig = readFileSync(jsPath, 'utf8');
+  const jsMin = await minify(jsOrig);
+  if (jsMin.error) throw jsMin.error;
+  writeFileSync(jsPath, jsMin.code);
+  console.log(`Minified css/styles.css: ${cssOrig.length} → ${cssMin.styles.length} bytes; ` +
+    `js/main.js: ${jsOrig.length} → ${jsMin.code.length} bytes`);
+
   // ------------------------------------------------------------ validation
   const errors = [];
   for (const f of readdirSync(join(DIST, 'posts')).filter((x) => x.endsWith('.html'))) {
@@ -576,4 +599,4 @@ function main() {
   console.log(`Build OK → dist/ (${converted.length} converted post(s), ${slugs.length} total)`);
 }
 
-main();
+await main();
