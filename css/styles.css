@@ -2151,22 +2151,28 @@ html.high-contrast img {
 }
 
 /* ---------- cookie consent banner (added Nov 11, 2026) ----------
-   Fixed bottom card, first visit only. Amber Accept button matches
+   Centered modal overlay on first visit: dimmed backdrop over the
+   whole page, white card in the middle. Amber Accept button matches
    the newsletter button lighting; Decline is a plain ghost button. */
 .cookie-banner {
   position: fixed;
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
+  inset: 0;
   z-index: 900;
-  width: min(680px, calc(100% - 32px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(29, 26, 22, 0.45);
+  padding: 16px;
+}
+.cookie-card {
+  width: min(560px, 100%);
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: 0 12px 40px rgba(29, 26, 22, 0.18);
-  padding: 1rem 1.25rem;
+  box-shadow: 0 12px 40px rgba(29, 26, 22, 0.25);
+  padding: 1.25rem 1.5rem;
 }
-.cookie-banner p { margin: 0 0 0.75rem; font-size: 0.95rem; line-height: 1.5; }
+.cookie-card p { margin: 0 0 0.75rem; font-size: 0.95rem; line-height: 1.5; }
 .cookie-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .cookie-accept {
   background: linear-gradient(to bottom, #f3c25f 0%, var(--amber) 55%, #d99f30 100%);

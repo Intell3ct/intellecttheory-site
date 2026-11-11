@@ -1192,25 +1192,34 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     var banner = document.createElement("div");
     banner.id = "cookie-banner";
     banner.className = "cookie-banner";
-    banner.setAttribute("role", "region");
+    banner.setAttribute("role", "dialog");
+    banner.setAttribute("aria-modal", "true");
     banner.setAttribute("aria-label", "Cookie consent");
     banner.innerHTML =
+      "<div class=\"cookie-card\">" +
       "<p>This site uses cookies to see which posts people like (Google Analytics) " +
       "and to remember your choice here. Accept to turn analytics on, or decline " +
       "and browse with no tracking at all. <a href=\"" + consentPageLink() + "\">Privacy &amp; Cookies</a></p>" +
       "<div class=\"cookie-actions\">" +
       "<button type=\"button\" class=\"cookie-accept\">Accept</button>" +
       "<button type=\"button\" class=\"cookie-decline\">Decline</button>" +
+      "</div>" +
       "</div>";
+    var prevOverflow = document.body.style.overflow;
     document.body.appendChild(banner);
+    document.body.style.overflow = "hidden";
+    function closeBanner() {
+      document.body.style.overflow = prevOverflow;
+      banner.remove();
+    }
     banner.querySelector(".cookie-accept").addEventListener("click", function () {
       storeConsent("accepted");
       loadAnalytics();
-      banner.remove();
+      closeBanner();
     });
     banner.querySelector(".cookie-decline").addEventListener("click", function () {
       storeConsent("declined");
-      banner.remove();
+      closeBanner();
     });
   }
   // Re-open the banner from the footer or the privacy page.
