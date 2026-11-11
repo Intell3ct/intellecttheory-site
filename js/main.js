@@ -1195,8 +1195,12 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     banner.setAttribute("role", "dialog");
     banner.setAttribute("aria-modal", "true");
     banner.setAttribute("aria-label", "Cookie consent");
+    // Inline fallback styles: the overlay must render centered even if
+    // the stylesheet is stale or fails to load. The stylesheet rules
+    // carry the same values when it does load.
+    banner.style.cssText = "position:fixed;inset:0;z-index:900;display:flex;align-items:center;justify-content:center;background:rgba(29,26,22,.45);padding:16px;";
     banner.innerHTML =
-      "<div class=\"cookie-card\">" +
+      "<div class=\"cookie-card\" style=\"width:min(560px,100%);background:#fff;border:1px solid #e9e2d8;border-radius:18px;box-shadow:0 12px 40px rgba(29,26,22,.25);padding:1.25rem 1.5rem;\">" +
       "<p>This site uses cookies to see which posts people like (Google Analytics) " +
       "and to remember your choice here. Accept to turn analytics on, or decline " +
       "and browse with no tracking at all. <a href=\"" + consentPageLink() + "\">Privacy &amp; Cookies</a></p>" +
@@ -1205,21 +1209,15 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
       "<button type=\"button\" class=\"cookie-decline\">Decline</button>" +
       "</div>" +
       "</div>";
-    var prevOverflow = document.body.style.overflow;
     document.body.appendChild(banner);
-    document.body.style.overflow = "hidden";
-    function closeBanner() {
-      document.body.style.overflow = prevOverflow;
-      banner.remove();
-    }
     banner.querySelector(".cookie-accept").addEventListener("click", function () {
       storeConsent("accepted");
       loadAnalytics();
-      closeBanner();
+      banner.remove();
     });
     banner.querySelector(".cookie-decline").addEventListener("click", function () {
       storeConsent("declined");
-      closeBanner();
+      banner.remove();
     });
   }
   // Re-open the banner from the footer or the privacy page.
