@@ -1154,4 +1154,76 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
       }, 500);
     });
   }
+
+  /* ---------- cookie consent ----------
+     First visit shows a banner at the bottom of the page. Google
+     Analytics loads ONLY after the visitor accepts. Declining (or
+     never answering) means no analytics at all. The choice is kept
+     in localStorage on the visitor's own device, so the banner
+     stays gone on later visits. Footer "Cookie settings" and the
+     button on the privacy page re-open the banner. */
+  var CONSENT_KEY = "it-cookie-consent";
+  var GA_ID = "G-FGCP2JC7CG";
+
+  function readConsent() {
+    try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+  }
+  function storeConsent(value) {
+    try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {}
+  }
+  function consentPageLink() {
+    // Posts live one folder down, so their privacy link needs ../
+    return window.location.pathname.indexOf("/posts/") !== -1 ? "../privacy.html" : "privacy.html";
+  }
+  function loadAnalytics() {
+    if (window.__itGaLoaded) return;
+    window.__itGaLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
+    document.head.appendChild(s);
+    gtag("js", new Date());
+    gtag("config", GA_ID);
+  }
+  function showConsentBanner() {
+    if (document.getElementById("cookie-banner")) return;
+    var banner = document.createElement("div");
+    banner.id = "cookie-banner";
+    banner.className = "cookie-banner";
+    banner.setAttribute("role", "region");
+    banner.setAttribute("aria-label", "Cookie consent");
+    banner.innerHTML =
+      "<p>This site uses cookies to see which posts people like (Google Analytics) " +
+      "and to remember your choice here. Accept to turn analytics on, or decline " +
+      "and browse with no tracking at all. <a href=\"" + consentPageLink() + "\">Privacy &amp; Cookies</a></p>" +
+      "<div class=\"cookie-actions\">" +
+      "<button type=\"button\" class=\"cookie-accept\">Accept</button>" +
+      "<button type=\"button\" class=\"cookie-decline\">Decline</button>" +
+      "</div>";
+    document.body.appendChild(banner);
+    banner.querySelector(".cookie-accept").addEventListener("click", function () {
+      storeConsent("accepted");
+      loadAnalytics();
+      banner.remove();
+    });
+    banner.querySelector(".cookie-decline").addEventListener("click", function () {
+      storeConsent("declined");
+      banner.remove();
+    });
+  }
+  // Re-open the banner from the footer or the privacy page.
+  document.querySelectorAll("[data-cookie-settings]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      try { localStorage.removeItem(CONSENT_KEY); } catch (e) {}
+      showConsentBanner();
+    });
+  });
+  // On load: accepted means analytics on, no choice yet means show the banner.
+  if (readConsent() === "accepted") {
+    loadAnalytics();
+  } else if (readConsent() !== "declined") {
+    showConsentBanner();
+  }
 })();

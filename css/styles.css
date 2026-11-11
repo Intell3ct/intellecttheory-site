@@ -2149,3 +2149,57 @@ html.high-contrast a {
 html.high-contrast img {
   filter: contrast(1.1);
 }
+
+/* ---------- cookie consent banner (added Nov 11, 2026) ----------
+   Fixed bottom card, first visit only. Amber Accept button matches
+   the newsletter button lighting; Decline is a plain ghost button. */
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 900;
+  width: min(680px, calc(100% - 32px));
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(29, 26, 22, 0.18);
+  padding: 1rem 1.25rem;
+}
+.cookie-banner p { margin: 0 0 0.75rem; font-size: 0.95rem; line-height: 1.5; }
+.cookie-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.cookie-accept {
+  background: linear-gradient(to bottom, #f3c25f 0%, var(--amber) 55%, #d99f30 100%);
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+.cookie-accept:hover { filter: brightness(0.97); transform: translateY(-1px); }
+.cookie-decline {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+.cookie-decline:hover { background: var(--surface); }
+
+/* ---------- footer legal links ---------- */
+.legal-links { font-size: 0.9rem; color: var(--muted); }
+.legal-links a { color: inherit; }
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
