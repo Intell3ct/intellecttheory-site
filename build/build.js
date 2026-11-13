@@ -433,7 +433,7 @@ function fixHeroFallback(indexHtml, visiblePosts) {
   const alt = (cand.hero && cand.hero.alt) || (cand.cardImage && cand.cardImage.alt) || '';
   const slide = `    <section class="hero" data-hero-auto>
       <div class="hero-slide">
-      <img fetchpriority="high" decoding="async" class="hero-photo" src="${img}" alt="${alt}" decoding="async">
+      <img fetchpriority="high" decoding="async" class="hero-photo" src="${img}" alt="${alt}">
       <div class="hero-overlay">
         <span class="tag">${cand.tag}</span>
         <h1>${cand.title}</h1>
