@@ -7,21 +7,7 @@
   <meta name="description" content="Comment moderation — Intellect Theory (private).">
   <title>Comment moderation — Intellect Theory</title>
   <link rel="icon" type="image/jpeg" href="images/logo.jpg">
-  <style>
-    body { font-family: Georgia, 'Times New Roman', serif; max-width: 720px; margin: 2rem auto; padding: 0 1.25rem; color: #222; }
-    h1 { font-size: 1.4rem; }
-    #login input { padding: 0.5rem; font-size: 1rem; width: 100%; max-width: 320px; }
-    #login button, .comment button { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; }
-    #login button { margin-top: 0.5rem; }
-    .post { border-top: 1px solid #ddd; padding: 1rem 0; }
-    .comment { border: 1px solid #e5e5e5; border-radius: 8px; padding: 0.75rem 1rem; margin: 0.5rem 0; }
-    .comment header { font-size: 0.85rem; color: #666; margin-bottom: 0.35rem; }
-    .comment button { background: #a33; color: #fff; border: 0; border-radius: 6px; padding: 0.35rem 0.8rem; }
-    .comment.reply { margin-left: 2rem; border-left: 3px solid #aed6c9; }
-    .comment .meta { color: #999; font-size: 0.8rem; }
-    .comment .reported { color: #a33; font-weight: bold; }
-    .hidden { display: none; }
-  </style>
+  <link rel="stylesheet" href="css/moderate.css?v=1">
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -30,104 +16,11 @@
   <div id="login">
     <p>Sign in with the same GitHub account you use for the content manager.</p>
     <p><a href="https://intellecttheory-cms-auth.ajsrhs.workers.dev/auth/comments"><button>Sign in with GitHub</button></a></p>
-    <p style="font-size:.9rem;color:#666">Your session is remembered on this device for 30 days.</p>
+    <p class="fine-print">Your session is remembered on this device for 30 days.</p>
   </div>
   <p id="signout-wrap" class="hidden"><button id="signout">Sign out</button></p>
   <div id="panel" class="hidden"></div>
-  <script>
-    var API = 'https://intellecttheory-comments.ajsrhs.workers.dev/api/admin';
-    var token = '';
-    function esc(s) {
-      return String(s).replace(/[&<>"']/g, function (c) {
-        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-      });
-    }
-    // Sessions come from GitHub sign-in via the CMS auth bridge. The old
-    // static token is retired: drop it if this browser still holds one.
-    try { localStorage.removeItem('aj_admin_token'); } catch (e) {}
-    try { token = localStorage.getItem('aj_admin_session') || ''; } catch (e) {}
-    (function () {
-      var m = window.location.search.match(/[?&]session=([^&]+)/);
-      if (m) {
-        try { token = decodeURIComponent(m[1]); localStorage.setItem('aj_admin_session', token); } catch (e) {}
-        try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
-      }
-    })();
-    document.getElementById('signout').onclick = function () {
-      token = '';
-      try { localStorage.removeItem('aj_admin_session'); } catch (e) {}
-      document.getElementById('panel').classList.add('hidden');
-      document.getElementById('signout-wrap').classList.add('hidden');
-      document.getElementById('login').classList.remove('hidden');
-    };
-    if (token) load();
-    function load() {
-      token = token || document.getElementById('token').value;
-      fetch(API + '?token=' + encodeURIComponent(token))
-        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-        .then(function (res) {
-          if (!res.ok) {
-            try { localStorage.removeItem('aj_admin_session'); } catch (e) {}
-            token = '';
-            alert('Session expired or not signed in. Sign in with GitHub.');
-            return;
-          }
-          document.getElementById('login').classList.add('hidden');
-          document.getElementById('signout-wrap').classList.remove('hidden');
-          var panel = document.getElementById('panel');
-          panel.classList.remove('hidden');
-          var posts = res.d.posts, html = '';
-          Object.keys(posts).forEach(function (slug) {
-            html += '<div class="post"><h2>' + esc(slug) + '</h2>';
-            var list = posts[slug];
-            if (!list.length) html += '<p><i>No comments.</i></p>';
-            var byId = {}, roots = [];
-            list.forEach(function (c) { byId[c.id] = c; c._kids = []; });
-            list.forEach(function (c) {
-              if (c.parent_id && byId[c.parent_id]) byId[c.parent_id]._kids.push(c);
-              else roots.push(c);
-            });
-            function row(c, isReply) {
-              var h = '<div class="comment' + (isReply ? ' reply' : '') + '"><header><b>' + esc(c.name) + '</b> — ' +
-                new Date(c.ts).toLocaleString() + '</header>' +
-                '<div class="meta">score ' + (c.score || 0) + ' · ' + (c.reports || 0) + ' reports' + (c.parent_id ? ' · reply' : '') + '</div><p>' +
-                esc(c.text).replace(/\n/g, '<br>') + '</p>';
-              if ((c.reports || 0) > 0) h += '<p class="reported">⚠ reported ' + (c.reports || 0) + '×</p>';
-              h += '<button data-post="' + esc(slug) + '" data-id="' + esc(c.id) + '">Delete</button>' +
-                '<button class="replybtn" data-post="' + esc(slug) + '" data-id="' + esc(c.id) + '" style="background:#3a7d5c">Reply as admin</button></div>';
-              (c._kids || []).forEach(function (k) { h += row(k, true); });
-              return h;
-            }
-            roots.forEach(function (c) { html += row(c, false); });
-            html += '</div>';
-          });
-          panel.innerHTML = html || '<p>No comments yet.</p>';
-          panel.querySelectorAll('button').forEach(function (b) {
-            if (b.classList.contains('replybtn')) {
-              b.onclick = function () {
-                var text = prompt('Reply as admin:');
-                if (!text || !text.trim()) return;
-                fetch(API, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ token: token, action: 'reply', post: b.getAttribute('data-post'), parent_id: b.getAttribute('data-id'), text: text.trim(), name: 'AJ' }),
-                }).then(load);
-              };
-            } else {
-              b.onclick = function () {
-                if (!confirm('Delete this comment?')) return;
-                fetch(API, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ token: token, action: 'delete', post: b.getAttribute('data-post'), id: b.getAttribute('data-id') }),
-                }).then(load);
-              };
-            }
-          });
-        })
-        .catch(function () { alert('Could not load. Check your connection.'); });
-    }
-  </script>
+  <script src="js/moderate.js?v=1" defer></script>
   <div id="a11y-announcer" class="sr-only" aria-live="polite" role="status"></div>
 </body>
 </html>

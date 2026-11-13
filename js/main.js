@@ -684,6 +684,46 @@
       .catch(function () { el.innerHTML = ""; });
   })();
 
+  /* ---------- back to top (homepage button) ---------- */
+  (function () {
+    var btn = document.getElementById("backToTop");
+    if (!btn) return;
+    var about = document.getElementById("about");
+    function update() {
+      var show = false;
+      if (about) {
+        var r = about.getBoundingClientRect();
+        show = r.top < window.innerHeight * 0.7;
+      } else {
+        show = window.scrollY > 600;
+      }
+      btn.style.opacity = show ? "1" : "0";
+      btn.style.pointerEvents = show ? "auto" : "none";
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    var mintBg = "linear-gradient(to bottom, #aed6c9 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%)";
+    var amberBg = "linear-gradient(to bottom, #E8A838 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%)";
+    btn.addEventListener("mouseenter", function () { btn.style.background = amberBg; });
+    btn.addEventListener("mouseleave", function () { btn.style.background = mintBg; });
+  })();
+
+  /* ---------- spoiler reveal (posts with a spoiler box) ---------- */
+  (function () {
+    var btn = document.querySelector("[data-spoiler-toggle]");
+    var content = document.querySelector("[data-spoiler-content]");
+    if (!btn || !content) return;
+    btn.addEventListener("click", function () {
+      var revealed = content.classList.toggle("is-revealed");
+      content.classList.toggle("is-blurred", !revealed);
+      btn.textContent = revealed ? "Hide spoilers" : "Show spoilers";
+      btn.setAttribute("aria-expanded", revealed ? "true" : "false");
+    });
+  })();
+
   /* ---------- language toggle (EN <-> ES via Google Translate proxy) ---------- */  (function () {
     var sel = document.getElementById("lang-toggle");
     if (!sel) return;

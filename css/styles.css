@@ -2209,3 +2209,50 @@ html.high-contrast img {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* ---------- back to top (homepage) ---------- */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(to bottom, #aed6c9 44%, #2b2b2b 44%, #2b2b2b 56%, #fff 56%);
+  border: 2px solid #2b2b2b;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 99;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: opacity 0.3s;
+  padding: 0;
+}
+.back-to-top-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #2b2b2b;
+  box-sizing: border-box;
+  display: block;
+}
+
+/* ---------- 404 page ---------- */
+.not-found { max-width: 640px; margin: 0 auto; padding: 96px 24px; text-align: center; }
+.not-found h1 { font-size: 2rem; margin-bottom: 16px; }
+.not-found p { margin-bottom: 16px; }
+.not-found a { text-decoration: underline; }
+
+/* ---------- backend page ---------- */
+.backend { max-width: 640px; margin: 0 auto; padding: 48px 24px 96px; }
+.backend h1 { font-size: 1.8rem; margin-bottom: 8px; }
+.backend .note { color: #666; margin-bottom: 32px; }
+.backend-card { display: block; border: 1px solid #ddd; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; text-decoration: none; color: inherit; }
+.backend-card:hover { border-color: #aed6c9; }
+.backend-card h2 { font-size: 1.25rem; margin: 0 0 6px; }
+.backend-card p { margin: 0; color: #555; }

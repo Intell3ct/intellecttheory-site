@@ -69,18 +69,4 @@ I&apos;ve already seen a few of the leaked clips, I&apos;ll admit it. That&apos;
 </div>
 </div>
 
-<script>
-(function () {
-var btn = document.querySelector('[data-spoiler-toggle]');
-var content = document.querySelector('[data-spoiler-content]');
-if (!btn || !content) return;
-btn.addEventListener('click', function () {
-var revealed = content.classList.toggle('is-revealed');
-content.classList.toggle('is-blurred', !revealed);
-btn.textContent = revealed ? 'Hide spoilers' : 'Show spoilers';
-btn.setAttribute('aria-expanded', revealed ? 'true' : 'false');
-});
-})();
-</script>
-
 Six weeks. Preordered, hyped, and ready. See you in Vice City.
