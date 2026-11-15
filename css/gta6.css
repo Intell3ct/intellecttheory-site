@@ -1,0 +1,416 @@
+/* ============================================================
+   GTA 6 pages (answers + progress tracker) — page-specific
+   styles for intellecttheory.com. Loaded only by
+   gta-6-answers.html and gta-6-tracker.html.
+   These two pages run a dark theme: black background, white
+   text, and the content boxes in single GTA 6 sunset colors
+   (one solid color per box: pink, violet, orange). The rest
+   of the site keeps the standard light theme.
+   ============================================================ */
+
+.gta6-page {
+  /* gradient bar + tracker fill use these; the full palette lives
+     on body.gta6-dark below so <body>, header and footer see it too */
+  --gta-grad: linear-gradient(100deg, #d780b0, #f19595 30%, #fcb595 50%, #ee9298 75%, #d881af);
+}
+
+/* ---------- dark chrome (this page only) ---------- */
+body.gta6-dark {
+  /* colors sampled from Rockstar's official GTA VI newswire page */
+  --gta-pink: #fe96b1;
+  --gta-lav: #cab9f2;
+  --gta-dim: #a9a2d3;
+  --gta-bg: #2a2a4b;
+  --gta-panel: #23233f;
+  --gta-line: #45456e;
+  --gta-grad: linear-gradient(100deg, #d780b0, #f19595 30%, #fcb595 50%, #ee9298 75%, #d881af);
+  --ink-dim: rgba(202, 185, 242, 0.75);
+  --ink-line: rgba(255, 255, 255, 0.16);
+  background: var(--gta-bg);
+  color: var(--gta-lav);
+}
+.gta6-dark .site-header {
+  background: var(--gta-panel);
+  border-bottom: 1px solid var(--gta-line);
+}
+.gta6-dark .site-footer {
+  background: var(--gta-panel);
+  border-top-color: var(--gta-line);
+  color: var(--gta-dim);
+}
+.gta6-dark .lang-toggle {
+  color: var(--gta-lav);
+  border-color: var(--gta-line);
+  background: var(--gta-bg);
+}
+.gta6-dark .a11y-btn {
+  color: var(--gta-lav);
+  border-color: var(--gta-line);
+  background: transparent;
+}
+.gta6-dark ::placeholder { color: #8f89b8; }
+
+/* the splash: a sunset gradient bar over the article */
+.gta6-page .post {
+  border-top: 6px solid transparent;
+  border-image: var(--gta-grad) 1;
+  padding-top: 1.25rem;
+}
+
+/* styles.css colors .post h1 and .post p with the site ink;
+   on these dark pages they must be white */
+.gta6-dark .post h1 { color: var(--gta-pink); }
+.gta6-dark .post p { color: var(--gta-lav); }
+.gta6-dark .post > time { color: var(--gta-dim); }
+.gta6-dark .qa-card .qa-checked { color: var(--gta-dim); }
+
+/* ---------- shared ---------- */
+.gta6-xlinks {
+  background: var(--gta-panel);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
+  border-radius: 24px;
+  padding: 1.25rem 1.5rem;
+  margin: 2.5rem 0 1rem;
+}
+.gta6-xlinks h2 {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  margin: 0 0 0.6rem;
+}
+.gta6-xlinks ul { margin: 0; padding-left: 1.1rem; }
+.gta6-xlinks li { margin: 0.35rem 0; line-height: 1.5; }
+.gta6-xlinks a { color: var(--gta-pink); font-weight: 600; }
+
+/* ---------- answers ---------- */
+.qa-tools { margin: 1.75rem 0 0.5rem; }
+.qa-search-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.qa-search {
+  width: 100%;
+  font: inherit;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--gta-line);
+  border-radius: 12px;
+  background: var(--gta-panel);
+  color: #fff;
+}
+.qa-search:focus-visible {
+  outline: 3px solid var(--gta-pink);
+  outline-offset: 2px;
+}
+.qa-empty { color: var(--ink-dim); margin-top: 0.6rem; }
+.qa-empty a { color: var(--gta-pink); font-weight: 600; }
+
+.qa-group { margin-top: 2.25rem; }
+.qa-group > h2 {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  margin: 0 0 1rem;
+  color: var(--gta-pink);
+}
+.qa-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 720px) {
+  .qa-grid { grid-template-columns: 1fr 1fr; }
+}
+.qa-card {
+  background: rgba(110, 42, 74, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
+  border-radius: 24px;
+  padding: 1.1rem 1.25rem;
+  color: #fff;
+}
+.qa-card h3 {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  line-height: 1.35;
+  color: #fff;
+  background: rgba(184, 74, 125, 0.22);
+  margin: -1.1rem -1.25rem 0.9rem;
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 23px 23px 0 0;
+}
+.qa-card h3::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(20, 18, 42, 0.35);
+  box-shadow: 13px 0 0 rgba(20, 18, 42, 0.35);
+  margin-right: 24px;
+  vertical-align: middle;
+}
+.qa-card:nth-child(3n+2) { background: rgba(61, 52, 105, 0.14); }
+.qa-card:nth-child(3n+2) h3 { background: rgba(106, 88, 184, 0.22); }
+.qa-card:nth-child(3n) { background: rgba(122, 74, 43, 0.14); }
+.qa-card:nth-child(3n) h3 { background: rgba(184, 127, 69, 0.22); }
+.qa-card p { margin: 0 0 0.5rem; line-height: 1.6; }
+.qa-card a { color: var(--gta-pink); font-weight: 600; }
+.qa-card:nth-child(3n+2) a { color: #ffb3c6; }
+.qa-card:nth-child(3n) a { color: #ffc79b; }
+.qa-card .qa-checked {
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  margin: 0;
+}
+.qa-card-pending {
+  background: rgba(61, 52, 105, 0.14);
+}
+.qa-card-pending h3 { border-bottom-style: dashed; }
+
+/* ---------- tracker ---------- */
+.tracker-storage-note {
+  background: #2b1f07;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 0.9rem 1.2rem;
+  margin: 1.5rem 0 0;
+  color: #ffe1a8;
+}
+.tracker-storage-note p { margin: 0; line-height: 1.55; }
+
+.tracker-overall {
+  background: var(--gta-panel);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
+  border-radius: 24px;
+  padding: 1.1rem 1.25rem;
+  margin: 2rem 0 1.5rem;
+}
+.tracker-overall-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.tracker-overall-head h2 {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  margin: 0;
+}
+.tracker-pct { font-weight: 700; font-size: 1.1rem; }
+.tracker-count { color: var(--gta-dim); margin: 0.5rem 0 0; font-size: 0.9rem; }
+
+.tracker-bar {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  height: 12px;
+  overflow: hidden;
+  margin-top: 0.6rem;
+}
+.tracker-fill {
+  background: var(--accent);
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+/* the splash: overall progress fills in the sunset gradient */
+.tracker-overall .tracker-fill { background: var(--gta-grad); }
+
+.tracker-section {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
+  border-radius: 24px;
+  padding: 1.1rem 1.25rem;
+  margin: 0 0 1.25rem;
+  background: rgba(110, 42, 74, 0.14);
+  color: #fff;
+}
+.tracker-section:nth-child(3n+2) { background: rgba(61, 52, 105, 0.14); }
+.tracker-section:nth-child(3n) { background: rgba(122, 74, 43, 0.14); }
+.tracker-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(184, 74, 125, 0.22);
+  margin: -1.1rem -1.25rem 0.4rem;
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 23px 23px 0 0;
+}
+.tracker-section:nth-child(3n+2) .tracker-section-head { background: rgba(106, 88, 184, 0.22); }
+.tracker-section:nth-child(3n) .tracker-section-head { background: rgba(184, 127, 69, 0.22); }
+.tracker-section-head h2 {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  margin: 0;
+  color: #fff;
+}
+.tracker-section .tracker-bar { height: 9px; }
+
+.tracker-list { list-style: none; margin: 1rem 0 0; padding: 0; }
+.tracker-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--ink-line);
+}
+.tracker-item:first-child { border-top: none; }
+.tracker-check {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  accent-color: var(--gta-pink);
+  flex: none;
+}
+.tracker-item-main { flex: 1; min-width: 0; }
+.tracker-item-text { line-height: 1.45; overflow-wrap: break-word; }
+.tracker-item-done .tracker-item-text {
+  text-decoration: line-through;
+  color: var(--ink-dim);
+}
+.tracker-note {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-size: 0.9rem;
+  color: #e6ddf2;
+  border: none;
+  background: transparent;
+  padding: 0.2rem 0 0;
+}
+.tracker-note:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+  color: #fff;
+}
+.tracker-del {
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--ink-dim);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+  border-radius: 8px;
+}
+.tracker-del:hover, .tracker-del:focus-visible {
+  color: #fff;
+  outline: 2px solid #fff;
+}
+.tracker-empty { color: var(--gta-dim); margin: 0.8rem 0 0; }
+
+.tracker-add {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.tracker-add input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #fff;
+}
+.tracker-add input:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+.tracker-add button,
+.tracker-reset {
+  font: inherit;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1.1rem;
+  background: #fff;
+  color: #1d1a16;
+  cursor: pointer;
+}
+.tracker-add button:focus-visible,
+.tracker-reset:focus-visible {
+  outline: 3px solid var(--gta-pink);
+  outline-offset: 2px;
+}
+
+.tracker-reset-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.75rem 0 0;
+  flex-wrap: wrap;
+}
+.tracker-reset {
+  background: transparent;
+  color: var(--gta-pink);
+  border: 1px solid var(--gta-pink);
+}
+.tracker-reset-note { color: var(--gta-dim); font-size: 0.9rem; }
+
+/* ---------- glass finish (keeps the window frame + colors) ---------- */
+.qa-card, .tracker-section, .tracker-overall {
+  position: relative;
+  backdrop-filter: blur(6px) saturate(1.35);
+  -webkit-backdrop-filter: blur(6px) saturate(1.35);
+}
+.qa-card::after, .tracker-section::after, .tracker-overall::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 24% at 50% 0%, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(60% 24% at 50% 100%, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0) 65%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 0 22px rgba(255, 255, 255, 0.06);
+}
+
+/* the GAMING pill wears the pages' logo gradient instead of site mint */
+.gta6-dark .post .tag {
+  background: var(--gta-grad);
+  color: #3a1f3d;
+}
+
+/* ---------- launch countdown (small glass pill, logo-gradient numbers) ---------- */
+.gta-countdown {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 1.75rem 0 0;
+  padding: 0.65rem 1.15rem;
+  background: rgba(35, 35, 63, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(6px) saturate(1.35);
+  -webkit-backdrop-filter: blur(6px) saturate(1.35);
+}
+.gta-countdown-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gta-lav);
+}
+.gta-countdown-time {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  font-variant-numeric: tabular-nums;
+  background: var(--gta-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

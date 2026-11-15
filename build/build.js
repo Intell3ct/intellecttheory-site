@@ -542,6 +542,8 @@ function renderLlmsTxt(posts) {
     `- [Home](${SITE}): Latest posts, gaming and sports news, and the monthly newsletter signup.`,
     `- [Archive](${SITE}/archive): Every post, grouped by month.`,
     `- [The Wall](${SITE}/the-wall): The Intellect Theory guestbook. Stopped by? Leave a message.`,
+    `- [GTA 6 Answers](${SITE}/gta-6-answers): Straight answers about GTA 6, checked by hand: release, price, preload, and gameplay verified while playing.`,
+    `- [GTA 6 Progress Tracker](${SITE}/gta-6-tracker): A browser-based checklist for a GTA 6 run through Leonida. Saves on the device only, no account.`,
     '',
     '## Posts',
     '',

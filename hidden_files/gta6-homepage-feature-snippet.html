@@ -1,0 +1,77 @@
+<!-- ============================================================
+     GTA 6 HOMEPAGE FEATURE — prepared Nov 15, 2026, NOT inserted.
+     AJ's placement call (Nov 15): homepage feature only, no nav link.
+     At publish time:
+       1. Insert the HTML block into index.html directly above
+          <section id="posts" class="post-grid"> (below the hero).
+       2. Append the CSS below to css/styles.css and bump the
+          styles.css ?v= sitewide (100 -> 101) per the cache rule.
+       3. Remove this block after launch week if AJ says so
+          (the two GTA pages and their post links stay).
+     ============================================================ -->
+
+<!-- HTML BLOCK -->
+<section class="gta6-feature" aria-label="GTA 6 launch week">
+  <span class="tag">Gaming</span>
+  <h2>GTA 6 launch week</h2>
+  <p>I preordered day one and I am playing the minute it unlocks. Two pages I am keeping live through launch:</p>
+  <div class="gta6-feature-links">
+    <a class="gta6-feature-card" href="gta-6-answers.html">
+      <strong>GTA 6 Answers</strong>
+      <span>Straight answers, checked by hand. Release, price, preload, and gameplay as I verify it.</span>
+    </a>
+    <a class="gta6-feature-card" href="gta-6-tracker.html">
+      <strong>Progress Tracker</strong>
+      <span>Tick off your run through Leonida. Saves in your browser, no account.</span>
+    </a>
+  </div>
+</section>
+
+<!-- CSS (append to css/styles.css at publish) -->
+<style>
+.gta6-feature {
+  --gta-grad: linear-gradient(100deg, #ff2e7e, #8b3dff 48%, #ff8a3d);
+  background: var(--mint-wash);
+  border: 1px solid var(--line);
+  border-top: 6px solid transparent;
+  border-image: var(--gta-grad) 1;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 0 0 2rem;
+}
+.gta6-feature h2 {
+  font-family: var(--font-head);
+  font-size: 1.7rem;
+  margin: 0.4rem 0 0.5rem;
+}
+.gta6-feature p { line-height: 1.6; margin: 0 0 1rem; }
+.gta6-feature-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+}
+@media (min-width: 720px) {
+  .gta6-feature-links { grid-template-columns: 1fr 1fr; }
+}
+.gta6-feature-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  text-decoration: none;
+  color: var(--text);
+}
+.gta6-feature-card strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+.gta6-feature-card span { line-height: 1.5; }
+.gta6-feature-links .gta6-feature-card:first-child { background: #ffe9f3; border-color: #f5c3da; }
+.gta6-feature-links .gta6-feature-card:last-child { background: #efe8ff; border-color: #d3c2fa; }
+.gta6-feature-links .gta6-feature-card:first-child strong { color: #a30f52; }
+.gta6-feature-links .gta6-feature-card:last-child strong { color: #5519b8; }
+</style>
