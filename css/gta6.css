@@ -414,3 +414,23 @@ body.gta6-dark {
   background-clip: text;
   color: transparent;
 }
+
+/* ---------- palm pair silhouette in the page background ---------- */
+.gta6-dark::before {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: min(100vw, 108vh);
+  height: 108vh;
+  background: url(../images/palm-pair.png) bottom left / contain no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+.gta6-dark .site-header, .gta6-dark main, .gta6-dark .site-footer {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 640px) {
+  .gta6-dark::before { height: 96vh; }
+}
