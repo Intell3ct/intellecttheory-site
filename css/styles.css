@@ -2269,23 +2269,30 @@ html.high-contrast img {
 .backend-card h2 { font-size: 1.25rem; margin: 0 0 6px; }
 .backend-card p { margin: 0; color: #555; }
 
-/* ---------- GTA 6 launch-week homepage feature (added Nov 15, 2026) ---------- */
+/* ---------- GTA 6 launch-week homepage feature (added Nov 15, 2026; restyled Nov 15 to match the GTA pages) ---------- */
 .gta6-feature {
   --gta-grad: linear-gradient(100deg, #d780b0, #f19595 30%, #fcb595 50%, #ee9298 75%, #d881af);
-  background: var(--mint-wash);
-  border: 1px solid var(--line);
+  background: #2a2a4b url(../images/palm-pair.png) bottom -14px right -14px / 200px auto no-repeat;
+  color: #cab9f2;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-top: 6px solid transparent;
   border-image: var(--gta-grad) 1;
-  border-radius: var(--radius);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
   padding: 1.5rem;
   margin: 0 0 2rem;
+}
+.gta6-feature .tag {
+  background: var(--gta-grad);
+  color: #3a1f3d;
 }
 .gta6-feature h2 {
   font-family: var(--font-head);
   font-size: 1.7rem;
   margin: 0.4rem 0 0.5rem;
+  color: #fe96b1;
 }
-.gta6-feature p { line-height: 1.6; margin: 0 0 1rem; }
+.gta6-feature p { line-height: 1.6; margin: 0 0 1rem; color: #cab9f2; }
 .gta6-feature-links {
   display: grid;
   grid-template-columns: 1fr;
@@ -2295,23 +2302,40 @@ html.high-contrast img {
   .gta6-feature-links { grid-template-columns: 1fr 1fr; }
 }
 .gta6-feature-card {
+  position: relative;
   display: block;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
   padding: 1rem 1.2rem;
   text-decoration: none;
-  color: var(--text);
+  color: #fff;
+  backdrop-filter: blur(6px) saturate(1.35);
+  -webkit-backdrop-filter: blur(6px) saturate(1.35);
+}
+.gta6-feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 24% at 50% 0%, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(60% 24% at 50% 100%, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0) 65%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 0 22px rgba(255, 255, 255, 0.06);
 }
 .gta6-feature-card strong {
   display: block;
   font-family: var(--font-head);
   font-size: 1.15rem;
-  color: var(--accent);
   margin-bottom: 0.3rem;
 }
-.gta6-feature-card span { line-height: 1.5; }
-.gta6-feature-links .gta6-feature-card:first-child { background: #ffe9f3; border-color: #f5c3da; }
-.gta6-feature-links .gta6-feature-card:last-child { background: #efe8ff; border-color: #d3c2fa; }
-.gta6-feature-links .gta6-feature-card:first-child strong { color: #a30f52; }
-.gta6-feature-links .gta6-feature-card:last-child strong { color: #5519b8; }
+.gta6-feature-card span { line-height: 1.5; color: #fff; }
+.gta6-feature-links .gta6-feature-card:first-child { background: rgba(110, 42, 74, 0.38); }
+.gta6-feature-links .gta6-feature-card:last-child { background: rgba(61, 52, 105, 0.38); }
+.gta6-feature-links .gta6-feature-card:first-child strong { color: #fe96b1; }
+.gta6-feature-links .gta6-feature-card:last-child strong { color: #b79cff; }
