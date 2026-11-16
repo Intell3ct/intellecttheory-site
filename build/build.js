@@ -587,7 +587,8 @@ async function main() {
   rmSync(DIST, { recursive: true, force: true });
   mkdirSync(DIST, { recursive: true });
   const EXCLUDE = new Set(['.git', 'node_modules', 'dist', 'content', 'build',
-    'templates', 'package.json', 'package-lock.json', '.gitignore', 'hidden_files']);
+    'templates', 'package.json', 'package-lock.json', '.gitignore', 'hidden_files',
+    'design.md']);
   for (const entry of readdirSync(ROOT)) {
     if (EXCLUDE.has(entry)) continue;
     cpSync(join(ROOT, entry), join(DIST, entry), { recursive: true });
