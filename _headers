@@ -7,6 +7,12 @@
   Reporting-Endpoints: csp-endpoint="https://intellecttheory-csp-reports.ajsrhs.workers.dev/"
   Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://challenges.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; media-src 'self' data: blob:; frame-src https://challenges.cloudflare.com; connect-src 'self' https://intellecttheory-comments.ajsrhs.workers.dev https://intellecttheory-cms-auth.ajsrhs.workers.dev https://api.github.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://challenges.cloudflare.com; form-action 'self' https://buttondown.email; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; worker-src 'self' blob:; manifest-src 'self'; report-uri https://intellecttheory-csp-reports.ajsrhs.workers.dev/; report-to csp-endpoint
 
+/card
+  X-Robots-Tag: noindex, nofollow
+
+/card.vcf
+  X-Robots-Tag: noindex, nofollow
+
 /images/*
   Cache-Control: public, max-age=31536000, immutable
 /*.css
