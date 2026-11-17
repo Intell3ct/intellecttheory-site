@@ -2008,6 +2008,11 @@ body.has-flow-lines > .site-header {
 /* ---------- Mobile header: fix overlap and crowding (Claude-assisted) ---------- */
 @media (max-width: 640px) {
   .site-header {
+    /* display:grid is required: the earlier mobile block sets display:flex,
+       which made the 3-column template below dead code and left the brand
+       flowing between the unequal nav groups (off-center). With grid on,
+       the equal 1fr side columns put the brand at true header center. */
+    display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     column-gap: 0.5rem;
     padding-left: 0.75rem;
