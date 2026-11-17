@@ -2038,11 +2038,18 @@ body.has-flow-lines > .site-header {
     min-width: 0;
     gap: 0.2rem;
     /* stretch across the full column and spread: first item hugs the
-       screen edge, last item sits one column-gap from the logo */
+       screen edge, last item sits one column-gap from the logo
+       (left group exception: The Wall gets +1rem, see below) */
     justify-self: stretch;
     justify-content: space-between;
   }
   .nav-left { grid-column: 1; grid-row: 1; }
+  /* AJ's iteration (Nov 16): The Wall sat one column-gap (0.75rem) from
+     the logo while Posts hugged the far edge. A 1rem right margin on
+     The Wall (the left group's last link) pulls it exactly 1rem left
+     under space-between: the Posts/The Wall pair groups a touch
+     tighter, and the air on the logo's left side grows to 1.75rem. */
+  .nav-left a:last-child { margin-right: 1rem; }
   .nav-right { grid-column: 3; grid-row: 1; }
   .site-header nav a {
     margin: 0;
