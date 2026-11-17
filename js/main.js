@@ -100,7 +100,7 @@
     var dotsWrap = document.createElement("div");
     dotsWrap.className = "hero-dots";
     function paintDots(i) {
-      dotsWrap.innerHTML = "";
+      dotsWrap.replaceChildren();
       var n = Math.min(MAX_DOTS, slides.length);
       var start = Math.max(0, Math.min(i - 1, slides.length - n));
       for (var k = 0; k < n; k++) {
@@ -482,7 +482,7 @@
         wrapEl.hidden = !opening;
         if (opening && sitekey && window.turnstile) {
           var slot = wrapEl.querySelector(".cf-turnstile-reply");
-          slot.innerHTML = "";
+          slot.replaceChildren();
           try { turnstile.render(slot, { sitekey: sitekey }); } catch (err3) {}
           var input = wrapEl.querySelector('[name="name"]');
           if (input) input.focus();
@@ -681,7 +681,7 @@
     fetch("note.html")
       .then(function (r) { return r.text(); })
       .then(function (html) { el.innerHTML = html; })
-      .catch(function () { el.innerHTML = ""; });
+      .catch(function () { el.replaceChildren(); });
   })();
 
   /* ---------- back to top (homepage button) ---------- */
@@ -1093,6 +1093,8 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
       if (e.key === "Escape") { results.hidden = true; input.blur(); }
       if (e.key === "Enter") {
         e.preventDefault();
+        // IME safety: Enter confirming a composition (CJK input) must not fire the search
+        if (e.isComposing || e.keyCode === 229) return;
         clearTimeout(debounce);
         // Load index first if needed, then search
         if (index === null) {
