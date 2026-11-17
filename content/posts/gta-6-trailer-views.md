@@ -39,7 +39,7 @@ Here's the rundown. Over 20 million views in the first 16 hours, 51 million by d
 
 ## Nobody Is Ready for November 19
 
-I've been saying [Valheim is just a placeholder until GTA 6 drops](valheim-with-nate.html), and I mean it more every week. Half the gaming world is quietly clearing their November. Two days out and the trailer numbers just confirmed what we already knew: this launch is going to eat the entire industry for a month. Every other game is either launching before it or running from it.
+Me, I've been lost in Ocarina of Time while I wait. I'm at the Fire Temple right now, just wandering that beautiful world, and my inner child is living his best life. That's been my placeholder until GTA. Half the gaming world is quietly clearing their November. Two days out and the trailer numbers just confirmed what we already knew: this launch is going to eat the entire industry for a month. Every other game is either launching before it or running from it.
 
 And honestly? Good. It's been over a decade since GTA V. A whole console generation grew up on GTA Online. Of course the trailer lapped its predecessor in under a week. What did anyone expect?
 
