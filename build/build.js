@@ -29,6 +29,11 @@ const DIST = join(ROOT, 'dist');
 const SITE = 'https://intellecttheory.com';
 const NO_COMMENTS_SLUG = 'all-dogs-go-to-heaven';
 
+// Ko-fi hidden site-wide at AJ's word (Nov 17, 2026): erring on the side of
+// caution while Steve Franco's answer on blog income is outstanding. Flip to
+// true to restore the tea badge wherever frontmatter tea_badge asks for it.
+const TEA_ENABLED = false;
+
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
   'August', 'September', 'October', 'November', 'December'];
 const MONTHS_SHORT = MONTHS.map((m) => m.slice(0, 3));
@@ -242,7 +247,7 @@ function renderPhotoBody(p) {
 
   const parts = [`      <!-- POST BODY -->\n      <div class="photo-desc">\n${descHtml}\n      </div>`];
   if (middleHtml) parts.push(middleHtml);
-  if (p.teaBadge) parts.push(TEA_BLOCK);
+  if (p.teaBadge && TEA_ENABLED) parts.push(TEA_BLOCK);
   if (p.officialLinks.length) parts.push(renderOfficialLinks(p.officialLinks));
   if (gridHtml) parts.push(gridHtml);
   return '\n' + parts.join('\n\n') + '\n      <!-- /POST BODY -->' +
@@ -304,7 +309,7 @@ function renderPost(p, bySlug) {
     articleBody = renderPhotoBody(p);
   } else {
     const parts = [renderBody(p.bodyMd)];
-    if (p.teaBadge) parts.push(TEA_BLOCK);
+    if (p.teaBadge && TEA_ENABLED) parts.push(TEA_BLOCK);
     if (p.officialLinks.length) parts.push(renderOfficialLinks(p.officialLinks));
     parts.push(ADD_MORE_COMMENT);
     articleBody = '\n' + parts.join('\n\n');
@@ -663,7 +668,7 @@ async function main() {
     if (slug === NO_COMMENTS_SLUG && hasComments) errors.push(`${f}: Brady post must not have comments`);
     const tea = html.includes('tip-jar-btn');
     const meta = bySlug[slug];
-    if (meta && meta.converted && tea !== meta.teaBadge) {
+    if (meta && meta.converted && tea !== (meta.teaBadge && TEA_ENABLED)) {
       errors.push(`${f}: tea badge mismatch (frontmatter tea_badge=${meta.teaBadge})`);
     }
     if (slug !== '_template' && !html.includes('application/ld+json')) {
