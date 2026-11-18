@@ -1900,6 +1900,10 @@ body.has-flow-lines > .site-header {
   transition: background 0.2s;
 }
 .hero-pause:hover { background: rgba(0,0,0,0.7); }
+/* AJ (Nov 18): hide the pause/play button. The carousel keeps
+   auto-rotating as usual; the button still exists in the DOM and
+   reduced-motion visitors still start paused, it just isn't shown. */
+.hero-pause { display: none !important; }
 
 /* Skip to content link for keyboard users */
 .skip-link {
