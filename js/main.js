@@ -1302,3 +1302,31 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     });
   });
 })();
+
+// Mobile bottom tab bar: active state by path; Search opens the site's
+// existing search in place where it exists, otherwise via the homepage.
+(function () {
+  if (location.hash === "#search") {
+    var t0 = document.getElementById("search-toggle");
+    if (t0) t0.click();
+  }
+  var bar = document.querySelector(".mobile-tabbar");
+  if (!bar) return;
+  var path = location.pathname.replace(/\.html$/, "").replace(/\/$/, "") || "/";
+  var tab = "posts";
+  if (path.indexOf("/the-wall") === 0) tab = "wall";
+  else if (path.indexOf("/archive") === 0) tab = "archive";
+  var active = bar.querySelector('[data-tab="' + tab + '"]');
+  if (active) {
+    active.classList.add("active");
+    active.setAttribute("aria-current", "page");
+  }
+  var searchBtn = bar.querySelector('[data-tab="search"]');
+  if (searchBtn) {
+    searchBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var t = document.getElementById("search-toggle");
+      if (t) { t.click(); } else { location.href = "/#search"; }
+    });
+  }
+})();
