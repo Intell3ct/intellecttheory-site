@@ -2438,7 +2438,11 @@ html.high-contrast img {
      above, half below; the header's bottom margin makes room for the
      half that hangs into the page. */
   .site-header {
-    margin-bottom: 40px;
+    /* AJ (Nov 18): lift the line + logo unit a bit and give the logo
+       breathing room above the hero (margin 60 - half the logo 40
+       = ~20px clear below the logo's bottom edge) */
+    min-height: 56px;
+    margin-bottom: 60px;
     /* AJ (Nov 18): the divider line stops at the logo and resumes
        after it, no segment crossing through the logo. The line is
        drawn as a background gradient with a gap in the middle
