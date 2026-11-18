@@ -2307,11 +2307,14 @@ html.high-contrast img {
 /* ---------- GTA 6 launch-week homepage feature (added Nov 15, 2026; restyled Nov 15 to match the GTA pages) ---------- */
 .gta6-feature {
   --gta-grad: linear-gradient(100deg, #d780b0, #f19595 30%, #fcb595 50%, #ee9298 75%, #d881af);
-  background: #2a2a4b url(../images/palm-pair.png) bottom -14px right -14px / 200px auto no-repeat;
+  /* the sunset bar is a background layer, not a border-image: backgrounds
+     clip to the border-radius, so all four corners of the bezel stay clean */
+  background:
+    var(--gta-grad) top left / 100% 6px no-repeat,
+    url(../images/palm-pair.png) bottom -14px right -14px / 200px auto no-repeat,
+    #2a2a4b;
   color: #cab9f2;
   border: 1px solid rgba(255, 255, 255, 0.25);
-  border-top: 6px solid transparent;
-  border-image: var(--gta-grad) 1;
   border-radius: 24px;
   box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
   padding: 1.5rem;
