@@ -53,7 +53,7 @@ Then this morning, The Game Awards announced their 2026 nominations, and right t
 
 Fans had her picked out back in 2023, the voice, the look, all of it. She even voiced a blackjack dealer in GTA Online's Diamond Casino update years ago. But picked out and confirmed are two different things, and now it's official. A Best Performance nomination for a game that isn't even out yet. Let that one sit for a second.
 
-GTA 6 pulled eight nominations total, including Game of the Year. Eight. For a game nobody outside Rockstar has played yet.
+GTA 6 pulled eight nominations total, including Game of the Year. Eight. For a game the public hasn't touched yet. Reviewers have had it for weeks under embargo, their reviews land tomorrow, and it still swept the nominations before a single score was public.
 
 Jason's actor is still a mystery, by the way. He wasn't on the list. The rumors point at Dylan Rourke, but nothing is confirmed, and I'm not calling it until the credits roll. I said last week I couldn't wait to find out who both of them are. One down, one to go, and the answer is sitting inside the game on Thursday.
 
