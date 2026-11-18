@@ -50,18 +50,33 @@
 
   var KEY = 'it-gta6-tracker-v1';
 
+  function copyItem(i) { return { id: i.id, text: i.text, note: i.note, done: i.done }; }
+
+  /* Vehicles Rockstar has officially named so far: the Ultimate
+     Edition list and the Vintage Vice City Pack, via Rockstar Support
+     and the official PlayStation/Xbox stores. Each note says where
+     the vehicle comes from. */
+  var CONFIRMED_VEHICLES = [
+    { id: 'car1', text: '’95 Grotti Cheetah', note: 'Ultimate Edition', done: false },
+    { id: 'car2', text: 'Dinka Enduro', note: 'Ultimate Edition, Jason’s safehouse', done: false },
+    { id: 'car3', text: 'Crest Kayak', note: 'Ultimate Edition, Jason’s safehouse', done: false },
+    { id: 'car4', text: 'Shitzu Squalo', note: 'Ultimate Edition', done: false },
+    { id: 'car5', text: '’67 Vapid Dominator Buggy', note: 'Ultimate Edition, Paradise Garage, Watson Bay', done: false },
+    { id: 'car6', text: '’55 Vapid Stanier Sedan', note: 'Vintage Vice City Pack, buy before Nov 20', done: false }
+  ];
+
   function seed() {
     return [
       { id: 'launch', title: 'Launch Night', items: [
         { id: 'l1', text: 'Game pre-loaded', note: '', done: false },
-        { id: 'l2', text: 'Storage cleared for the download', note: '', done: false },
+        { id: 'l2', text: 'Up to 212 GB cleared for the download', note: '', done: false },
         { id: 'l3', text: 'Console system update done', note: '', done: false },
         { id: 'l4', text: 'Controller charged', note: '', done: false }
       ] },
       { id: 'story', title: 'Story Missions', items: [] },
       { id: 'side', title: 'Side Jobs', items: [] },
       { id: 'collectibles', title: 'Collectibles', items: [] },
-      { id: 'vehicles', title: 'Vehicles', items: [] }
+      { id: 'vehicles', title: 'Vehicles', items: CONFIRMED_VEHICLES.map(copyItem) }
     ];
   }
 
@@ -94,6 +109,24 @@
 
   var state = load();
   if (!storageOK) showStorageNote();
+
+  /* One-time seed update: a tracker saved before the confirmed
+     vehicles were published gets them merged in once, keeping
+     everything the visitor already ticked or added. */
+  var SEED2_FLAG = 'it-gta6-tracker-seed-v2';
+  (function applySeedUpdates() {
+    var applied = true;
+    try { applied = !!window.localStorage.getItem(SEED2_FLAG); } catch (e) { /* storage blocked: skip */ }
+    if (applied) return;
+    state.forEach(function (sec) {
+      if (sec.id !== 'vehicles') return;
+      var have = {};
+      sec.items.forEach(function (i) { have[i.id] = true; });
+      CONFIRMED_VEHICLES.forEach(function (it) { if (!have[it.id]) sec.items.push(copyItem(it)); });
+    });
+    try { window.localStorage.setItem(SEED2_FLAG, '1'); } catch (e) { /* ignore */ }
+    save();
+  })();
 
   function uid() {
     return 'i' + Date.now().toString(36) + Math.floor(Math.random() * 1e6).toString(36);
@@ -236,6 +269,7 @@
       try { window.localStorage.removeItem(KEY); } catch (e) { /* storage blocked */ }
       memoryFallback = null;
       state = seed();
+      try { window.localStorage.setItem(SEED2_FLAG, '1'); } catch (e) { /* storage blocked */ }
       save();
       render();
     });
