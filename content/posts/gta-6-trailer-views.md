@@ -22,7 +22,7 @@ official_links:
   - label: "Rockstar Newswire"
     url: "https://www.rockstargames.com/newswire"
   - label: "The World in Maps — hours of work to buy GTA VI, by country"
-    url: "https://facebook.com/61566071439493/posts/pfbid0scnXqstJLYkvD6LrgXotwnHtKp7FtGaQgvRaE8MirxzFh3UEcjf3X6CeT5qZrjeVl/"
+    url: "https://theworldinmaps.co/"
 related:
   - "gta-6-one-month-out"
   - "valheim-with-nate"
@@ -59,7 +59,7 @@ Three point eight hours here. Over fifteen hundred there. Same game, same launch
 
 I preordered mine the second it opened and still complained about the price, like everybody else. But my eighty dollars and somebody else's eighty dollars are not the same eighty dollars.
 
-*Map and math: [The World in Maps](https://facebook.com/61566071439493/posts/pfbid0scnXqstJLYkvD6LrgXotwnHtKp7FtGaQgvRaE8MirxzFh3UEcjf3X6CeT5qZrjeVl/), using each country's median hourly wage against the $79.99 price.*
+*Map and math: [The World in Maps](https://theworldinmaps.co/), using each country's median hourly wage against the $79.99 price.*
 
 ## Lucia Has a Name Now
 
