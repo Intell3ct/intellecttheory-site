@@ -2474,4 +2474,12 @@ html.high-contrast img {
   .brand-text { height: 80px !important; max-height: 80px; }
   /* search panel drops below the protruding logo */
   .search-expand { top: 112px; }
+  /* Archive entries on phones (AJ, Nov 18): the flex row squeezed the
+     title into a narrow right column (fixed-width date + tag never
+     shrink). Wrap instead: date and tag share the top line in their
+     spots, the title takes the full width under them. */
+  .archive-list a { flex-wrap: wrap; }
+  .archive-date { width: auto; }
+  .archive-list .tag-sm { margin-left: auto; }
+  .archive-title { flex: 1 1 100%; }
 }
