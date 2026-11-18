@@ -21,6 +21,8 @@ official_links:
     url: "https://www.rockstargames.com/VI"
   - label: "Rockstar Newswire"
     url: "https://www.rockstargames.com/newswire"
+  - label: "The World in Maps — hours of work to buy GTA VI, by country"
+    url: "https://facebook.com/61566071439493/posts/pfbid0scnXqstJLYkvD6LrgXotwnHtKp7FtGaQgvRaE8MirxzFh3UEcjf3X6CeT5qZrjeVl/"
 related:
   - "gta-6-one-month-out"
   - "valheim-with-nate"
@@ -42,6 +44,22 @@ Here's the rundown. Over 20 million views in the first 16 hours, 51 million by d
 Me, I've been lost in Ocarina of Time while I wait. I'm at the Fire Temple right now, just wandering that beautiful world, and my inner child is living his best life. That's been my placeholder until GTA. Half the gaming world is quietly clearing their November. Two days out and the trailer numbers just confirmed what we already knew: this launch is going to eat the entire industry for a month. Every other game is either launching before it or running from it.
 
 And honestly? Good. It's been over a decade since GTA V. A whole console generation grew up on GTA Online. Of course the trailer lapped its predecessor in under a week. What did anyone expect?
+
+## The Price Hits Different
+
+One more number, because this one stopped me mid-scroll. A page called The World in Maps did the math on what GTA 6 costs around the Americas. Not in dollars. In hours of work. The game is $79.99 everywhere. What you hand over for it is not.
+
+<div class="stat-strip">
+<div class="stat"><span class="stat-num">3.8</span><span class="stat-label">hours of work in the US</span></div>
+<div class="stat"><span class="stat-num">1,562.6</span><span class="stat-label">hours of work in Cuba</span></div>
+<div class="stat"><span class="stat-num">400x+</span><span class="stat-label">the gap between the two</span></div>
+</div>
+
+Three point eight hours here. Over fifteen hundred there. Same game, same launch day. And it is not just the extremes either, most of the map sits somewhere between 15 and 220 hours of work.
+
+I preordered mine the second it opened and still complained about the price, like everybody else. But my eighty dollars and somebody else's eighty dollars are not the same eighty dollars.
+
+*Map and math: [The World in Maps](https://facebook.com/61566071439493/posts/pfbid0scnXqstJLYkvD6LrgXotwnHtKp7FtGaQgvRaE8MirxzFh3UEcjf3X6CeT5qZrjeVl/), using each country's median hourly wage against the $79.99 price.*
 
 ## Lucia Has a Name Now
 
