@@ -2437,13 +2437,31 @@ html.high-contrast img {
      The logo is centered on the header's bottom edge and floats half
      above, half below; the header's bottom margin makes room for the
      half that hangs into the page. */
-  .site-header { margin-bottom: 40px; }
+  .site-header {
+    margin-bottom: 40px;
+    /* AJ (Nov 18): the divider line stops at the logo and resumes
+       after it, no segment crossing through the logo. The line is
+       drawn as a background gradient with a gap in the middle
+       (logo is ~87px wide; gap is 108px, centered). */
+    border-bottom: none;
+    background-image: linear-gradient(to right, var(--line) 0, var(--line) calc(50% - 54px), transparent calc(50% - 54px), transparent calc(50% + 54px), var(--line) calc(50% + 54px), var(--line) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    background-position: center bottom;
+    /* WebKit parks absolutely-positioned grid children on their grid
+       area, which threw the straddling logo off to the right. The
+       phone navs are hidden anyway, so drop the header out of grid
+       on phones and the logo centers on the header box itself. */
+    display: block;
+  }
   .brand {
     position: absolute;
     left: 50%;
     top: 100%;
     transform: translate(-50%, -50%);
     z-index: 5;
+    grid-column: auto;
+    grid-row: auto;
   }
   .brand-text { height: 80px !important; max-height: 80px; }
   /* search panel drops below the protruding logo */
