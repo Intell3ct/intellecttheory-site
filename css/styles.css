@@ -2258,7 +2258,7 @@ html.high-contrast img {
 /* ---------- back to top (homepage) ---------- */
 .back-to-top {
   position: fixed;
-  bottom: 24px;
+  bottom: 14px;
   left: 50%;
   right: auto;
   transform: translateX(-50%);
@@ -2439,7 +2439,7 @@ html.high-contrast img {
   /* flow-lines pages force position:relative on every body child;
      the tab bar must stay fixed to the display, not the page bottom */
   body.has-flow-lines > .mobile-tabbar { position: fixed; z-index: 80; }
-  .back-to-top { bottom: 88px; }
+  .back-to-top { bottom: 70px; }
   /* AJ's straddle (Nov 18): the header's divider line runs through the
      middle of the logo, so the brand reads big without a tall header.
      The logo is centered on the header's bottom edge and floats half
