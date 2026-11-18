@@ -820,6 +820,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .archive-list li:last-child { border-bottom: 0; }
 .archive-list a {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 0.9rem;
   padding: 0.85rem 0.25rem;
@@ -828,9 +829,9 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   transition: background 0.15s ease;
 }
 .archive-list a:hover { background: var(--mint-wash); }
-.archive-date { flex-shrink: 0; width: 10.5rem; font-size: 0.85rem; color: var(--muted); }
-.archive-list .tag-sm { font-size: 0.62rem; padding: 0.2rem 0.6rem; margin: 0; flex-shrink: 0; }
-.archive-title { font-family: var(--font-head); font-size: 1.15rem; }
+.archive-date { flex-shrink: 0; width: auto; font-size: 0.85rem; color: var(--muted); }
+.archive-list .tag-sm { font-size: 0.62rem; padding: 0.2rem 0.6rem; margin: 0; flex-shrink: 0; margin-left: auto; }
+.archive-title { font-family: var(--font-head); font-size: 1.15rem; flex: 1 1 100%; }
 /* "view all posts" link under the homepage grid */
 .archive-cta { text-align: center; padding: 0 1.5rem 3.5rem; }
 .archive-cta a {
@@ -2474,12 +2475,4 @@ html.high-contrast img {
   .brand-text { height: 80px !important; max-height: 80px; }
   /* search panel drops below the protruding logo */
   .search-expand { top: 112px; }
-  /* Archive entries on phones (AJ, Nov 18): the flex row squeezed the
-     title into a narrow right column (fixed-width date + tag never
-     shrink). Wrap instead: date and tag share the top line in their
-     spots, the title takes the full width under them. */
-  .archive-list a { flex-wrap: wrap; }
-  .archive-date { width: auto; }
-  .archive-list .tag-sm { margin-left: auto; }
-  .archive-title { flex: 1 1 100%; }
 }
