@@ -355,7 +355,7 @@ body.gta6-dark {
 .tracker-reset-note { color: var(--gta-dim); font-size: 0.9rem; }
 
 /* ---------- glass finish (keeps the window frame + colors) ---------- */
-.qa-card, .tracker-section, .tracker-overall {
+.qa-card, .tracker-section, .tracker-overall, .gta-facts {
   position: relative;
   backdrop-filter: blur(6px) saturate(1.35);
   -webkit-backdrop-filter: blur(6px) saturate(1.35);
@@ -433,4 +433,37 @@ body.gta6-dark {
 }
 @media (max-width: 640px) {
   .gta6-dark::before { height: 96vh; }
+}
+
+/* ---------- confirmed launch facts (tracker) ---------- */
+.gta-facts {
+  background: var(--gta-panel);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 32px rgba(10, 8, 28, 0.35);
+  border-radius: 24px;
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0 0;
+  color: #fff;
+}
+.gta-facts h2 {
+  font-family: var(--font-head);
+  font-size: 1.4rem;
+  margin: 0 0 0.4rem;
+  color: var(--gta-pink);
+}
+.gta-facts-note { color: var(--gta-dim); margin: 0 0 0.75rem; line-height: 1.55; }
+.gta-facts dl { margin: 0; }
+.gta-facts dl > div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--ink-line);
+}
+.gta-facts dl > div:first-child { border-top: none; }
+.gta-facts dt { font-weight: 700; color: var(--gta-lav); }
+.gta-facts dd { margin: 0; line-height: 1.55; }
+.gta-facts a { color: var(--gta-pink); font-weight: 600; }
+@media (max-width: 640px) {
+  .gta-facts dl > div { grid-template-columns: 1fr; gap: 0.15rem; }
 }

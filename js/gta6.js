@@ -54,7 +54,7 @@
     return [
       { id: 'launch', title: 'Launch Night', items: [
         { id: 'l1', text: 'Game pre-loaded', note: '', done: false },
-        { id: 'l2', text: 'Storage cleared for the download', note: '', done: false },
+        { id: 'l2', text: 'Up to 212 GB cleared for the download', note: '', done: false },
         { id: 'l3', text: 'Console system update done', note: '', done: false },
         { id: 'l4', text: 'Controller charged', note: '', done: false }
       ] },
