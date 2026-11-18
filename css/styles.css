@@ -2432,4 +2432,8 @@ html.high-contrast img {
   /* flow-lines pages force position:relative on every body child;
      the tab bar must stay fixed to the display, not the page bottom */
   body.has-flow-lines > .mobile-tabbar { position: fixed; z-index: 80; }
+  /* logo-only header: give the brand real presence (was 42px) */
+  .brand-text { height: 68px !important; max-height: 68px; }
+  /* taller header now, so the mobile search panel drops below it */
+  .search-expand { top: 96px; }
 }
