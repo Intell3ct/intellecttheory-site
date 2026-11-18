@@ -2367,3 +2367,12 @@ html.high-contrast img {
 .gta6-feature-links .gta6-feature-card:last-child { background: rgba(61, 52, 105, 0.38); }
 .gta6-feature-links .gta6-feature-card:first-child strong { color: #fe96b1; }
 .gta6-feature-links .gta6-feature-card:last-child strong { color: #b79cff; }
+
+/* Click-to-play YouTube card: thumbnail only, player loads on tap */
+.yt-lite { position: relative; display: block; margin: 1.75rem 0; border-radius: 18px; overflow: hidden; cursor: pointer; background: #1d1a16; box-shadow: 0 10px 30px rgba(29, 26, 22, 0.18); }
+.yt-lite img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; opacity: 0.92; }
+.yt-lite-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 68px; height: 68px; border-radius: 50%; background: rgba(29, 26, 22, 0.82); color: #aed6c9; font-size: 26px; line-height: 68px; text-align: center; padding-left: 4px; }
+.yt-lite:hover .yt-lite-play, .yt-lite:focus-visible .yt-lite-play { background: #c9602f; color: #fff; }
+.yt-lite-title { position: absolute; left: 0; right: 0; bottom: 0; padding: 2rem 1rem 0.8rem; background: linear-gradient(transparent, rgba(0, 0, 0, 0.78)); color: #fff; font-weight: 600; font-size: 0.95rem; }
+.yt-lite iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.yt-lite:focus-visible { outline: 3px solid #c9602f; outline-offset: 2px; }

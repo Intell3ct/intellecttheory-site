@@ -1276,3 +1276,29 @@ document.querySelectorAll('.photo-carousel').forEach(function (car) {
     showConsentBanner();
   }
 })();
+
+// Click-to-play YouTube cards (.yt-lite): nothing loads from YouTube
+// until a reader taps play, then the player swaps in inside the card.
+(function () {
+  function play(card) {
+    var id = card.getAttribute("data-yt-id");
+    if (!id || card.getAttribute("data-playing")) return;
+    card.setAttribute("data-playing", "1");
+    var iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+    iframe.title = "YouTube video player";
+    iframe.setAttribute("allow", "accelerometer; autoplay; encrypted-media; picture-in-picture; web-share");
+    iframe.setAttribute("allowfullscreen", "");
+    card.innerHTML = "";
+    card.removeAttribute("role");
+    card.removeAttribute("tabindex");
+    card.style.cursor = "default";
+    card.appendChild(iframe);
+  }
+  document.querySelectorAll(".yt-lite").forEach(function (card) {
+    card.addEventListener("click", function () { play(card); });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); play(card); }
+    });
+  });
+})();

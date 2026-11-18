@@ -57,6 +57,18 @@ GTA 6 pulled eight nominations total, including Game of the Year. Eight. For a g
 
 Jason's actor is still a mystery, by the way. He wasn't on the list. The rumors point at Dylan Rourke, but nothing is confirmed, and I'm not calling it until the credits roll. I said last week I couldn't wait to find out who both of them are. One down, one to go, and the answer is sitting inside the game on Thursday.
 
+## The Soundtrack to the Wait
+
+One more thing. My boy Enjii, the same Enjii from my Valheim crew, put together a GTA lofi mix for the wait. An hour of beats that starts in Leonida and drives back through San Andreas, Vice City, Liberty City and Los Santos. Press play and let it ride.
+
+<div class="yt-lite" data-yt-id="i6zzWlnh0tM" role="button" tabindex="0" aria-label="Play video: Grand Theft Auto Inspired Lofi, one hour of beats">
+<img src="../images/enjii-lofi-mix.jpg" alt="Video thumbnail for Grand Theft Auto Inspired Lofi, a one hour GTA lofi mix by Enjii" loading="lazy" decoding="async">
+<span class="yt-lite-play" aria-hidden="true">&#9654;</span>
+<span class="yt-lite-title">Grand Theft Auto Inspired Lofi — 1 Hour of Beats to Relax + Study To</span>
+</div>
+
+More of his stuff is on his [Linktree](https://linktr.ee/enjiimusic), if you want to run it back after.
+
 ## The Countdown, For Real This Time
 
 If you missed the last post, I did the full rundown already: [prices, the radio stations, the leaked map](gta-6-one-month-out.html). The short version for your calendar:
