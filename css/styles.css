@@ -2432,8 +2432,20 @@ html.high-contrast img {
   /* flow-lines pages force position:relative on every body child;
      the tab bar must stay fixed to the display, not the page bottom */
   body.has-flow-lines > .mobile-tabbar { position: fixed; z-index: 80; }
-  /* logo-only header: give the brand real presence (was 42px) */
-  .brand-text { height: 68px !important; max-height: 68px; }
-  /* taller header now, so the mobile search panel drops below it */
-  .search-expand { top: 96px; }
+  /* AJ's straddle (Nov 18): the header's divider line runs through the
+     middle of the logo, so the brand reads big without a tall header.
+     The logo is centered on the header's bottom edge and floats half
+     above, half below; the header's bottom margin makes room for the
+     half that hangs into the page. */
+  .site-header { margin-bottom: 40px; }
+  .brand {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+  }
+  .brand-text { height: 80px !important; max-height: 80px; }
+  /* search panel drops below the protruding logo */
+  .search-expand { top: 112px; }
 }
