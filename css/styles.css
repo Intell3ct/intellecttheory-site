@@ -2482,4 +2482,16 @@ html.high-contrast img {
   .brand-text { height: 80px !important; max-height: 80px; }
   /* search panel drops below the protruding logo */
   .search-expand { top: 112px; }
+  /* results were anchored to the header search wrap, which collapses to
+     zero width on phones (its toggle is hidden), so the panel rendered
+     off-screen; pin it under the fixed input instead */
+  .search-results {
+    position: fixed;
+    top: 168px;
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    margin-top: 0;
+    max-height: 55vh;
+  }
 }
