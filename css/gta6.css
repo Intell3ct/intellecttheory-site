@@ -467,3 +467,14 @@ body.gta6-dark {
 @media (max-width: 640px) {
   .gta-facts dl > div { grid-template-columns: 1fr; gap: 0.15rem; }
 }
+
+/* ---------- i survived the wait meme (under the countdown) ---------- */
+.gta-survived {
+  margin: 1.5rem auto 0.5rem;
+  max-width: 380px;
+}
+.gta-survived img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
