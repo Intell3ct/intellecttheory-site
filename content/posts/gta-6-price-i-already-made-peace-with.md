@@ -19,6 +19,8 @@ card_image:
 official_links:
   - label: "Grand Theft Auto VI, official page"
     url: "https://www.rockstargames.com/VI"
+  - label: "Grand Theft Auto VI on PlayStation"
+    url: "https://www.playstation.com/en-us/games/grand-theft-auto-vi/"
   - label: "GTA VI on the PlayStation Store"
     url: "https://store.playstation.com/en-nz/product/EP1004-PPSA38500_00-GTAVISTANDARD001"
   - label: "GTA VI on the Xbox Store"

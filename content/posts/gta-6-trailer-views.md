@@ -19,6 +19,8 @@ card_image:
 official_links:
   - label: "Grand Theft Auto VI, official page"
     url: "https://www.rockstargames.com/VI"
+  - label: "Grand Theft Auto VI on PlayStation"
+    url: "https://www.playstation.com/en-us/games/grand-theft-auto-vi/"
   - label: "Rockstar Newswire"
     url: "https://www.rockstargames.com/newswire"
   - label: "The World in Maps — hours of work to buy GTA VI, by country"

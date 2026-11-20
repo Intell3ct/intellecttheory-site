@@ -20,6 +20,8 @@ official_links:
     url: "https://store.steampowered.com/app/892970/Valheim/"
   - label: "Valheim patch notes"
     url: "https://www.valheim.com/news/"
+  - label: "Grand Theft Auto VI on PlayStation"
+    url: "https://www.playstation.com/en-us/games/grand-theft-auto-vi/"
 related:
   - "current-addiction-pokemon-go"
   - "my-best-ones"
