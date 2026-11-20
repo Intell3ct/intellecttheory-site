@@ -248,6 +248,34 @@ body.gta6-dark {
   margin: 0;
   color: #fff;
 }
+
+/* collapsible cards: the whole card header is the toggle */
+.tracker-toggle {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #fff;
+  cursor: pointer;
+  text-align: left;
+}
+.tracker-title {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  margin-right: auto;
+}
+.tracker-chevron {
+  font-size: 1rem;
+  transition: transform 0.2s ease;
+}
+.tracker-toggle[aria-expanded="false"] .tracker-chevron { transform: rotate(-90deg); }
+.tracker-body[hidden] { display: none; }
+.tracker-source-note { color: var(--gta-dim); font-size: 0.85rem; margin: 0 0 1.25rem; }
 .tracker-section .tracker-bar { height: 9px; }
 
 .tracker-list { list-style: none; margin: 1rem 0 0; padding: 0; }
