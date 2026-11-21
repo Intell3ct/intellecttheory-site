@@ -236,6 +236,10 @@
       pills.forEach(function (p) {
         p.classList.toggle("active", p.textContent.trim().toLowerCase() === cat);
       });
+      /* While a category filter is active, lift the mobile "first 4
+         cards" cap (CSS .filtering rule) so matching cards past
+         position 4 are not stuck hidden by it. */
+      grid.classList.toggle("filtering", cat !== "all");
       grid.querySelectorAll(".card").forEach(function (card) {
         var tag = card.querySelector(".tag");
         var cardCat = tag ? tag.textContent.trim().toLowerCase() : "";
